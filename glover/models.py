@@ -14,7 +14,6 @@ class Profile(models.Model):
     library_floor = models.CharField(max_length=20, choices=LibraryFloorChoices.get_choices())
     looking_for = models.CharField(max_length=1, choices=GenderChoices.get_choices())   # Allow to pick one, not multiple
 
-    # TODO: deal with media files 
     image1 = models.ImageField(upload_to='profile_pics', blank=True, null=True)
     image2 = models.ImageField(upload_to='profile_pics', blank=True, null=True)
     image3 = models.ImageField(upload_to='profile_pics', blank=True, null=True)
