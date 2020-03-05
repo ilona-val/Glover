@@ -1,0 +1,35 @@
+{% extends 'glover/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Discover
+{% endblock %}
+
+{% block body_block %}
+    <h1>Glover says...</h1>
+    <div>
+        {% if user.is_authenticated %}
+            Sup {{ user.username }}!
+        {% else %}
+            hey there partner!
+        {% endif %}
+        <br />
+    </div>
+    <div>
+        <h2>Discover</h2>
+        {% if profiles %}
+        <ul>
+            {% for profile in profiles %}
+                <li>
+                    <a href="{% url 'glover:discover_profile' profile.username %}">{{ profile.username }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <strong>There's no one here.</strong>
+        {% endif %}
+    </div>
+    {% if user.is_authenticated %}
+        <a href="{% url 'glover:logout' %}">Logout</a>
+    {% endif %}
+{% endblock %}

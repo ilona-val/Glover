@@ -4,8 +4,10 @@ from django.db.models import Q
 
 from .choices import CourseChoices, SocietyChoices, InterestChoices, GenderChoices, LibraryFloorChoices
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    username = models.CharField(default="Joe", max_length=20, unique=True)
     dob = models.DateField()
     gender = models.CharField(max_length=1, choices=GenderChoices.get_choices())
     bio = models.TextField(max_length=300)
@@ -30,6 +32,7 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+
 class Like(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name="likes")
     profile_liked = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name="liked")
@@ -40,6 +43,7 @@ class Like(models.Model):
             return self.profile + " liked " + self.profile_liked
         elif not is_liked:
             return self.profile + " disliked " + self.profile_liked
+
 
 class Match(models.Model):
     profile1 = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name="matches")
@@ -52,6 +56,7 @@ class Match(models.Model):
     class Meta:
         verbose_name_plural = "Matches"
 
+
 class Message(models.Model):
     sender = models.OneToOneField(Profile, on_delete=models.SET_NULL, null=True, related_name="sender")
     receiver = models.OneToOneField(Profile, on_delete=models.SET_NULL, null=True, related_name="receiver")
@@ -60,6 +65,7 @@ class Message(models.Model):
 
     def __str__(self):
         return self.msg_content
+
 
 class Society(models.Model):
     society = models.CharField(max_length=50, choices=SocietyChoices.get_choices())
@@ -70,11 +76,13 @@ class Society(models.Model):
     class Meta:
         verbose_name_plural = 'Societies'
 
+
 class Course(models.Model):
     course = models.CharField(max_length=50, choices=CourseChoices.get_choices())
 
     def __str__(self):
         return self.course
+
 
 class Interest(models.Model):
     interest = models.CharField(max_length=30, choices=InterestChoices.get_choices())

@@ -1,0 +1,16 @@
+{% extends 'glover/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Home
+{% endblock %}
+
+{% block body_block %}
+    <div>
+        <ul>
+            <a href="{% url 'glover:register' %}" >Register</a>
+            <a href="{% url 'glover:login' %}" >Login</a>
+            <a href="{% url 'glover:about' %}" >About</a>
+        </ul>
+    </div>
+{% endblock %}
