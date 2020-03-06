@@ -40,7 +40,7 @@ def populate():
 
 
     for profile, profile_data in profiles.items():
-        c = add_profile(profile_data['user'], profile_data['username'], profile_data['dob'], profile_data['gender'], profile_data['bio'], 
+        c = add_profile(profile_data['user'], profile_data['dob'], profile_data['gender'], profile_data['bio'], 
                 profile_data['year_in'], profile_data['location'], profile_data['library_floor'], profile_data['looking_for'])
 
 
@@ -52,8 +52,8 @@ def populate():
     add_interests()
     add_courses()
 
-def add_profile(user, username, dob, gender, bio, year_in, location, library_floor, looking_for):
-    p = Profile.objects.get_or_create(user=user, username=username, dob=dob, gender=gender, 
+def add_profile(user, dob, gender, bio, year_in, location, library_floor, looking_for):
+    p = Profile.objects.get_or_create(user=user, dob=dob, gender=gender, 
         bio=bio, year_in=year_in, location=location, library_floor=library_floor, looking_for=looking_for)[0]
     p.save()
     return p

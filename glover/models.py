@@ -8,7 +8,6 @@ from .choices import CourseChoices, SocietyChoices, InterestChoices, GenderChoic
 class Profile(models.Model):
     # get username, email, first_name, password from the User model when needed
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # username = models.CharField(default="Joe", max_length=20, unique=True)  # this should be obtained from User.username !
     dob = models.DateField()
     gender = models.CharField(max_length=1, choices=GenderChoices.get_choices())
     bio = models.TextField(max_length=300, default="")
