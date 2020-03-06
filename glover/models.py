@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Q
@@ -25,6 +27,11 @@ class Profile(models.Model):
     course = models.ForeignKey("Course", on_delete=models.SET_NULL, null=True)
     interests = models.ManyToManyField("Interest")
     societies = models.ManyToManyField("Society")
+
+    def get_age(self):
+        """ Gets the age of the user """
+        today = date.today()
+        return today.year - self.dob.year - ((today.month, today.day) < (self.dob.month, self.dob.day))
 
     def get_matches(self):
         """ Gets all matches for the user """

@@ -7,10 +7,10 @@
 
 {% block body_block %}
 
-	<h1>Username: {{ user.username }}</h1>
+	<h1>{{ user.first_name }}'s Profile</h1>
 	<p>Name: {{ profile.user.first_name }}</p>
 	<p>Gender: {{ profile.get_gender_display }}</p>
-	<p>Date of Birth: {{ profile.dob }}</p>
+	<p>Age: {{ profile.get_age }}</p>
 	<p>Bio: {{ profile.bio }}</p>
 	<p>Location: {{ profile.location }}</p>
 	<p>Favourite Library Floor: {{ profile.library_floor }}</p>

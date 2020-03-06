@@ -14,7 +14,7 @@ def populate():
     add_interests()
     add_courses()
     
-    if User.objects.filter(username='tomas').exists():
+    if User.objects.filter(username='ilona').exists():
         User.objects.all().delete()
 
     user1 = User.objects.create_user(username='tomas', password='1234', is_superuser=True, is_staff=True, email="tomas@student.gla.ac.uk", first_name="Tomas")
@@ -50,9 +50,21 @@ def populate():
         
         p.societies.clear() # remove all existing societies from the user's profile
         p.interests.clear() # remove all existing interests from the user's profile
-        socs = [random.choice(societies) for i in range(5)]
+        
+        # add profile's societies
+        socs = []
+        while len(socs) < 5:
+            choice = random.choice(societies)
+            if choice not in socs:
+                socs.append(choice)
         p.societies.add(*socs)
-        intrs = [random.choice(interests) for i in range(5)]
+
+        # add profile's interests
+        intrs = []
+        while len(intrs) < 5:
+            choice = random.choice(interests)
+            if choice not in intrs:
+                intrs.append(choice)
         p.interests.add(*intrs)
 
     profiles = Profile.objects.all()

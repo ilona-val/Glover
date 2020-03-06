@@ -11,8 +11,34 @@
 
 {% block body_block %}
 	{% if profile %}
-		<h1>{{ profile.user.username }}</h1>
-		<p>{{ profile.bio }}</p>
+		
+		<h1>{{ profile.user.first_name }}'s Profile</h1>
+		<p>Name: {{ profile.user.first_name }}</p>
+		<p>Gender: {{ profile.get_gender_display }}</p>
+		<p>Age: {{ profile.get_age }}</p>
+		<p>Bio: {{ profile.bio }}</p>
+		<p>Location: {{ profile.location }}</p>
+		<p>Favourite Library Floor: {{ profile.library_floor }}</p>
+		<p>Looking For: {{ profile.get_looking_for_display }}</p>
+		<p>Studies: {{ profile.course.course }}</p>
+		<p>Year of Study: {{ profile.year_in }}</p>
+
+		<p>Interests:
+		<ul>
+		{% for interest in profile.get_interests %}
+			<li> {{ interest.interest }} </li>
+		{% endfor %}
+		</ul>
+		</p>
+
+		<p>Societies:
+		<ul>
+		{% for society in profile.get_societies %}
+			<li> {{ society.society }} </li>
+		{% endfor %}
+		</ul>
+		</p>
+
 		<a href="{% url 'glover:discover' %}">Back to discover</a>
 	{% else %}
 		There is no one here.
