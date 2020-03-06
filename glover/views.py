@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from glover.forms import UserRegistrationForm
@@ -36,7 +37,6 @@ def register(request):
             profile = Profile.objects.create(user=user, dob=dob, gender=gender)
 
             registered = True
-            return redirect(reverse('glover:discover'))
         else:
             print(user_form.errors)
     else:
@@ -77,26 +77,28 @@ def user_logout(request):
 
 @login_required
 def discover(request):
-	profile_list = Profile.objects.order_by('user__username')[:10]
+    profile_list = Profile.objects.order_by('user__username')[:10]
 
-	context_dict = {}
-	context_dict['profiles'] = profile_list
+    context_dict = {}
+    context_dict['profiles'] = profile_list
 
-	return render(request, 'glover/discover.html', context=context_dict)
+    return render(request, 'glover/discover.html', context=context_dict)
 
 
 def discover_profile(request, username):
-	context_dict = {}
+    context_dict = {}
 
-	try:
-		profile = Profile.objects.get(username=username)
 
-		context_dict['profile'] = profile
+    try:
+        user = User.objects.get(username=username)
+        profile = Profile.objects.get(user=user)
 
-	except Profile.DoesNotExist:
-		context_dict['profile'] = None
+        context_dict['profile'] = profile
 
-	return render(request, 'glover/discover-profile.html', context=context_dict)   
+    except Profile.DoesNotExist:
+        context_dict['profile'] = None
+
+    return render(request, 'glover/discover-profile.html', context=context_dict)   
 
 @login_required
 def profile(request):

@@ -26,15 +26,15 @@ def populate():
     user5.save
 
     profiles = {
-        1: {'user': user1, 'username': 'tomas', 'dob': '1995-01-05', 'gender': "M", 'bio': "sup it's Tomas", 
+        1: {'user': user1, 'username': 'tomas', 'id': user1.id, 'dob': '1995-01-05', 'gender': "M", 'bio': "sup it's Tomas", 
             'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "Female"},
-        2: {'user': user2, 'username': 'ilona', 'dob': '1995-01-05', 'gender': "M", 'bio': "sup it's Ilona", 
+        2: {'user': user2, 'username': 'ilona', 'id': user2.id,'dob': '1995-01-05', 'gender': "M", 'bio': "sup it's Ilona", 
             'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "Female"},
-        3: {'user': user3, 'username': 'vrinda', 'dob': '1995-01-05', 'gender': "M", 'bio': "sup it's Vrinda", 
+        3: {'user': user3, 'username': 'vrinda', 'id': user3.id,'dob': '1995-01-05', 'gender': "M", 'bio': "sup it's Vrinda", 
             'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "Female"},            
-        4: {'user': user4, 'username': 'fraser', 'dob': '1995-01-05', 'gender': "M", 'bio': "sup it's Fraser", 
+        4: {'user': user4, 'username': 'fraser', 'id': user4.id,'dob': '1995-01-05', 'gender': "M", 'bio': "sup it's Fraser", 
             'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "Female"},
-        5: {'user': user5, 'username': 'barbara', 'dob': '1995-01-05', 'gender': "M", 'bio': "sup it's Barbara", 
+        5: {'user': user5, 'username': 'barbara', 'id': user5.id,'dob': '1995-01-05', 'gender': "M", 'bio': "sup it's Barbara", 
             'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "Female"},            
     }
 
