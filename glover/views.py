@@ -36,6 +36,7 @@ def register(request):
             profile = Profile.objects.create(user=user, dob=dob, gender=gender)
 
             registered = True
+            return redirect(reverse('glover:discover'))
         else:
             print(user_form.errors)
     else:
