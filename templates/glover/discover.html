@@ -21,7 +21,7 @@
         <ul>
             {% for profile in profiles %}
                 <li>
-                    <a href="{% url 'glover:discover_profile' profile.username %}">{{ profile.username }}</a>
+                    <a href="{% url 'glover:discover_profile' profile.user.username %}">{{ profile.user.username }}</a>
                 </li>
             {% endfor %}
         </ul>

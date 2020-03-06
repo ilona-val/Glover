@@ -3,7 +3,9 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wad_team_B_project.settings')
 
 import django
 django.setup()
-from glover.models import Profile
+
+from glover.choices import *
+from glover.models import *
 from django.contrib.auth.models import User
 
 def populate():
@@ -46,13 +48,27 @@ def populate():
     for c in Profile.objects.all():
         print(f'- {c}')
 
-
+    add_societies()
+    add_interests()
+    add_courses()
 
 def add_profile(user, username, dob, gender, bio, year_in, location, library_floor, looking_for):
     p = Profile.objects.get_or_create(user=user, username=username, dob=dob, gender=gender, 
         bio=bio, year_in=year_in, location=location, library_floor=library_floor, looking_for=looking_for)[0]
     p.save()
     return p
+
+def add_societies():
+    for society in SocietyChoices.ALL_CHOICES:
+        Society.objects.get_or_create(society=society)
+
+def add_interests():
+    for interest in InterestChoices.ALL_CHOICES:
+        Interest.objects.get_or_create(interest=interest)
+
+def add_courses():
+    for course in CourseChoices.ALL_CHOICES:
+        Course.objects.get_or_create(course=course)
 
 
 if __name__ == '__main__':

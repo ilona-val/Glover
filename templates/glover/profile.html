@@ -2,19 +2,14 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	{% if profile %}
-		{{ profile.username }}
-	{% else %}
-		Unknown Profile
-	{% endif %}
+	{{ user.username }}'s Profile
 {% endblock %}
 
 {% block body_block %}
-	{% if profile %}
-		<h1>{{ profile.username }}</h1>
-		<p>{{ profile.bio }}</p>
-		<a href="{% url 'glover:discover' %}">Back to discover</a>
-	{% else %}
-		There is no one here.
-	{% endif %}
+
+	<h1>{{ user.username }}</h1>
+	<p>{{ profile.get_gender_display }}</p>
+	<p>{{ profile.dob }}</p>
+	<a href="{% url 'glover:discover' %}">Back to discover</a>
+
 {% endblock %}

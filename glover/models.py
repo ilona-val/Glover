@@ -6,13 +6,14 @@ from .choices import CourseChoices, SocietyChoices, InterestChoices, GenderChoic
 
 
 class Profile(models.Model):
+    # get username, email, first_name, password from the User model when needed
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    username = models.CharField(default="Joe", max_length=20, unique=True)
+    # username = models.CharField(default="Joe", max_length=20, unique=True)  # this should be obtained from User.username !
     dob = models.DateField()
     gender = models.CharField(max_length=1, choices=GenderChoices.get_choices())
-    bio = models.TextField(max_length=300)
-    year_in = models.IntegerField()
-    location = models.CharField(max_length=30)
+    bio = models.TextField(max_length=300, default="")
+    year_in = models.IntegerField(null=True)
+    location = models.CharField(max_length=30, default="")
     library_floor = models.CharField(max_length=20, choices=LibraryFloorChoices.get_choices())
     looking_for = models.CharField(max_length=1, choices=GenderChoices.get_choices())   # Allow to pick one, not multiple
 
@@ -68,7 +69,7 @@ class Message(models.Model):
 
 
 class Society(models.Model):
-    society = models.CharField(max_length=50, choices=SocietyChoices.get_choices())
+    society = models.CharField(max_length=50, choices=SocietyChoices.get_choices(), unique=True)
 
     def __str__(self):
         return self.society
@@ -78,14 +79,14 @@ class Society(models.Model):
 
 
 class Course(models.Model):
-    course = models.CharField(max_length=50, choices=CourseChoices.get_choices())
+    course = models.CharField(max_length=50, choices=CourseChoices.get_choices(), unique=True)
 
     def __str__(self):
         return self.course
 
 
 class Interest(models.Model):
-    interest = models.CharField(max_length=30, choices=InterestChoices.get_choices())
+    interest = models.CharField(max_length=30, choices=InterestChoices.get_choices(), unique=True)
 
     def __str__(self):
         return self.interest

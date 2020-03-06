@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'glover'
 ]
 
@@ -129,3 +130,5 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL  = '/media/'
 
+# Django crispy forms template pack
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
