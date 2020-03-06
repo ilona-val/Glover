@@ -14,7 +14,7 @@ def populate():
     add_interests()
     add_courses()
     
-    if User.objects.filter(username='tomas').exists():
+    if User.objects.filter(username='ilona').exists():
         User.objects.all().delete()
 
     user1 = User.objects.create_user(username='tomas', password='1234', is_superuser=True, is_staff=True, email="tomas@student.gla.ac.uk", first_name="Tomas")
