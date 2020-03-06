@@ -1,4 +1,4 @@
-import os
+import os, random
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wad_team_B_project.settings')
 
 import django
@@ -10,53 +10,66 @@ from django.contrib.auth.models import User
 
 def populate():
 
-    user1 = User.objects.create_user('tomas', password='1234')
-    user1.save
-
-    user2 = User.objects.create_user('ilona', password='1234')
-    user2.save
-
-    user3 = User.objects.create_user('vrinda', password='1234')
-    user3.save
-
-    user4 = User.objects.create_user('fraser', password='1234')
-    user4.save
-
-    user5 = User.objects.create_user('barbara', password='1234')
-    user5.save
-
-    profiles = {
-        1: {'user': user1, 'username': 'tomas', 'id': user1.id, 'dob': '1995-01-05', 'gender': "M", 'bio': "sup it's Tomas", 
-            'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "Female"},
-        2: {'user': user2, 'username': 'ilona', 'id': user2.id,'dob': '1995-01-05', 'gender': "M", 'bio': "sup it's Ilona", 
-            'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "Female"},
-        3: {'user': user3, 'username': 'vrinda', 'id': user3.id,'dob': '1995-01-05', 'gender': "M", 'bio': "sup it's Vrinda", 
-            'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "Female"},            
-        4: {'user': user4, 'username': 'fraser', 'id': user4.id,'dob': '1995-01-05', 'gender': "M", 'bio': "sup it's Fraser", 
-            'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "Female"},
-        5: {'user': user5, 'username': 'barbara', 'id': user5.id,'dob': '1995-01-05', 'gender': "M", 'bio': "sup it's Barbara", 
-            'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "Female"},            
-    }
-
-
-    for profile, profile_data in profiles.items():
-        c = add_profile(profile_data['user'], profile_data['dob'], profile_data['gender'], profile_data['bio'], 
-                profile_data['year_in'], profile_data['location'], profile_data['library_floor'], profile_data['looking_for'])
-
-
-    # Print out the categories we have added.
-    for c in Profile.objects.all():
-        print(f'- {c}')
-
     add_societies()
     add_interests()
     add_courses()
+    
+    if User.objects.filter(username='tomas').exists():
+        User.objects.all().delete()
 
+    user1 = User.objects.create_user(username='tomas', password='1234', is_superuser=True, is_staff=True, email="tomas@student.gla.ac.uk", first_name="Tomas")
+    user2 = User.objects.create_user(username='ilona', password='1234', is_superuser=True, is_staff=True, email="ilona@student.gla.ac.uk", first_name="Ilona")
+    user3 = User.objects.create_user(username='vrinda', password='1234', is_superuser=True, is_staff=True, email="vrinda@student.gla.ac.uk", first_name="Vrinda")
+    user4 = User.objects.create_user(username='fraser', password='1234', is_superuser=True, is_staff=True, email="fraser@student.gla.ac.uk", first_name="Fraser")
+    user5 = User.objects.create_user(username='barbara', password='1234', is_superuser=True, is_staff=True, email="barbara@student.gla.ac.uk", first_name="Barbara")
+    user6 = User.objects.create_user(username='bob', password='1234', email="bob@student.gla.ac.uk", first_name="Bob")
+    user7 = User.objects.create_user(username='linda', password='1234', email="linda@student.gla.ac.uk", first_name="Linda")
+    user8 = User.objects.create_user(username='jack', password='1234', email="jack@student.gla.ac.uk", first_name="Jack")
+    user9 = User.objects.create_user(username='peter', password='1234', email="peter@student.gla.ac.uk", first_name="Peter")
+    user10 = User.objects.create_user(username='melinda', password='1234', email="melinda@student.gla.ac.uk", first_name="Melinda")
+
+    profiles = [
+        {'user': user1, 'dob': '1996-05-16', 'gender': "M", 'bio': "sup it's Tomas", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "F", 'course_id': 10},
+        {'user': user2, 'dob': '1996-05-16', 'gender': "F", 'bio': "sup it's Ilona", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "M", 'course_id': 10},
+        {'user': user3, 'dob': '1996-05-16', 'gender': "F", 'bio': "sup it's Vrinda", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "M", 'course_id': 10},            
+        {'user': user4, 'dob': '1996-05-16', 'gender': "N", 'bio': "sup it's Fraser", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "M", 'course_id': 10},
+        {'user': user5, 'dob': '1996-05-16', 'gender': "F", 'bio': "sup it's Barbara", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "M", 'course_id': 10},   
+        {'user': user6, 'dob': '1996-05-16', 'gender': "N", 'bio': "sup it's Bob", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "N", 'course_id': 26},
+        {'user': user7, 'dob': '1996-05-16', 'gender': "F", 'bio': "sup it's Linda", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "M", 'course_id': 26},
+        {'user': user8, 'dob': '1996-05-16', 'gender': "M", 'bio': "sup it's Jack", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "F", 'course_id': 2},            
+        {'user': user9, 'dob': '1996-05-16', 'gender': "M", 'bio': "sup it's Peter", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "F", 'course_id': 32},
+        {'user': user10, 'dob': '1996-05-16', 'gender': "F", 'bio': "sup it's Melinda", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "F", 'course_id': 26},            
+    ]
+
+    societies = Society.objects.all()
+    interests = Interest.objects.all()
+
+    for profile_data in profiles:
+        p = add_profile(profile_data['user'], profile_data['dob'], profile_data['gender'], profile_data['bio'], 
+                profile_data['year_in'], profile_data['location'], profile_data['library_floor'], profile_data['looking_for'])
+        
+        p.societies.clear() # remove all existing societies from the user's profile
+        p.interests.clear() # remove all existing interests from the user's profile
+        socs = [random.choice(societies) for i in range(5)]
+        p.societies.add(*socs)
+        intrs = [random.choice(interests) for i in range(5)]
+        p.interests.add(*intrs)
+
+    profiles = Profile.objects.all()
+
+    for profile in profiles:
+        for profile_liked in profiles:
+            if not profile.pk == profile_liked.pk:
+                like = add_like(profile, profile_liked)
+
+
+def add_like(profile, profile_liked):
+    like = Like.objects.get_or_create(profile=profile, profile_liked=profile_liked, is_liked=True)[0]
+    
 def add_profile(user, dob, gender, bio, year_in, location, library_floor, looking_for):
-    p = Profile.objects.get_or_create(user=user, dob=dob, gender=gender, 
+    profile = Profile.objects.get_or_create(user=user, dob=dob, gender=gender, 
         bio=bio, year_in=year_in, location=location, library_floor=library_floor, looking_for=looking_for)[0]
-    p.save()
-    return p
+    return profile
 
 def add_societies():
     for society in SocietyChoices.ALL_CHOICES:
@@ -72,5 +85,6 @@ def add_courses():
 
 
 if __name__ == '__main__':
-    print('Starting GLover population script...')
+    print('Starting GLover population script...', end="")
     populate()
+    print('DONE')

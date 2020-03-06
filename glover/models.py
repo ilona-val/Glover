@@ -27,35 +27,82 @@ class Profile(models.Model):
     societies = models.ManyToManyField("Society")
 
     def get_matches(self):
+        """ Gets all matches for the user """
         return Match.objects.filter(Q(profile1=self) | Q(profile2=self))
+
+    def get_num_matches(self):
+        """ Gets the number of matches for the user """
+        return self.get_matches().count()
+        
+    def get_num_societies(self):
+        """ Gets the number of societies the user is in """
+        return self.societies.count()
+
+    def get_num_interests(self):
+        """ Gets the number of interests the user has listed """
+        return self.interests.count()
+
+    def get_societies(self):
+        """ Gets all societies the user is in """
+        return self.societies.all()
+
+    def get_interests(self):
+        """ Gets all the user's interests """
+        return self.interests.all()
+
+    def same_library_floor(self):
+        """ Gets all users who have selected the same library floor """
+        return Profile.objects.filter(library_floor=self.library_floor).exclude(user=self.user)
+
+    def users_in_same_year(self):
+        """ Gets all users in the same year as this user """
+        return Profile.objects.filter(year_in=self.year_in).exclude(user=self.user)
+
+    def users_in_same_course(self):
+        """ Gets all users doing the same course as this user """
+        return Profile.objects.filter(course=self.course).exclude(user=self.user)
 
     def __str__(self):
         return self.user.username
 
 
 class Like(models.Model):
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name="likes")
-    profile_liked = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name="liked")
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="likes")
+    profile_liked = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="liked")
     is_liked = models.BooleanField()  # if false - represents a dislike, if true - like
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['profile', 'profile_liked'], name='unique_likes')
+        ]
+
+    def save(self, *args, **kwargs):
+        """ Override the model's save method to automatically create a match on two likes """
+        super().save(*args, **kwargs)
+        if self.is_liked:
+            if Like.objects.filter(profile=self.profile_liked, profile_liked=self.profile, is_liked=True).exists():
+                match = Match.objects.get_or_create(profile1=self.profile, profile2=self.profile_liked)
 
     def __str__(self):
         if is_liked: 
-            return self.profile + " liked " + self.profile_liked
+            return f"{self.profile.user.username} liked {self.profile_liked.user.username}"
         elif not is_liked:
-            return self.profile + " disliked " + self.profile_liked
+            return f"{self.profile.user.username} disliked {self.profile_liked.user.username}"
 
 
 class Match(models.Model):
-    profile1 = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name="matches")
-    profile2 = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name="matched")
+    profile1 = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="matches")
+    profile2 = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="matched")
     time_matched = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "Match between " + self.profile1 + " and " + self.profile2
+        return f"{self.profile1.user.username} + {self.profile2.user.username}"
 
     class Meta:
         verbose_name_plural = "Matches"
-
+        constraints = [
+            models.UniqueConstraint(fields=['profile1', 'profile2'], name='unique_matches')
+        ]
 
 class Message(models.Model):
     sender = models.OneToOneField(Profile, on_delete=models.SET_NULL, null=True, related_name="sender")
