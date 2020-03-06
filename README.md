@@ -1,11 +1,12 @@
 ## Populating the database
 python populate_glover.py
 
-## Create superuser acc to login as an admin
-python manage.py createsuperuser
+## Login as an admin after populating the database
+username: yourname
+password: 1234
 
 ## Make sure you're working on the correct environment
 workon rangoenv
 
-## Get updates
+## Get updates BEFORE COMMITING
 git pull git@github.com:Vrinda112001/WAD_Team_B_Glover.git
