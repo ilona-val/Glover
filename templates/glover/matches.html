@@ -1,0 +1,22 @@
+{% extends 'glover/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    {% if profile %}
+        {{ profile.username }}
+    {% else %}
+        Unknown
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+    {% if user.is_authenticated %}
+        {% if Matches %}
+            {% for m in Matches %}
+                <img src="/glover/media/{{m.image1}}" alt="Picture of {{m.user}}"/>
+                <h1>{{m.user}}</h1>
+                <h2>{{m.bio}}</h2>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+{% endblock %}

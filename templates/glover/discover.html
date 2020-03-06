@@ -30,6 +30,7 @@
         {% endif %}
     </div>
     {% if user.is_authenticated %}
+        <a href="{% url 'glover:matches' %}">Matches</a>
         <a href="{% url 'glover:logout' %}">Logout</a>
     {% endif %}
 {% endblock %}

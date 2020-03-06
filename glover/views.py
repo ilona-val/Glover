@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from glover.forms import UserRegistrationForm
-from glover.models import Profile
+from glover.models import Profile, Match
 
 
 def index(request):
@@ -37,9 +37,8 @@ def register(request):
             profile = Profile.objects.create(user=user, dob=dob, gender=gender)
 
             registered = True
-            
 
-            #return redirect(reverse('glover:discover'))
+            # return redirect(reverse('glover:discover'))
         else:
             print(user_form.errors)
     else:
@@ -56,9 +55,9 @@ def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        
+
         user = authenticate(username=username, password=password)
-        
+
         if user:
             if user.is_active:
                 login(request, user)
@@ -91,7 +90,6 @@ def discover(request):
 def discover_profile(request, username):
     context_dict = {}
 
-
     try:
         user = User.objects.get(username=username)
         profile = Profile.objects.get(user=user)
@@ -101,10 +99,27 @@ def discover_profile(request, username):
     except Profile.DoesNotExist:
         context_dict['profile'] = None
 
-    return render(request, 'glover/discover-profile.html', context=context_dict)   
+    return render(request, 'glover/discover-profile.html', context=context_dict)
+
 
 @login_required
 def profile(request):
     profile = request.user.profile
 
     return render(request, 'glover/profile.html', {"profile": profile})
+
+
+@login_required
+def matches(request):
+    context_dict = {}
+
+    try:
+        #user_profile = request.user.profile
+        #match = user_profile.get_matches()
+        match_list = Match.objects.order_by('-time_matched')[:10]
+        context_dict['Matches'] = match_list
+
+    except Match.DoesNotExist:
+        context_dict['Matches'] = None
+
+    return render(request, 'glover/matches.html', context=context_dict)
