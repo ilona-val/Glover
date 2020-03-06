@@ -39,7 +39,7 @@ def register(request):
             registered = True
             
 
-            return redirect(reverse('glover:discover'))
+            #return redirect(reverse('glover:discover'))
         else:
             print(user_form.errors)
     else:
