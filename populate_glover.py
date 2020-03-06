@@ -45,8 +45,8 @@ def populate():
     interests = Interest.objects.all()
 
     for profile_data in profiles:
-        p = add_profile(profile_data['user'], profile_data['dob'], profile_data['gender'], profile_data['bio'], 
-                profile_data['year_in'], profile_data['location'], profile_data['library_floor'], profile_data['looking_for'])
+        p = add_profile(profile_data['user'], profile_data['dob'], profile_data['gender'], profile_data['bio'], profile_data['year_in'],
+            profile_data['location'], profile_data['library_floor'], profile_data['looking_for'], profile_data['course_id'])
         
         p.societies.clear() # remove all existing societies from the user's profile
         p.interests.clear() # remove all existing interests from the user's profile
@@ -66,9 +66,9 @@ def populate():
 def add_like(profile, profile_liked):
     like = Like.objects.get_or_create(profile=profile, profile_liked=profile_liked, is_liked=True)[0]
     
-def add_profile(user, dob, gender, bio, year_in, location, library_floor, looking_for):
-    profile = Profile.objects.get_or_create(user=user, dob=dob, gender=gender, 
-        bio=bio, year_in=year_in, location=location, library_floor=library_floor, looking_for=looking_for)[0]
+def add_profile(user, dob, gender, bio, year_in, location, library_floor, looking_for, course_id):
+    profile = Profile.objects.get_or_create(user=user, dob=dob, gender=gender, bio=bio, year_in=year_in, 
+            location=location, library_floor=library_floor, looking_for=looking_for, course_id=course_id)[0]
     return profile
 
 def add_societies():
