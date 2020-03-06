@@ -1,23 +1,24 @@
 {% extends 'glover/base.html' %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 
 {% block title_block %}
 	Register
 {% endblock %}
 
 {% block body_block %}
-	<h1>Register for Glover</h1>
+	<h1>REGISTER</h1>
 	<form id="user_form" method="post" action="{% url 'glover:register' %}" enctype="multipart/form-data">
 		{% csrf_token %}
 
-		<!-- Display each form
-		-->User Authentication
-
-		{{ user_form.as_p }}
-		{{ profile_form.as_p }}
+		{{ registration_form|crispy }}
 
 		<!-- Provide a button to click to submit the form. -->
-		<input type="submit" name="submit" value="Register" />
+		<input type="submit" name="submit" value="SIGN UP" />
+		<br/>
 	</form>
+	<p>Already have an account?  <a href="{% url 'glover:login' %}">Sign In!</a></p>
 	<a href="{% url 'glover:index' %}">Home</a>
+	<a href="{% url 'glover:about' %}">About</a>
+	<a href="{% url 'glover:login' %}">Login</a>
 {% endblock %}
