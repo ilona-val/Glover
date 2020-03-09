@@ -6,7 +6,7 @@
         {{ profile.username }}
     {% else %}
         Unknown
-    {% endif %}
+    {% endif %} 
 {% endblock %}
 
 {% block body_block %}
@@ -19,4 +19,5 @@
             {% endfor %}
         {% endif %}
     {% endif %}
+    <a href="{% url 'glover:discover' %}">Back to discover</a>
 {% endblock %}
