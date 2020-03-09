@@ -7,9 +7,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from glover.forms import UserRegistrationForm
-from glover.models import Profile, Match
+from glover.models import Profile, Match, Like
 
-
+ 
 def index(request):
     context_dict = {}
 
@@ -79,6 +79,9 @@ def user_logout(request):
 
 @login_required
 def discover(request):
+    #user = User.objects.get(username=request.user)
+    #profile = Profile.objects.get(user=user)
+
     profile_list = Profile.objects.order_by('user__username')[:10]
 
     context_dict = {}
@@ -87,6 +90,7 @@ def discover(request):
     return render(request, 'glover/discover.html', context=context_dict)
 
 
+@login_required
 def discover_profile(request, username):
     context_dict = {}
 
@@ -123,3 +127,31 @@ def matches(request):
         context_dict['Matches'] = None
 
     return render(request, 'glover/matches.html', context=context_dict)
+
+
+@login_required
+def like(request, profile1, profile2):
+    context_dict = {}
+
+    try:
+        user1 = User.objects.get(username=profile1)
+        user2 = User.objects.get(username=profile2)
+
+        profile1 = Profile.objects.get(user=user1)
+        profile2 = Profile.objects.get(user=user2)
+
+        if "like" in request.POST:
+            like = Like.objects.get_or_create(profile=profile1, profile_liked=profile2, is_liked=True)[0]
+
+        elif "dislike" in request.POST:
+            like = Like.objects.get_or_create(profile=profile1, profile_liked=profile2, is_liked=False)[0]
+
+        
+        context_dict['like'] = like
+
+    except Profile.DoesNotExist:
+        context_dict['like'] = None
+
+    return render(request, 'glover/like.html', context=context_dict)
+
+

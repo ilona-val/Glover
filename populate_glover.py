@@ -69,10 +69,10 @@ def populate():
 
     profiles = Profile.objects.all()
 
-    for profile in profiles:
-        for profile_liked in profiles:
-            if not profile.pk == profile_liked.pk:
-                like = add_like(profile, profile_liked)
+    #for profile in profiles:
+     #   for profile_liked in profiles:
+      #      if not profile.pk == profile_liked.pk:
+       #         like = add_like(profile, profile_liked)
 
 
 def add_like(profile, profile_liked):

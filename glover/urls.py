@@ -13,6 +13,7 @@ urlpatterns = [
     path('discover/', views.discover, name='discover'),
     path('discover/<str:username>/', views.discover_profile, name='discover_profile'),
     path('matches/', views.matches, name='matches'),
+    path('discover/<str:profile1>/and/<str:profile2>/', views.like, name='like'),
     # path('matches/<str:username>/', views.matches_profile, name='matches-profile'),
     # path('dms/', views.dms, name='dms'),
     path('profile/', views.profile, name='profile'),

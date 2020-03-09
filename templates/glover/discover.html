@@ -14,15 +14,26 @@
             hey there partner!
         {% endif %}
         <br />
-    </div>
+    </div> 
     <div>
         <h2>Discover</h2>
         {% if profiles %}
         <ul>
             {% for profile in profiles %}
+                {% if user != profile.user %}
                 <li>
                     <a href="{% url 'glover:discover_profile' profile.user.username %}">{{ profile.user.username }}</a>
+
+                    <form id="like" method="post" action="{% url 'glover:like' user.username profile.user.username %}">
+                        {% csrf_token %}
+                        <div class="btn-group">
+                            <button type="submit" name="like" class="btn btn-success">Like</button>
+                            <button type="submit" name="dislike" class="btn btn-danger">Dislike</button>
+                        </div>
+                    </form>
                 </li>
+
+                {% endif %}
             {% endfor %}
         </ul>
         {% else %}
