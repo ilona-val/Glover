@@ -38,7 +38,7 @@ def register(request):
 
             registered = True
 
-            # return redirect(reverse('glover:discover'))
+            return redirect(reverse('glover:discover'))
         else:
             print(user_form.errors)
     else:
@@ -118,10 +118,9 @@ def matches(request):
     context_dict = {}
 
     try:
-        #user_profile = request.user.profile
-        #match = user_profile.get_matches()
-        match_list = Match.objects.order_by('-time_matched')[:10]
-        context_dict['Matches'] = match_list
+        user_profile = request.user.profile
+        matches = user_profile.get_matches()
+        context_dict['Matches'] = matches
 
     except Match.DoesNotExist:
         context_dict['Matches'] = None

@@ -10,6 +10,16 @@
 {% endblock %}
 
 {% block body_block %}
+
+	<div>
+        {% if user.is_authenticated %}
+            <a href="{% url 'glover:discover' %}">Discover</a>
+			<a href="{% url 'glover:matches' %}">Matches</a>
+            <a href="{% url 'glover:logout' %}">Logout</a>
+            <a href="{% url 'glover:profile' %}">Profile</a>
+        {% endif %}
+    </div>
+
 	{% if profile %}
 		
 		<h1>{{ profile.user.first_name }}'s Profile</h1>
@@ -25,21 +35,20 @@
 
 		<p>Interests:
 		<ul>
-		{% for interest in profile.get_interests %}
-			<li> {{ interest.interest }} </li>
-		{% endfor %}
+			{% for interest in profile.get_interests %}
+				<li> {{ interest.interest }} </li>
+			{% endfor %}
 		</ul>
 		</p>
 
 		<p>Societies:
 		<ul>
-		{% for society in profile.get_societies %}
-			<li> {{ society.society }} </li>
-		{% endfor %}
+			{% for society in profile.get_societies %}
+				<li> {{ society.society }} </li>
+			{% endfor %}
 		</ul>
 		</p>
 
-		<a href="{% url 'glover:discover' %}">Back to discover</a>
 	{% else %}
 		There is no one here.
 	{% endif %}

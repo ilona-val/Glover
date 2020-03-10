@@ -58,7 +58,7 @@ class Profile(models.Model):
         return self.interests.all()
 
     def same_library_floor(self):
-        """ Gets all users who have selected the same library floor """
+        """ Gets all users who have selected the same library floor as this user """
         return Profile.objects.filter(library_floor=self.library_floor).exclude(user=self.user)
 
     def users_in_same_year(self):

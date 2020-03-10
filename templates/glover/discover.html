@@ -6,22 +6,26 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>Glover says...</h1>
     <div>
         {% if user.is_authenticated %}
-            Sup {{ user.username }}!
-        {% else %}
-            hey there partner!
+            <a href="{% url 'glover:matches' %}">Matches</a>
+            <a href="{% url 'glover:logout' %}">Logout</a>
+            <a href="{% url 'glover:profile' %}">Profile</a>
         {% endif %}
-        <br />
-    </div> 
+    </div>
+
     <div>
         <h2>Discover</h2>
         {% if profiles %}
-        <ul>
             {% for profile in profiles %}
+
                 {% if user != profile.user %}
-                <li>
+                    {% if profile.image1 %}
+                        <img src="{{ m.profile1.image1.url }}" alt="Picture of {{ m.profile1.user.first_name }}"/>
+                    {% else %}
+                        <img src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+                    {% endif %}
+                    <br />
                     <a href="{% url 'glover:discover_profile' profile.user.username %}">{{ profile.user.username }}</a>
 
                     <form id="like" method="post" action="{% url 'glover:like' user.username profile.user.username %}">
@@ -31,18 +35,11 @@
                             <button type="submit" name="dislike" class="btn btn-danger">Dislike</button>
                         </div>
                     </form>
-                </li>
-
                 {% endif %}
             {% endfor %}
-        </ul>
+
         {% else %}
             <strong>There's no one here.</strong>
         {% endif %}
     </div>
-    {% if user.is_authenticated %}
-        <a href="{% url 'glover:matches' %}">Matches</a>
-        <a href="{% url 'glover:logout' %}">Logout</a>
-        <a href="{% url 'glover:profile' %}">Profile</a>
-    {% endif %}
 {% endblock %}

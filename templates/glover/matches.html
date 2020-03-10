@@ -10,20 +10,37 @@
 {% endblock %}
 
 {% block body_block %}
+    <div>
+        {% if user.is_authenticated %}
+            <a href="{% url 'glover:discover' %}">Discover</a>
+            <a href="{% url 'glover:logout' %}">Logout</a>
+            <a href="{% url 'glover:profile' %}">Profile</a>
+        {% endif %}
+    </div>
+
     {% if user.is_authenticated %}
         {% if Matches %}
             {% for m in Matches %}
                 {% if m.profile1.user != user %}
-                    <img src="/glover/media/{{m.image1}}" alt="Picture of {{m.user}}"/>
+                    {% if m.profile1.image1 %}
+                        <img src="{{ m.profile1.image1.url }}" alt="Picture of {{ m.profile1.user.first_name }}"/>
+                    {% else %}
+                        <img src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+                    {% endif %}
+
                     <h1>{{m.profile1.user}}</h1>
                     <p>{{m.profile1.bio}}</p>
                 {% elif m.profile2.user != user %}
-                    <img src="/glover/media/{{m.image1}}" alt="Picture of {{m.user}}"/>
+                    {% if m.profile2.image1 %}
+                        <img src="{{ m.profile2.image1.url }}" alt="Picture of {{ m.profile2.user.first_name }}"/>
+                    {% else %}
+                        <img src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+                    {% endif %}
+
                     <h1>{{m.profile2.user}}</h1>
                     <p>{{m.profile2.bio}}</p>
                 {% endif %}
             {% endfor %}
         {% endif %}
     {% endif %}
-    <a href="{% url 'glover:discover' %}">Back to discover</a>
 {% endblock %}

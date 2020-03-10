@@ -7,7 +7,22 @@
 
 {% block body_block %}
 
+	<div>
+        {% if user.is_authenticated %}
+            <a href="{% url 'glover:matches' %}">Matches</a>
+            <a href="{% url 'glover:logout' %}">Logout</a>
+            <a href="{% url 'glover:discover' %}">Discover</a>
+        {% endif %}
+    </div>
+
 	<h1>{{ user.first_name }}'s Profile</h1>
+
+	{% if user.profile.image1 %}
+		<img src="{{ m.profile1.image1.url }}" alt="Picture of {{ m.profile1.user.first_name }}"/>
+	{% else %}
+		<img src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+	{% endif %}
+
 	<p>Name: {{ profile.user.first_name }}</p>
 	<p>Gender: {{ profile.get_gender_display }}</p>
 	<p>Age: {{ profile.get_age }}</p>
@@ -33,7 +48,5 @@
 	{% endfor %}
 	</ul>
 	</p>
-
-	<a href="{% url 'glover:discover' %}">Back to discover</a>
 
 {% endblock %}

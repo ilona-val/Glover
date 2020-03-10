@@ -7,6 +7,13 @@
 {% endblock %}
 
 {% block body_block %}
+
+	<div>
+		<a href="{% url 'glover:index' %}">Home</a>
+		<a href="{% url 'glover:about' %}">About</a>
+		<a href="{% url 'glover:login' %}">Login</a>
+    </div>
+
 	<h1>REGISTER</h1>
 	<form id="user_form" method="post" action="{% url 'glover:register' %}" enctype="multipart/form-data">
 		{% csrf_token %}
@@ -18,7 +25,4 @@
 		<br/>
 	</form>
 	<p>Already have an account?  <a href="{% url 'glover:login' %}">Sign In!</a></p>
-	<a href="{% url 'glover:index' %}">Home</a>
-	<a href="{% url 'glover:about' %}">About</a>
-	<a href="{% url 'glover:login' %}">Login</a>
 {% endblock %}

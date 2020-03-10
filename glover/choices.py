@@ -1,4 +1,6 @@
+
 class CourseChoices:
+    """ Courses to populate the Course table with and let users choose from """
     ACCOUNTING = "Accounting"
     ANATOMY = "Anatomy"
     ARCHAEOLOGY = "Archaeology"
@@ -62,9 +64,11 @@ class CourseChoices:
 
     @staticmethod
     def get_choices():
+        """ Static method to get all course choices above. """
         return [(v,v) for v in CourseChoices.ALL_CHOICES]
 
 class SocietyChoices:
+    """ Societies to populate the Society table with and let users choose from """
     ACAPELLA = "Acapella"
     ART_LIFE_DRAWING = "Art and Life Drawing"
     ART_APPRECIATION = "Art Appreciation"
@@ -230,9 +234,11 @@ class SocietyChoices:
 
     @staticmethod
     def get_choices():
+        """ Static method to get all society choices above. """
         return [(v,v) for v in SocietyChoices.ALL_CHOICES]
 
 class InterestChoices:
+    """ Interests to populate the Interest table with and let users choose from """
     YOGA = "Yoga"
     FOOTBALL = "Football"
     TENNIS = "Tennis"
@@ -351,9 +357,11 @@ class InterestChoices:
 
     @staticmethod
     def get_choices():
+        """ Static method to get all interest choices above. """
         return [(v,v) for v in InterestChoices.ALL_CHOICES]
 
 class GenderChoices:
+    """ Gender choices users can choose from """
     FEMALE = "F"
     MALE = "M"
     NON_BINARY = "N"
@@ -362,10 +370,12 @@ class GenderChoices:
 
     @staticmethod
     def get_choices():
+        """ Static method to get all gender choices above as well as a proper display label for each choice. """
         labels = ["Female", "Male", "Non-Binary"]
         return [(gender, label) for gender, label in zip(GenderChoices.ALL_CHOICES, labels)]
 
 class LibraryFloorChoices:
+    """ Favourite library floor choices users can choose from """
     LEVEL_1 = "Level 1"
     LEVEL_2 = "Level 2"
     LEVEL_3 = "Level 3"
@@ -386,4 +396,5 @@ class LibraryFloorChoices:
 
     @staticmethod
     def get_choices():
+        """ Static method to get all favourite library floor choices above. """
         return [(v,v) for v in LibraryFloorChoices.ALL_CHOICES]

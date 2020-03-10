@@ -132,3 +132,5 @@ MEDIA_URL  = '/media/'
 
 # Django crispy forms template pack
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_URL = '/login/'

@@ -6,14 +6,20 @@
 {% endblock %}
 
 {% block body_block %}
-<h1>Login to Rango</h1>
-<form id="login_form" method="post" action="{% url 'glover:login' %}">
-    {% csrf_token %}
-    Username: <input type="text" name="username" value="" size="50" />
-    <br /> 
-    Password: <input type="password" name="password" value="" size="50" />
-    <br /> 
-    <input type="submit" value="submit" />
-</form>
-<a href="{% url 'glover:index' %}">Home</a>
+    <div>
+		<a href="{% url 'glover:index' %}">Home</a>
+		<a href="{% url 'glover:about' %}">About</a>
+		<a href="{% url 'glover:register' %}">Register</a>
+    </div>
+
+    <h1>Login to GLover</h1>
+    <form id="login_form" method="post" action="{% url 'glover:login' %}">
+        {% csrf_token %}
+        Username: <input type="text" name="username" value="" size="50" />
+        <br /> 
+        Password: <input type="password" name="password" value="" size="50" />
+        <br /> 
+        <input type="submit" value="submit" />
+    </form>
+    <p>Don't have an account yet?  <a href="{% url 'glover:register' %}">Sign Up!</a></p>
 {% endblock  %}
