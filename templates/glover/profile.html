@@ -15,38 +15,89 @@
         {% endif %}
     </div>
 
-	<h1>{{ user.first_name }}'s Profile</h1>
+	<div class="row">
+		<div class="col-12 col-sm-4">
+			<div>
+				{% if user.profile.image1 %}
+					<img class="big-img" src="{{ user.profile.image1.url }}" alt="Picture of {{ user.first_name }}"/>
+				{% else %}
+					<img class="big-img" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+				{% endif %}
+			</div>
 
-	{% if user.profile.image1 %}
-		<img src="{{ m.profile1.image1.url }}" alt="Picture of {{ m.profile1.user.first_name }}"/>
-	{% else %}
-		<img src="{% static 'images/default_user.jpg' %}" alt="Default image" />
-	{% endif %}
+			<div class="flex-container row">
+				<div class="flex-item">
+					{% if user.profile.image1 %}
+						<img class="small-img img-responsive" src="{{ user.profile.image1.url }}" alt="Picture of {{ user.first_name }}"/>
+					{% else %}
+						<img class="small-img img-responsive" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+					{% endif %}
+				</div>
 
-	<p>Name: {{ profile.user.first_name }}</p>
-	<p>Gender: {{ profile.get_gender_display }}</p>
-	<p>Age: {{ profile.get_age }}</p>
-	<p>Bio: {{ profile.bio }}</p>
-	<p>Location: {{ profile.location }}</p>
-	<p>Favourite Library Floor: {{ profile.library_floor }}</p>
-	<p>Looking For: {{ profile.get_looking_for_display }}</p>
-	<p>Studies: {{ profile.course.course }}</p>
-	<p>Year of Study: {{ profile.year_in }}</p>
+				<div class="flex-item">
+					{% if user.profile.image2 %}
+						<img class="small-img img-responsive" src="{{ user.profile1.image2.url }}" alt="Picture of {{ user.first_name  }}"/>
+					{% else %}
+						<img class="small-img img-responsive" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+					{% endif %}
+				</div>
 
-	<p>Interests:
-	<ul>
-	{% for interest in profile.get_interests %}
-		<li> {{ interest.interest }} </li>
-	{% endfor %}
-	</ul>
-	</p>
+				<div class="flex-item">
+					{% if user.profile.image3 %}
+						<img class="small-img img-responsive" src="{{ user.profile.image3.url }}" alt="Picture of {{ user.first_name  }}"/>
+					{% else %}
+						<img class="small-img img-responsive" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+					{% endif %}
+				</div>
 
-	<p>Societies:
-	<ul>
-	{% for society in profile.get_societies %}
-		<li> {{ society.society }} </li>
-	{% endfor %}
-	</ul>
-	</p>
+				<div class="flex-item">
+					{% if user.profile.image4 %}
+						<img class="small-img img-responsive" src="{{ user.profile.image4.url }}" alt="Picture of {{ user.first_name }}"/>
+					{% else %}
+						<img class="small-img img-responsive" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+					{% endif %}
+				</div>
+
+				{% comment %} <div class="flex-item">
+					{% if user.profile.image5 %}
+						<img class="small-img img-responsive" src="{{ user.profile.image5.url }}" alt="Picture of {{ user.first_name }}"/>
+					{% else %}
+						<img class="small-img img-responsive" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+					{% endif %}
+				</div> {% endcomment %}
+			</div>
+		</div>
+		
+
+		<div class="col-12 col-sm-8">
+			<h1>{{ user.first_name }}'s Profile</h1>
+
+			<p>Name: {{ profile.user.first_name }}</p>
+			<p>Gender: {{ profile.get_gender_display }}</p>
+			<p>Age: {{ profile.get_age }}</p>
+			<p>Bio: {{ profile.bio }}</p>
+			<p>Location: {{ profile.location }}</p>
+			<p>Favourite Library Floor: {{ profile.library_floor }}</p>
+			<p>Looking For: {{ profile.get_looking_for_display }}</p>
+			<p>Studies: {{ profile.course.course }}</p>
+			<p>Year of Study: {{ profile.year_in }}</p>
+
+			<p>Interests:
+			<ul>
+			{% for interest in profile.get_interests %}
+				<li> {{ interest.interest }} </li>
+			{% endfor %}
+			</ul>
+			</p>
+
+			<p>Societies:
+			<ul>
+			{% for society in profile.get_societies %}
+				<li> {{ society.society }} </li>
+			{% endfor %}
+			</ul>
+			</p>
+		</div>
+	</div>
 
 {% endblock %}
