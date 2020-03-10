@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from glover.forms import UserRegistrationForm
+from glover.forms import UserRegistrationForm, LoginForm
 from glover.models import Profile, Match, Like
 
  
@@ -23,7 +23,6 @@ def about(request):
 
 
 def register(request):
-    registered = False
 
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
@@ -36,8 +35,6 @@ def register(request):
             gender = user_form.cleaned_data['gender']
             profile = Profile.objects.create(user=user, dob=dob, gender=gender)
 
-            registered = True
-
             return redirect(reverse('glover:discover'))
         else:
             print(user_form.errors)
@@ -46,29 +43,24 @@ def register(request):
 
     context = {
         'registration_form': user_form,
-        'registered': registered
     }
     return render(request, 'glover/register.html', context)
 
 
 def user_login(request):
+
+    form = LoginForm()
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect(reverse('glover:discover'))
 
-        user = authenticate(username=username, password=password)
-
-        if user:
-            if user.is_active:
-                login(request, user)
-                return redirect(reverse('glover:discover'))
-            else:
-                return HttpResponse("Your Glover account is disabled.")
-        else:
-            print(f"Invalid login details: {username}, {password}")
-            return HttpResponse("Invalid login details supplied.")
-    else:
-        return render(request, 'glover/login.html')
+    return render(request, 'glover/login.html', {"form": form})
 
 
 @login_required

@@ -1,5 +1,6 @@
 {% extends 'glover/base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title_block %}
     Login
@@ -15,11 +16,10 @@
     <h1>Login to GLover</h1>
     <form id="login_form" method="post" action="{% url 'glover:login' %}">
         {% csrf_token %}
-        Username: <input type="text" name="username" value="" size="50" />
-        <br /> 
-        Password: <input type="password" name="password" value="" size="50" />
-        <br /> 
-        <input type="submit" value="submit" />
+
+        {{ form|crispy }}
+
+        <input type="submit" class="btn btn-primary" value="Login" />
     </form>
     <p>Don't have an account yet?  <a href="{% url 'glover:register' %}">Sign Up!</a></p>
 {% endblock  %}
