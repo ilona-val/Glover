@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from glover.forms import UserRegistrationForm, LoginForm
+from glover.forms import UserRegistrationForm, LoginForm, EditProfileForm
 from glover.models import Profile, Match, Like
 
  
@@ -27,7 +27,7 @@ def register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
         if user_form.is_valid():
-            user = user_form.save()
+            user = user_form.save(commit=False)
             user.set_password(user.password)
             user.save()
 
@@ -35,6 +35,7 @@ def register(request):
             gender = user_form.cleaned_data['gender']
             profile = Profile.objects.create(user=user, dob=dob, gender=gender)
 
+            login(request, user)
             return redirect(reverse('glover:discover'))
         else:
             print(user_form.errors)
@@ -97,6 +98,8 @@ def discover_profile(request, username):
 
     return render(request, 'glover/discover-profile.html', context=context_dict)
 
+########
+# Profile Views
 
 @login_required
 def profile(request):
@@ -104,6 +107,12 @@ def profile(request):
 
     return render(request, 'glover/profile.html', {"profile": profile})
 
+
+@login_required
+def edit_profile(request):
+    form = EditProfileForm(instance=request.user.profile)
+
+    return render(request, 'glover/edit-profile.html', {"form": form})
 
 @login_required
 def matches(request):

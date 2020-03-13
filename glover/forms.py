@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
-from glover.choices import GenderChoices
+from glover.choices import GenderChoices, InterestChoices, SocietyChoices
 from glover.models import Profile
 
 class LoginForm(forms.Form):
@@ -57,3 +57,52 @@ class UserRegistrationForm(forms.ModelForm):
         fields = ('username', 'first_name', 'email', 'gender', 'dob', 'password', 'confirm_password')
         
     
+class EditProfileForm(forms.ModelForm):
+    interest1 = forms.ChoiceField(choices=InterestChoices.get_choices(), widget=forms.Select(), required=False)
+    interest2 = forms.ChoiceField(choices=InterestChoices.get_choices(), widget=forms.Select(), required=False)
+    interest3 = forms.ChoiceField(choices=InterestChoices.get_choices(), widget=forms.Select(), required=False)
+    interest4 = forms.ChoiceField(choices=InterestChoices.get_choices(), widget=forms.Select(), required=False)
+    interest5 = forms.ChoiceField(choices=InterestChoices.get_choices(), widget=forms.Select(), required=False)
+
+    society1 = forms.ChoiceField(choices=SocietyChoices.get_choices(), widget=forms.Select(), required=False)
+    society2 = forms.ChoiceField(choices=SocietyChoices.get_choices(), widget=forms.Select(), required=False)
+    society3 = forms.ChoiceField(choices=SocietyChoices.get_choices(), widget=forms.Select(), required=False)
+    society4 = forms.ChoiceField(choices=SocietyChoices.get_choices(), widget=forms.Select(), required=False)
+    society5 = forms.ChoiceField(choices=SocietyChoices.get_choices(), widget=forms.Select(), required=False)
+
+    photo1 = forms.ImageField(required=False)
+    photo2 = forms.ImageField(required=False)
+    photo3 = forms.ImageField(required=False)
+    photo4 = forms.ImageField(required=False)
+    photo5 = forms.ImageField(required=False)
+
+    def __init__(self, *args, **kwargs):
+        """ Override constructor to set individual ChoiceFields based on user's database entries """
+
+        super().__init__(*args, **kwargs)
+        societies = self.instance.get_societies()
+        society_fields = [self.fields['society1'], self.fields['society2'], self.fields['society3'],
+                          self.fields['society4'], self.fields['society5']]
+        
+        for soc, soc_field in zip(societies, society_fields):
+            soc_field.initial = soc
+
+        interests = self.instance.get_interests()
+        interest_fields = [self.fields['interest1'], self.fields['interest2'], self.fields['interest3'],
+                          self.fields['interest4'], self.fields['interest5']]
+        
+        for interest, interest_field in zip(interests, interest_fields):
+            interest_field.initial = interest
+
+    def clean_year_in(self):
+        year_in = self.cleaned_data['year_in']
+        if not 1 <= year_in <= 10:
+            raise forms.ValidationError("Invalid year entered")
+        return year_in
+
+    class Meta:
+        model = Profile
+
+        fields = ('gender', 'bio', 'year_in', 'course', 'location', 'library_floor', 'looking_for', 'society1', 'society2', 'society3',
+            'society4', 'society5', 'interest1', 'interest2', 'interest3', 'interest4', 'interest5', 'photo1', 'photo2', 'photo3', 'photo4',
+            'photo5')

@@ -17,5 +17,5 @@ urlpatterns = [
     # path('matches/<str:username>/', views.matches_profile, name='matches-profile'),
     # path('dms/', views.dms, name='dms'),
     path('profile/', views.profile, name='profile'),
-    # path('profile/edit/', views.edit_profile, name='edit-profile'),
+    path('profile/edit/', views.edit_profile, name='edit-profile'),
 ]

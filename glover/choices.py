@@ -65,7 +65,7 @@ class CourseChoices:
     @staticmethod
     def get_choices():
         """ Static method to get all course choices above. """
-        return [(v,v) for v in CourseChoices.ALL_CHOICES]
+        return sorted([(v,v) for v in CourseChoices.ALL_CHOICES], key=lambda x: x[0])
 
 class SocietyChoices:
     """ Societies to populate the Society table with and let users choose from """
@@ -235,7 +235,7 @@ class SocietyChoices:
     @staticmethod
     def get_choices():
         """ Static method to get all society choices above. """
-        return [(v,v) for v in SocietyChoices.ALL_CHOICES]
+        return sorted([(v,v) for v in SocietyChoices.ALL_CHOICES], key=lambda x: x[0])
 
 class InterestChoices:
     """ Interests to populate the Interest table with and let users choose from """
@@ -358,7 +358,7 @@ class InterestChoices:
     @staticmethod
     def get_choices():
         """ Static method to get all interest choices above. """
-        return [(v,v) for v in InterestChoices.ALL_CHOICES]
+        return sorted([(v,v) for v in InterestChoices.ALL_CHOICES], key=lambda x: x[0])
 
 class GenderChoices:
     """ Gender choices users can choose from """

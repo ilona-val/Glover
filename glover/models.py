@@ -128,6 +128,7 @@ class Society(models.Model):
         return self.society
 
     class Meta:
+        ordering = ['society']
         verbose_name_plural = 'Societies'
 
 
@@ -143,3 +144,6 @@ class Interest(models.Model):
 
     def __str__(self):
         return self.interest
+
+    class Meta:
+        ordering = ['interest']
