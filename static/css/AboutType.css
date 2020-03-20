@@ -56,3 +56,16 @@
    color: #ccb3ff;
    text-align: center;
 }
+
+.HomeContainer {
+
+}
+
+.WelcomeText {
+  font-size: 80px;
+  font-family: 'Parisienne', cursive;
+  text-shadow: 2px 2px 4px #000000;
+  color: #ccb3ff;
+  display: block;
+  position: relative;
+}
