@@ -18,4 +18,11 @@ urlpatterns = [
     # path('dms/', views.dms, name='dms'),
     path('profile/', views.profile, name='profile'),
     path('profile/edit/', views.edit_profile, name='edit-profile'),
+    path('profile/edit-photos/', views.edit_photos, name='edit-photos'),
 ]
+
+ajax_urls = [
+    path('ajax/delete-photo/', views.delete_photo, name='delete-photo'),
+]
+
+urlpatterns += ajax_urls

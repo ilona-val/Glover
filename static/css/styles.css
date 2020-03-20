@@ -3,6 +3,11 @@
     max-height: 80px;
 }
 
+.md-img {
+    max-width: 150px;
+    max-height: 150px;
+}
+
 .big-img {
     max-width: 350px;
     max-height: 350px;

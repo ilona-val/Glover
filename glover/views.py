@@ -1,5 +1,7 @@
+import os
+
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
@@ -112,7 +114,29 @@ def profile(request):
 def edit_profile(request):
     form = EditProfileForm(instance=request.user.profile)
 
+    if request.method == "POST":
+        form = EditProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('glover:profile'))
+
     return render(request, 'glover/edit-profile.html', {"form": form})
+
+@login_required
+def edit_photos(request):
+    if request.method == 'POST':
+        profile = request.user.profile
+        picture_fields = [profile.image1, profile.image2, profile.image3, profile.image4, profile.image5]
+        updatable_pics = [i for i in picture_fields if not bool(i)]
+        update_field = ([bool(i) for i in picture_fields]).index(False) + 1 # get the number of the image-field to be updated
+
+        if len(updatable_pics) > 0:
+            img_file = request.FILES['file']
+            updatable_pics[0].save(img_file.name, img_file, save=True)
+            return JsonResponse({"imgnum": update_field, "imgpath": updatable_pics[0].url})
+    return render(request, 'glover/edit-photos.html')
+
 
 @login_required
 def matches(request):
@@ -155,3 +179,33 @@ def like(request, profile1, profile2):
     return render(request, 'glover/like.html', context=context_dict)
 
 
+#### AJAX VIEWS
+@login_required
+def delete_photo(request):
+    """ Deletes user picture specified by query parameter """
+    picture = request.GET.get('img', None) # get the picture from the query parameter
+
+    photo_profile_map = {
+        "img1": request.user.profile.image1,
+        "img2": request.user.profile.image2,
+        "img3": request.user.profile.image3,
+        "img4": request.user.profile.image4,
+        "img5": request.user.profile.image5
+    }
+
+    if picture is None or picture not in photo_profile_map.keys():
+        return redirect(reverse('glover:edit-photos'))
+
+    photo_profile_map[picture].delete()
+
+    picture_fields = list(photo_profile_map.values())
+
+    if not bool(picture_fields[0]):
+        for field in picture_fields[1:]:
+            if bool(field):
+                picture_fields[0].save(field.name, field)
+                field.delete()
+                request.user.profile.save()
+                break
+
+    return JsonResponse({"url": reverse('glover:edit-photos')})

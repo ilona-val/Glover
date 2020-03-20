@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Q
 
-from .choices import CourseChoices, SocietyChoices, InterestChoices, GenderChoices, LibraryFloorChoices
+from .choices import CourseChoices, SocietyChoices, InterestChoices, GenderChoices, LibraryFloorChoices, YearInChoices
 
 
 class Profile(models.Model):
@@ -13,20 +13,20 @@ class Profile(models.Model):
     dob = models.DateField()
     gender = models.CharField(max_length=1, choices=GenderChoices.get_choices())
     bio = models.TextField(max_length=300, default="")
-    year_in = models.IntegerField(null=True)
+    year_in = models.CharField(max_length=20, choices=YearInChoices.get_choices(), null=True)
     location = models.CharField(max_length=30, default="")
     library_floor = models.CharField(max_length=20, choices=LibraryFloorChoices.get_choices())
     looking_for = models.CharField(max_length=1, choices=GenderChoices.get_choices())   # Allow to pick one, not multiple
 
-    image1 = models.ImageField(upload_to='profile_pics', blank=True, null=True)
-    image2 = models.ImageField(upload_to='profile_pics', blank=True, null=True)
-    image3 = models.ImageField(upload_to='profile_pics', blank=True, null=True)
-    image4 = models.ImageField(upload_to='profile_pics', blank=True, null=True)
-    image5 = models.ImageField(upload_to='profile_pics', blank=True, null=True)
+    image1 = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    image2 = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    image3 = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    image4 = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    image5 = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
 
     course = models.ForeignKey("Course", on_delete=models.SET_NULL, null=True)
-    interests = models.ManyToManyField("Interest")
-    societies = models.ManyToManyField("Society")
+    interests = models.ManyToManyField("Interest", blank=True)
+    societies = models.ManyToManyField("Society", blank=True)
 
     def get_age(self):
         """ Gets the age of the user """
