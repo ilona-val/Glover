@@ -7,10 +7,22 @@
 
 {% block body_block %}
     <div>
-        <ul>
-            <a href="{% url 'glover:register' %}" >Register</a>
-            <a href="{% url 'glover:login' %}" >Login</a>
-            <a href="{% url 'glover:about' %}" >About</a>
-        </ul>
+	<p></p>
+	<p></p>
+	<center>
+	<p class="WelcomeText" > <b> &hearts; Welcome to Glover! &hearts; </b> </p>
+	<p> <font size="5"> Hello there! Welcome to University of Glasgow's top dating app. Glover is a perfect palce to share your passions and interests as well as meet amazing people. Oh, and congratulations, you are on the right track to finding love. </font> </p>
+		<div class="HomeContainer">
+		<a href="{% url 'glover:register' %}" > 
+		<img src={% static 'images/Sunrise.gif' %} alt="Sunrise">
+		</a>
+		<a href="{% url 'glover:login' %}" >
+		<img src={% static 'images/Laugh.gif' %} alt="Laugh">
+		</a>
+		<a href="{% url 'glover:about' %}" >
+		<img src={% static 'images/Beach.gif' %} alt="Beach">
+		</a>
+		</div>
+		</center>
     </div>
 {% endblock %}
