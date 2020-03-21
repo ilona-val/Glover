@@ -57,15 +57,62 @@
    text-align: center;
 }
 
-.HomeContainer {
-
+.All {
+ display: grid;
+ grid-template-areas:
+ "upper-left   upper-right"
+ "middle-left  middle-right"
+ "lower-left   lower-right";
+  grid-template-columns: 797.5px 500px;
+  grid-template-rows: 200px 200px 200px;
+  grid-gap: 1px;
 }
 
-.WelcomeText {
-  font-size: 80px;
-  font-family: 'Parisienne', cursive;
-  text-shadow: 2px 2px 4px #000000;
-  color: #ccb3ff;
+.WelcomeFont {
+   font-size: 25px;
+   font-family: 'Montserrat', sans-serif;
+   background: #FFFFFF;
+   max-width: 650px;
+   grid-area: upper-left;
+}
+
+.AboutContainer {
+   grid-area: upper-right;
+}
+
+.PersonalSignature {
+   grid-area: middle-left;
+   margin-left:45px;
+}
+
+.LoginContainer {
+   grid-area: middle-right;
+}
+
+.RegisterContainer {
+   grid-area: lower-right;
+}
+
+blockquote {
+  font: normal 300 1em/1.5em 'Ubuntu', sans-serif;
   display: block;
+  border-width: 2px 0;
+  border-style: solid;
+  border-color: #eee;
+  padding: 1.5em 0 0.5em;
   position: relative;
+}
+
+blockquote:before {
+  content: '\201C';
+  position: absolute;
+  top: 1.4em;
+  left: 90%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  width: 3rem;
+  height: 2rem;
+  font: 6em/1.08em 'PT Sans', sans-serif;
+  color: #000000;
+  text-align: center;
 }
