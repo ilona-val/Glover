@@ -1,0 +1,134 @@
+{% extends 'glover/base.html' %}
+{% load staticfiles %}
+{% load glover_tags %}
+
+{% block title_block %}
+	Edit My Profile
+{% endblock %}
+
+{% block body_block %}
+
+<div>
+	{% if user.is_authenticated %}
+		<a href="{% url 'glover:matches' %}">Matches</a>
+		<a href="{% url 'glover:logout' %}">Logout</a>
+		<a href="{% url 'glover:discover' %}">Discover</a>
+		<a href="{% url 'glover:profile' %}">Profile</a>
+	{% endif %}
+</div>
+
+<h2 class='mb-3 text-center'>Add images</h2>
+<div class="row">
+    
+    {% if user.profile.image1 %}
+        <div class="col-2 text-center">
+            <img class="md-img img-responsive" src="{{ user.profile.image1.url }}" alt="Picture of {{ user.first_name }}"/>
+            <br />
+            <button class="mt-2 btn btn-danger" id="delete-img1">Delete</button>
+        </div>
+    {% endif %}
+    
+    {% if user.profile.image2 %}
+        <div class="col-2 text-center">
+        
+            <img class="md-img img-responsive" src="{{ user.profile.image2.url }}" alt="Picture of {{ user.first_name  }}"/>
+            <br />
+            <button class="mt-2 btn btn-danger" id="delete-img2">Delete</button>
+        </div>
+    {% endif %}
+
+    {% if user.profile.image3 %}
+        <div class="col-2 text-center">
+            <img class="md-img img-responsive" src="{{ user.profile.image3.url }}" alt="Picture of {{ user.first_name  }}"/>
+            <br />
+            <button class="mt-2 btn btn-danger" id="delete-img3">Delete</button>        
+        </div>
+    {% endif %}
+
+    {% if user.profile.image4 %}
+        <div class="col-2 text-center">
+            <img class="md-img img-responsive" src="{{ user.profile.image4.url }}" alt="Picture of {{ user.first_name }}"/>
+            <br />
+            <button class="mt-2 btn btn-danger" id="delete-img4">Delete</button>
+        </div>
+    {% endif %}
+
+    {% if user.profile.image5 %}
+        <div class="col-2 text-center">
+            <img class="md-img img-responsive" src="{{ user.profile.image5.url }}" alt="Picture of {{ user.first_name }}"/>
+            <br />
+            <button class="mt-2 btn btn-danger" id="delete-img5">Delete</button>
+        </div>
+    {% endif %}
+</div>
+
+<form method="POST" class="dropzone mt-5" id="edit-photos-form" action="{% url 'glover:edit-photos' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+</form>
+
+<div class="text-center">
+    <a href="{% url 'glover:edit-photos' %}">
+        <button class="btn btn-primary btn-lg mt-4 ">Reload Page</button>
+    </a>
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+
+    var numImages = $(".md-img").length
+
+    Dropzone.options.editPhotosForm = {
+        maxFiles: 5 - numImages,
+        parallelUploads: 1,
+        init: function() {
+            this.on("success", function(file, response) {
+                console.log(file)
+                html = `<div class="col-2 text-center">
+                    <img class="md-img img-responsive" src="${response.imgpath}" alt="picture"/>
+                    <br />
+                    <button class="mt-2 btn btn-danger" id="delete-img${response.imgnum}">Delete</button>
+                </div>`;
+
+            $(".row").append(html)
+            });
+        }
+    };
+
+    function getJson(response) {
+        return response.json()
+    }
+
+    function reloadPage(data) {
+        window.location = data.url
+    }
+
+    $(".row").on("click", "button", function() {
+        var id = $(this).attr("id")
+        var url = "/ajax/delete-photo"
+        
+        switch (id) {
+            case "delete-img1":
+                fetch(url + "?img=img1").then(getJson).then(reloadPage)
+                break
+            case "delete-img2":
+                fetch(url + "?img=img2").then(getJson).then(reloadPage)
+                break
+            case "delete-img3":
+                fetch(url + "?img=img3").then(getJson).then(reloadPage)
+                break
+            case "delete-img4":
+                fetch(url + "?img=img4").then(getJson).then(reloadPage)
+                break
+            case "delete-img5":
+                fetch(url + "?img=img5").then(getJson).then(reloadPage)
+                break
+        }
+    })
+
+
+</script>
+
+{% endblock %}

@@ -27,45 +27,30 @@
 			</div>
 
 			<div class="flex-container row">
-				<div class="flex-item">
-					{% if user.profile.image1 %}
-						<img class="small-img img-responsive" src="{{ user.profile.image1.url }}" alt="Picture of {{ user.first_name }}"/>
-					{% else %}
-						<img class="small-img img-responsive" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
-					{% endif %}
-				</div>
+				{% if user.profile.image2 %}
+					<div class="flex-item">
+						<img class="small-img img-responsive" src="{{ user.profile.image2.url }}" alt="Picture of {{ user.first_name }}"/>
+					</div>
+				{% endif %}
 
-				<div class="flex-item">
-					{% if user.profile.image2 %}
-						<img class="small-img img-responsive" src="{{ user.profile1.image2.url }}" alt="Picture of {{ user.first_name  }}"/>
-					{% else %}
-						<img class="small-img img-responsive" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
-					{% endif %}
-				</div>
+				{% if user.profile.image3 %}
+					<div class="flex-item">
+						<img class="small-img img-responsive" src="{{ user.profile.image3.url }}" alt="Picture of {{ user.first_name }}"/>
+					</div>
+				{% endif %}
 
-				<div class="flex-item">
-					{% if user.profile.image3 %}
-						<img class="small-img img-responsive" src="{{ user.profile.image3.url }}" alt="Picture of {{ user.first_name  }}"/>
-					{% else %}
-						<img class="small-img img-responsive" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
-					{% endif %}
-				</div>
-
-				<div class="flex-item">
-					{% if user.profile.image4 %}
+				{% if user.profile.image4 %}
+					<div class="flex-item">
 						<img class="small-img img-responsive" src="{{ user.profile.image4.url }}" alt="Picture of {{ user.first_name }}"/>
-					{% else %}
-						<img class="small-img img-responsive" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
-					{% endif %}
-				</div>
+					</div>
+				{% endif %}
 
-				{% comment %} <div class="flex-item">
-					{% if user.profile.image5 %}
+
+				{% if user.profile.image5 %}
+					<div class="flex-item">
 						<img class="small-img img-responsive" src="{{ user.profile.image5.url }}" alt="Picture of {{ user.first_name }}"/>
-					{% else %}
-						<img class="small-img img-responsive" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
-					{% endif %}
-				</div> {% endcomment %}
+					</div>
+				{% endif %}
 			</div>
 		</div>
 		

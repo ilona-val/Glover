@@ -398,3 +398,20 @@ class LibraryFloorChoices:
     def get_choices():
         """ Static method to get all favourite library floor choices above. """
         return [(v,v) for v in LibraryFloorChoices.ALL_CHOICES]
+
+class YearInChoices:
+    ACCESS = "Access"
+    YEAR1 = "1st Year"
+    YEAR2 = "2nd Year"
+    YEAR3 = "3rd Year"
+    YEAR4 = "4th Year"
+    MASTERS = "Masters"
+    MPHIL = "MPhil"
+    PHD = "PHD"
+
+    ALL_CHOICES = [ACCESS, YEAR1, YEAR2, YEAR3, YEAR4, MASTERS, MPHIL, PHD]
+
+    @staticmethod
+    def get_choices():
+        """ Static method to get all year-in choices above. """
+        return [(v,v) for v in YearInChoices.ALL_CHOICES]

@@ -15,7 +15,7 @@
     </div>
 
 	<h1>REGISTER</h1>
-	<form id="user_form" method="post" action="{% url 'glover:register' %}" enctype="multipart/form-data">
+	<form id="user_form" method="post" action="{% url 'glover:register' %}">
 		{% csrf_token %}
 
 		{{ registration_form|crispy }}
