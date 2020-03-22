@@ -8,20 +8,11 @@
 
 {% block body_block %}
 
-<div>
-	{% if user.is_authenticated %}
-		<a href="{% url 'glover:matches' %}">Matches</a>
-		<a href="{% url 'glover:logout' %}">Logout</a>
-		<a href="{% url 'glover:discover' %}">Discover</a>
-		<a href="{% url 'glover:profile' %}">Profile</a>
-	{% endif %}
-</div>
-
 <h2 class="text-center mb-4 MainHeadings"><strong>Edit Your Profile<strong></h2>
 
 <div class="mt-4">
 
-	<form method="POST" action="{% url 'glover:edit-profile' %}" enctype="multipart/form-data"  id="profile-form">
+	<form method="POST" action="{% url 'glover:edit-profile' %}" enctype="multipart/form-data" id="profile-form">
 		{% csrf_token %}
 
 		<div class="row">

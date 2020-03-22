@@ -3,19 +3,10 @@
 {% load glover_tags %}
 
 {% block title_block %}
-	Edit My Profile
+	Edit My Photos
 {% endblock %}
 
 {% block body_block %}
-
-<div>
-	{% if user.is_authenticated %}
-		<a href="{% url 'glover:matches' %}">Matches</a>
-		<a href="{% url 'glover:logout' %}">Logout</a>
-		<a href="{% url 'glover:discover' %}">Discover</a>
-		<a href="{% url 'glover:profile' %}">Profile</a>
-	{% endif %}
-</div>
 
 <div>
     <h2 class="text-center mb-4 MainHeadings"><strong>Upload Your Photos<strong></h2>

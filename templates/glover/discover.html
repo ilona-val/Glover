@@ -6,36 +6,27 @@
 {% endblock %}
 
 {% block body_block %}
-    <div>
-        {% if user.is_authenticated %}
-            <a href="{% url 'glover:matches' %}">Matches</a>
-            <a href="{% url 'glover:logout' %}">Logout</a>
-            <a href="{% url 'glover:profile' %}">Profile</a>
-        {% endif %}
-    </div>
 
     <div>
-        <h2>Discover</h2>
+        <h1 class="text-center mb-4 MainHeadings"><strong>Discover</strong></h1>
         {% if profiles %}
             {% for profile in profiles %}
 
-                {% if user != profile.user %}
-                    {% if profile.image1 %}
-                        <img class="big-img" src="{{ m.profile1.image1.url }}" alt="Picture of {{ m.profile1.user.first_name }}"/>
-                    {% else %}
-                        <img class="big-img" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
-                    {% endif %}
-                    <br />
-                    <a href="{% url 'glover:discover_profile' profile.user.username %}">{{ profile.user.username }}</a>
-
-                    <form id="like" method="post" action="{% url 'glover:like' user.username profile.user.username %}">
-                        {% csrf_token %}
-                        <div class="btn-group">
-                            <button type="submit" name="like" class="btn btn-success">Like</button>
-                            <button type="submit" name="dislike" class="btn btn-danger">Dislike</button>
-                        </div>
-                    </form>
+                {% if profile.image1 %}
+                    <img class="big-img" src="{{ profile.image1.url }}" alt="Picture of {{ profile.user.first_name }}"/>
+                {% else %}
+                    <img class="big-img" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
                 {% endif %}
+                <br />
+                <a href="{% url 'glover:discover_profile' profile.user.username %}">{{ profile.user.username }}</a>
+
+                <form id="like" method="post" action="{% url 'glover:like' user.username profile.user.username %}">
+                    {% csrf_token %}
+                    <div class="btn-group">
+                        <button type="submit" name="like" class="btn btn-success">Like</button>
+                        <button type="submit" name="dislike" class="btn btn-danger">Dislike</button>
+                    </div>
+                </form>
             {% endfor %}
 
         {% else %}

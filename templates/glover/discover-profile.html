@@ -11,15 +11,6 @@
 
 {% block body_block %}
 
-	<div>
-        {% if user.is_authenticated %}
-            <a href="{% url 'glover:discover' %}">Discover</a>
-			<a href="{% url 'glover:matches' %}">Matches</a>
-            <a href="{% url 'glover:logout' %}">Logout</a>
-            <a href="{% url 'glover:profile' %}">Profile</a>
-        {% endif %}
-    </div>
-
 	{% if profile %}
 		
 		<h1>{{ profile.user.first_name }}'s Profile</h1>

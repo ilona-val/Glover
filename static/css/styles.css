@@ -30,3 +30,7 @@
   .flex-item {
      margin: auto;
   }
+
+.btn-toolbar a {
+    width: 140px;
+}

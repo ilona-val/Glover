@@ -74,15 +74,13 @@ def user_logout(request):
 
 @login_required
 def discover(request):
-    #user = User.objects.get(username=request.user)
-    #profile = Profile.objects.get(user=user)
+    profile = request.user.profile
+    user_list = profile.get_not_yet_liked()
+    profile_list = [u.profile for u in user_list]
 
-    profile_list = Profile.objects.order_by('user__username')[:10]
+    context_dict ={'profiles': profile_list}
 
-    context_dict = {}
-    context_dict['profiles'] = profile_list
-
-    return render(request, 'glover/discover.html', context=context_dict)
+    return render(request, 'glover/discover.html', context_dict)
 
 
 @login_required
@@ -99,6 +97,10 @@ def discover_profile(request, username):
         context_dict['profile'] = None
 
     return render(request, 'glover/discover-profile.html', context=context_dict)
+
+@login_required
+def match_profile(request, username):
+    return render(request, 'glover/match-profile.html')
 
 ########
 # Profile Views
@@ -145,10 +147,10 @@ def matches(request):
     try:
         user_profile = request.user.profile
         matches = user_profile.get_matches()
-        context_dict['Matches'] = matches
+        context_dict['matches'] = matches
 
     except Match.DoesNotExist:
-        context_dict['Matches'] = None
+        context_dict['matches'] = None
 
     return render(request, 'glover/matches.html', context=context_dict)
 

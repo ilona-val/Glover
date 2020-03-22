@@ -2,44 +2,36 @@
 {% load static %}
 
 {% block title_block %}
-    {% if profile %}
-        {{ profile.username }}
-    {% else %}
-        Unknown
-    {% endif %} 
+	My Matches
 {% endblock %}
 
 {% block body_block %}
-    <div>
-        {% if user.is_authenticated %}
-            <a href="{% url 'glover:discover' %}">Discover</a>
-            <a href="{% url 'glover:logout' %}">Logout</a>
-            <a href="{% url 'glover:profile' %}">Profile</a>
-        {% endif %}
-    </div>
 
-    {% if user.is_authenticated %}
-        {% if Matches %}
-            {% for m in Matches %}
+    <div>
+        <h1 class="text-center mb-4 MainHeadings"><strong>My Matches</strong></h1>
+
+        {% if matches %}
+            {% for m in matches %}
                 {% if m.profile1.user != user %}
                     {% if m.profile1.image1 %}
                         <img class="big-img" src="{{ m.profile1.image1.url }}" alt="Picture of {{ m.profile1.user.first_name }}"/>
                     {% else %}
                         <img class="big-img" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
-                    {% endif %}
-                    <h1>{{m.profile1.user}}</h1>
-                    <p>{{m.profile1.bio}}</p>
+                    {% endif %}             
+                    <br/>
+                    <a href="{% url 'glover:match-profile' m.profile1.user.username %}">{{ m.profile1.user.first_name }}</a>
 
-                {% elif m.profile2.user != user %}
+                {% else %}
                     {% if m.profile2.image1 %}
                         <img class="big-img" src="{{ m.profile2.image1.url }}" alt="Picture of {{ m.profile2.user.first_name }}"/>
                     {% else %}
                         <img class="big-img" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
                     {% endif %}
-                    <h1>{{m.profile2.user}}</h1>
-                    <p>{{m.profile2.bio}}</p>
+                    <br/>
+                    <a href="{% url 'glover:match-profile' m.profile2.user.username %}">{{ m.profile2.user.first_name }}</a>
                 {% endif %}
+                <br />
             {% endfor %}
         {% endif %}
-    {% endif %}
+    </div>
 {% endblock %}

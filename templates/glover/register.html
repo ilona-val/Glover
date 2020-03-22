@@ -8,12 +8,6 @@
 
 {% block body_block %}
 
-	<div>
-		<a href="{% url 'glover:index' %}">Home</a>
-		<a href="{% url 'glover:about' %}">About</a>
-		<a href="{% url 'glover:login' %}">Login</a>
-    </div>
-
 	<div class="col-xs-12 col-sm-12 col-md-10 col-lg-6 offset-lg-3 offset-md-1">
 		<h1 class="text-center mb-4 MainHeadings"><strong>Register</strong></h1>
 		<form id="user_form" method="post" action="{% url 'glover:register' %}">
