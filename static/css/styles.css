@@ -1,3 +1,9 @@
+.logo {
+    max-width: 150px;
+    max-height: 150px;
+    padding: 5px;
+}
+
 .small-img {
     max-width: 80px;
     max-height: 80px;

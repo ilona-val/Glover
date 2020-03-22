@@ -17,6 +17,8 @@
 	{% endif %}
 </div>
 
+<h2 class="text-center mb-4 MainHeadings"><strong>Edit Your Profile<strong></h2>
+
 <div class="mt-4">
 
 	<form method="POST" action="{% url 'glover:edit-profile' %}" enctype="multipart/form-data"  id="profile-form">
@@ -121,5 +123,7 @@
 		</div>
 		</form>
 </div>
+
+<br/><br/>
 
 {% endblock %}

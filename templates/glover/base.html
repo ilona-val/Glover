@@ -18,29 +18,7 @@
 
 		<link rel="stylesheet" href="{% static 'css/Abouttype.css' %}" />
 		<link href="https://fonts.googleapis.com/css?family=Parisienne&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="{% static 'css/wrapper.css' %}" />
-		<script src="{% static 'js/lazy-line-painter-1.9.6.min.js' %}" ></script>
-		
-
-        <script type="text/javascript">
-		
-		(function(){ 
-
-            document.onreadystatechange = () => {
-
-              if (document.readyState === 'complete') {
-                        
-                let el = document.querySelector('#drawing');
-                let myAnimation = new LazyLinePainter(el, {"ease":"easeLinear","strokeWidth":1,"strokeOpacity":1,"strokeColor":"#222F3D","strokeCap":"square"}); 
-                myAnimation.paint(); 
-              }
-            }
-
-          })();
-		 </script>
-		  
-		
 		
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -48,12 +26,19 @@
         <script src="{% static 'dropzone/dropzone/dist/dropzone.js' %}"></script>
     </head>
     <body>
-        <img style='width: 100%; object-fit: contain' src="{% static 'images/logo.jpg' %}" alt="GLover logo" center=true />
+        <div class="row col-lg-12 col-sm-12">
+            <div class="text-left col-lg-6 col-sm-6">
+                <img class='logo' src="{% static 'images/glover-logo.png' %}" alt="Glover logo" />
+            </div>
+            <div class="text-right col-lg-6 col-sm-6 mt-5">
+                <img class='logo' src="{% static 'images/gu-logo.png' %}" alt="University of Glasgow logo" />
+            </div>
+        </div>
+
     	<div class="container">
 	    	{% block body_block %}
 	    	{% endblock %}
     	</div>
-    	<hr />
 
         {% block js %}
 

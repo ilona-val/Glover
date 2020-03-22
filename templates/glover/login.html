@@ -13,13 +13,22 @@
 		<a href="{% url 'glover:register' %}">Register</a>
     </div>
 
-    <h1>Login to GLover</h1>
-    <form id="login_form" method="post" action="{% url 'glover:login' %}">
-        {% csrf_token %}
+    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-6 offset-lg-3 offset-md-1">
+        <h1 class="text-center mb-4 MainHeadings"><strong>Login</strong></h1>
+        <form id="login_form" method="post" action="{% url 'glover:login' %}">
+            {% csrf_token %}
 
-        {{ form|crispy }}
+            {{ form|crispy }}
 
-        <input type="submit" class="btn btn-primary" value="Login" />
-    </form>
-    <p>Don't have an account yet?  <a href="{% url 'glover:register' %}">Sign Up!</a></p>
+            <br />
+            <div class="text-center">
+                <input type="submit" class="btn btn-lg btn-primary px-5" value="Login" />
+            </div>
+        </form>
+    </div>
+
+    <br />
+    <div class="text-center">
+        <p>Don't have an account yet?  <a href="{% url 'glover:register' %}">Sign Up!</a></p>
+    </div>
 {% endblock  %}
