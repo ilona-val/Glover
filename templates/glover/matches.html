@@ -7,31 +7,41 @@
 
 {% block body_block %}
 
-    <div>
+    <div class="container">
         <h1 class="text-center mb-4 MainHeadings"><strong>My Matches</strong></h1>
+
+        <div class="row">
 
         {% if matches %}
             {% for m in matches %}
+
+            <div class="col-sm-12 col-md-4 col-lg-3">
+
                 {% if m.profile1.user != user %}
                     {% if m.profile1.image1 %}
-                        <img class="big-img" src="{{ m.profile1.image1.url }}" alt="Picture of {{ m.profile1.user.first_name }}"/>
+                        <img class="img-responsive" src="{{ m.profile1.image1.url }}" alt="Picture of {{ m.profile1.user.first_name }}"/>
                     {% else %}
-                        <img class="big-img" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+                        <img class="img-responsive" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
                     {% endif %}             
                     <br/>
                     <a href="{% url 'glover:match-profile' m.profile1.user.username %}">{{ m.profile1.user.first_name }}</a>
 
                 {% else %}
                     {% if m.profile2.image1 %}
-                        <img class="big-img" src="{{ m.profile2.image1.url }}" alt="Picture of {{ m.profile2.user.first_name }}"/>
+                        <img class="img-responsive" src="{{ m.profile2.image1.url }}" alt="Picture of {{ m.profile2.user.first_name }}"/>
                     {% else %}
-                        <img class="big-img" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+                        <img class="img-responsive" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
                     {% endif %}
                     <br/>
                     <a href="{% url 'glover:match-profile' m.profile2.user.username %}">{{ m.profile2.user.first_name }}</a>
                 {% endif %}
                 <br />
+
+            </div>
+
             {% endfor %}
         {% endif %}
+
+        </div>
     </div>
 {% endblock %}
