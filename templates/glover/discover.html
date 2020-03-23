@@ -7,15 +7,20 @@
 
 {% block body_block %}
 
-    <div>
+    <div class="container">
         <h1 class="text-center mb-4 MainHeadings"><strong>Discover</strong></h1>
+
+        <div class="row">
+
         {% if profiles %}
             {% for profile in profiles %}
 
+            <div class="col-sm-12 col-md-4 col-lg-3">
+
                 {% if profile.image1 %}
-                    <img class="big-img" src="{{ profile.image1.url }}" alt="Picture of {{ profile.user.first_name }}"/>
+                    <img class="img-responsive" src="{{ profile.image1.url }}" alt="Picture of {{ profile.user.first_name }}"/>
                 {% else %}
-                    <img class="big-img" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+                    <img class="img-responsive" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
                 {% endif %}
                 <br />
                 <a href="{% url 'glover:discover_profile' profile.user.username %}">{{ profile.user.username }}</a>
@@ -27,10 +32,17 @@
                         <button type="submit" name="dislike" class="btn btn-danger">Dislike</button>
                     </div>
                 </form>
+
+            </div>
             {% endfor %}
 
         {% else %}
             <strong>There's no one here.</strong>
         {% endif %}
+
+
+        </div>
+
+
     </div>
 {% endblock %}
