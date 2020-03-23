@@ -17,22 +17,22 @@
 
             <div class="col-sm-12 col-md-4 col-lg-3">
 
-                {% if profile.image1 %}
-                    <img class="img-responsive" src="{{ profile.image1.url }}" alt="Picture of {{ profile.user.first_name }}"/>
-                {% else %}
-                    <img class="img-responsive" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
-                {% endif %}
-                <br />
-                <a href="{% url 'glover:discover_profile' profile.user.username %}">{{ profile.user.username }}</a>
 
-                <form id="like" method="post" action="{% url 'glover:like' user.username profile.user.username %}">
-                    {% csrf_token %}
-                    <div class="btn-group">
-                        <button type="submit" name="like"><img src="{% static 'images/heart.png' %}"  width="20" height="20"  /></i></button>
-                        <button type="submit" name="dislike"><img src="{% static 'images/dislike.png' %}"  width="20" height="20"  /></button>
-                    </div>
-                </form>
-
+                <div class="card text-center">
+                    {% if profile.image1 %}
+                        <img class="card-img-top" src="{{ profile.image1.url }}" alt="Picture of {{ profile.user.first_name }}"/>
+                    {% else %}
+                        <img class="card-img-top" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+                    {% endif %}
+                        <a class="card-title" href="{% url 'glover:discover_profile' profile.user.username %}">{{ profile.user.username }}</a>
+                        <form id="like" method="post" action="{% url 'glover:like' user.username profile.user.username %}">
+                            {% csrf_token %}
+                            <div class="btn-group">
+                                <button type="submit" name="like"><img src="{% static 'images/heart.png' %}"  width="20" height="20"  /></i></button>
+                                <button type="submit" name="dislike"><img src="{% static 'images/dislike.png' %}"  width="20" height="20"  /></button>
+                            </div>
+                        </form>
+                </div>
             </div>
             {% endfor %}
 
