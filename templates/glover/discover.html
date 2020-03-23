@@ -19,19 +19,27 @@
 
 
                 <div class="card text-center">
+                    <div class="card-header">
+                        <a class="card-title" href="{% url 'glover:discover_profile' profile.user.username %}">{{ profile.user.username }}</a>
+                    </div>
                     {% if profile.image1 %}
                         <img class="card-img-top" src="{{ profile.image1.url }}" alt="Picture of {{ profile.user.first_name }}"/>
                     {% else %}
                         <img class="card-img-top" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
                     {% endif %}
-                        <a class="card-title" href="{% url 'glover:discover_profile' profile.user.username %}">{{ profile.user.username }}</a>
+                    <div class="card-body">
                         <form id="like" method="post" action="{% url 'glover:like' user.username profile.user.username %}">
                             {% csrf_token %}
-                            <div class="btn-group">
+                            <div class="btn-group row">
+                                <div class="col-6">
                                 <button type="submit" name="like"><img src="{% static 'images/heart.png' %}"  width="20" height="20"  /></i></button>
+                            </div>
+                            <div class="col-6">
                                 <button type="submit" name="dislike"><img src="{% static 'images/dislike.png' %}"  width="20" height="20"  /></button>
                             </div>
+                            </div>
                         </form>
+                    </div>
                 </div>
             </div>
             {% endfor %}
