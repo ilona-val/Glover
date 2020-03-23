@@ -57,40 +57,32 @@
    text-align: center;
 }
 
-.All {
- display: grid;
- grid-template-areas:
- "upper-left   upper-right"
- "middle-left  middle-right"
- "lower-left   lower-right";
-  grid-template-columns: 797.5px 500px;
-  grid-template-rows: 200px 200px 200px;
-  grid-gap: 1px;
+.UpperSection {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr, 2fr;
+  grid-template-rows: 1fr, 0.7fr, 1fr;
 }
 
-.WelcomeFont {
-   font-size: 25px;
-   font-family: 'Montserrat', sans-serif;
-   background: #FFFFFF;
-   max-width: 650px;
-   grid-area: upper-left;
+.UpperSectionItem1 {
+   grid-column: 1;
+   grid-row: 1;
 }
 
-.AboutContainer {
-   grid-area: upper-right;
+.UpperSectionItem2 {
+   grid-column: 2;
+   grid-row: 1 / span 2;
 }
 
-.PersonalSignature {
-   grid-area: middle-left;
-   margin-left:45px;
+.UpperSectionItem3 {
+   grid-column: 1;
+   grid-row: 2;
 }
 
-.LoginContainer {
-   grid-area: middle-right;
-}
-
-.RegisterContainer {
-   grid-area: lower-right;
+.GifButtons {
+   display: flex;
+   flex-direction: row;
+   grid-template-columns: 1fr 1fr 1fr;
 }
 
 blockquote {
