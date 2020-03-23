@@ -34,7 +34,7 @@ class UserRegistrationForm(forms.ModelForm):
     confirm_password = forms.CharField(widget=forms.PasswordInput())
     first_name = forms.CharField(required=True)
     email = forms.CharField(required=True)
-    dob = forms.DateField()
+    dob = forms.DateField(label="Date of Birth", input_formats=['%d/%m/%Y'], widget=forms.TextInput(attrs={'autocomplete':'off'}))
     gender = forms.ChoiceField(choices=GenderChoices.get_choices(), widget=forms.Select(), required=True)
 
     def clean_confirm_password(self):
