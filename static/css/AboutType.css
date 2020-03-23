@@ -23,7 +23,6 @@
   height: 250px;
   border: 3px solid;
   margin: 50px;
-
 }
 
 .caption{
@@ -36,15 +35,16 @@
 .teamName {
     font-size: 50px;
     font-family: 'Parisienne', cursive;
-    text-shadow: 2px 2px 4px #000000;
-    color: #ccb3ff;
+    text-shadow: 2px 2px 4px #e39000;
+    color: #002c6b;
+    font-weight: 900;
 }
 
 .BigHeadings {
     font-size: 67px;
     font-family: 'Parisienne', cursive;
-    text-shadow: 2px 2px 4px #000000;
-    color: #ccb3ff;
+    text-shadow: 2px 2px 4px #e39000;
+    color: #002c6b;
     text-align: center;
     
 }
@@ -52,16 +52,16 @@
 .MainHeadings {
    font-size: 80px;
    font-family: 'Parisienne', cursive;
-   text-shadow: 2px 2px 4px #000000;
-   color: #ccb3ff;
+   text-shadow: 2px 2px 4px #e39000;
+   color: #002c6b;
    text-align: center;
 }
 
 .UpperSection {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr, 2fr;
-  grid-template-rows: 1fr, 0.7fr, 1fr;
+  grid-template-columns: 1fr, 1fr;
+  grid-template-rows: auto 2fr auto;
 }
 
 .UpperSectionItem1 {
@@ -86,7 +86,7 @@
 }
 
 blockquote {
-  font: normal 300 1em/1.5em 'Ubuntu', sans-serif;
+  font-family: 'Fira Mono', monospace;
   display: block;
   border-width: 2px 0;
   border-style: solid;
@@ -98,7 +98,7 @@ blockquote {
 blockquote:before {
   content: '\201C';
   position: absolute;
-  top: 1.4em;
+  top: 2.3em;
   left: 90%;
   transform: translate(-50%, -50%);
   background: #fff;
