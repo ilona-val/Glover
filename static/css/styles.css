@@ -1,7 +1,7 @@
 .logo {
     max-width: 150px;
     max-height: 150px;
-    padding: 5px;
+    padding: 0px 5px 0px 5px;
 }
 
 .small-img {
@@ -39,4 +39,12 @@
 
 .img-responsive {
   max-width: 100%;
+}
+
+.nav-link {
+  font-size: 14pt;
+}
+
+.body-block {
+  padding-top: 20px;
 }
