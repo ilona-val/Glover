@@ -178,7 +178,7 @@ def like(request, profile1, profile2):
     except Profile.DoesNotExist:
         context_dict['like'] = None
 
-    return render(request, 'glover/like.html', context=context_dict)
+    return redirect(reverse('glover:discover'))
 
 
 #### AJAX VIEWS
