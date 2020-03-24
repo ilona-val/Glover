@@ -68,10 +68,9 @@
                 <ul class="navbar-nav nav-fill w-100 align-items-start">
 
 
-                  <li class="nav-item mx-2">
+                  <li class="nav-item mx-2 active">
                     <a class="nav-link" href="{% url 'glover:discover' %} ">Discover</a>
                   </li>
-
 
                   <li class="nav-item mx-2">
                     <a class="nav-link" href="{% url 'glover:matches' %}">Matches</a>
@@ -141,5 +140,14 @@
         {% block js %}
 
         {% endblock %}
+
+        <script>
+          $(document).ready(function() {
+            if (location.pathname != "/discover/") {
+              $('li.active').removeClass('active');
+            }
+            $('a[href="' + location.pathname + '"]').closest('li').addClass('active'); 
+          });
+        </script>
     </body>
 </html>
