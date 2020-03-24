@@ -1,3 +1,5 @@
+from datetime import date
+
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
@@ -49,12 +51,22 @@ class UserRegistrationForm(forms.ModelForm):
         email = self.cleaned_data['email'].strip()
 
         if not email.endswith('@student.gla.ac.uk'):
-            raise forms.ValidationError("Email must belong to a University of Glasgow account. ( @student.gla.ac.uk )")
+            raise forms.ValidationError("Email must belong to a University of Glasgow account ( @student.gla.ac.uk ).")
         return email
+
+    def clean_dob(self):
+        dob = self.cleaned_data['dob']
+        today = date.today()
+        if (dob.year + 16, dob.month, dob.day) > (today.year, today.month, today.day):
+            raise forms.ValidationError("You must be over 16 to use GLover.")
+        return dob
 
     class Meta:
         model = User
         fields = ('username', 'first_name', 'email', 'gender', 'dob', 'password', 'confirm_password')
+        help_texts = {
+            'username': None,  # don't show any help messages for the username
+        }
 
 
 # class EditPhotosForm(forms.Form):
