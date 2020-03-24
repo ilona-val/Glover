@@ -98,7 +98,7 @@ blockquote {
 blockquote:before {
   content: '\201C';
   position: absolute;
-  top: 1.85em;
+  top: 1.55em;
   left: 90%;
   transform: translate(-50%, -50%);
   background: #fff;
