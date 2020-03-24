@@ -27,6 +27,17 @@ def populate():
     user8 = User.objects.create_user(username='jack', password='1234', email="jack@student.gla.ac.uk", first_name="Jack")
     user9 = User.objects.create_user(username='peter', password='1234', email="peter@student.gla.ac.uk", first_name="Peter")
     user10 = User.objects.create_user(username='melinda', password='1234', email="melinda@student.gla.ac.uk", first_name="Melinda")
+    
+    user11 = User.objects.create_user(username='john', password='1234', email="john@student.gla.ac.uk", first_name="John")
+    user12 = User.objects.create_user(username='jack2', password='1234', email="jack@student.gla.ac.uk", first_name="Jack")
+    user13 = User.objects.create_user(username='jessica', password='1234', email="jessica@student.gla.ac.uk", first_name="Jessica")
+    user14 = User.objects.create_user(username='greta', password='1234', email="greta@student.gla.ac.uk", first_name="Greta")
+    user15 = User.objects.create_user(username='lea', password='1234', email="lea@student.gla.ac.uk", first_name="Lea")
+    user16 = User.objects.create_user(username='amanda', password='1234', email="amanda@student.gla.ac.uk", first_name="Amanda")
+    user17 = User.objects.create_user(username='jess', password='1234', email="jess@student.gla.ac.uk", first_name="Jess")
+    user18 = User.objects.create_user(username='hugo', password='1234', email="hugo@student.gla.ac.uk", first_name="Hugo")
+    user19 = User.objects.create_user(username='marina', password='1234', email="marina@student.gla.ac.uk", first_name="Marina")
+    user20 = User.objects.create_user(username='lizzy', password='1234', email="lizzy@student.gla.ac.uk", first_name="Lizzy")
 
     profiles = [
         {'user': user1, 'dob': '1996-05-16', 'gender': "M", 'bio': "sup it's Tomas", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "F", 'course_id': 10},
@@ -38,7 +49,17 @@ def populate():
         {'user': user7, 'dob': '1996-05-16', 'gender': "F", 'bio': "sup it's Linda", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "M", 'course_id': 26},
         {'user': user8, 'dob': '1996-05-16', 'gender': "M", 'bio': "sup it's Jack", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "F", 'course_id': 2},            
         {'user': user9, 'dob': '1996-05-16', 'gender': "M", 'bio': "sup it's Peter", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "F", 'course_id': 32},
-        {'user': user10, 'dob': '1996-05-16', 'gender': "F", 'bio': "sup it's Melinda", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "F", 'course_id': 26},            
+        {'user': user10, 'dob': '1996-05-16', 'gender': "F", 'bio': "sup it's Melinda", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "F", 'course_id': 26},   
+        {'user': user11, 'dob': '1996-05-16', 'gender': "M", 'bio': "sup it's John", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "F", 'course_id': 10},
+        {'user': user12, 'dob': '1996-05-16', 'gender': "M", 'bio': "sup it's Jack", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "M", 'course_id': 10},
+        {'user': user13, 'dob': '1996-05-16', 'gender': "F", 'bio': "sup it's Jessica", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "M", 'course_id': 10},            
+        {'user': user14, 'dob': '1996-05-16', 'gender': "F", 'bio': "sup it's Greta", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "M", 'course_id': 10},
+        {'user': user15, 'dob': '1996-05-16', 'gender': "F", 'bio': "sup it's Lea", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "M", 'course_id': 10},   
+        {'user': user16, 'dob': '1996-05-16', 'gender': "F", 'bio': "sup it's Amanda", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "N", 'course_id': 26},
+        {'user': user17, 'dob': '1996-05-16', 'gender': "F", 'bio': "sup it's Jess", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "M", 'course_id': 26},
+        {'user': user18, 'dob': '1996-05-16', 'gender': "M", 'bio': "sup it's Hugo", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "F", 'course_id': 2},            
+        {'user': user19, 'dob': '1996-05-16', 'gender': "F", 'bio': "sup it's Marina", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "F", 'course_id': 32},
+        {'user': user20, 'dob': '1996-05-16', 'gender': "F", 'bio': "sup it's Lizzy", 'year_in': 2, 'location': 'Glasgow', 'library_floor': "Level 3", 'looking_for': "F", 'course_id': 26},          
     ]
 
     societies = Society.objects.all()
