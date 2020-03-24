@@ -20,7 +20,7 @@
 
                 <div class="card text-center mb-4">
                     <div class="card-header">
-                        <a class="card-title" href="{% url 'glover:discover_profile' profile.user.username %}">{{ profile.user.username }}</a>
+                        <a class="card-title" href="{% url 'glover:discover_profile' profile.user.username %}">{{ profile.user.first_name }}</a>
                     </div>
                     {% if profile.image1 %}
                         <img class="card-img-top" src="{{ profile.image1.url }}" alt="Picture of {{ profile.user.first_name }}"/>
