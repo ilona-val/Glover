@@ -13,35 +13,40 @@
         <div class="row">
 
         {% if profiles %}
+
             {% for profile in profiles %}
 
-            <div class="col-sm-12 col-md-4 col-lg-3">
+                {% if user.profile.looking_for == profile.gender and profile.looking_for == user.profile.gender %}
+
+                    <div class="col-sm-12 col-md-4 col-lg-3">
 
 
-                <div class="card text-center mb-4">
-                    <div class="card-header">
-                        <a class="card-title" href="{% url 'glover:discover_profile' profile.user.username %}">{{ profile.user.first_name }}</a>
+                        <div class="card text-center mb-4">
+                            <div class="card-header">
+                                <a class="card-title" href="{% url 'glover:discover_profile' profile.user.username %}">{{ profile.user.first_name }}</a>
+                            </div>
+                            {% if profile.image1 %}
+                                <img class="card-img-top" src="{{ profile.image1.url }}" alt="Picture of {{ profile.user.first_name }}"/>
+                            {% else %}
+                                <img class="card-img-top" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+                            {% endif %}
+                            <div class="card-body">
+                                <form id="like" method="post" action="{% url 'glover:like' user.username profile.user.username %}">
+                                    {% csrf_token %}
+                                    <div class="btn-group row">
+                                        <div class="col-6">
+                                        <button type="submit" name="like"><img src="{% static 'images/heart.png' %}"  width="30" height="30"  /></i></button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="submit" name="dislike"><img src="{% static 'images/dislike.png' %}"  width="30" height="30"  /></button>
+                                    </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    {% if profile.image1 %}
-                        <img class="card-img-top" src="{{ profile.image1.url }}" alt="Picture of {{ profile.user.first_name }}"/>
-                    {% else %}
-                        <img class="card-img-top" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
-                    {% endif %}
-                    <div class="card-body">
-                        <form id="like" method="post" action="{% url 'glover:like' user.username profile.user.username %}">
-                            {% csrf_token %}
-                            <div class="btn-group row">
-                                <div class="col-6">
-                                <button type="submit" name="like"><img src="{% static 'images/heart.png' %}"  width="30" height="30"  /></i></button>
-                            </div>
-                            <div class="col-6">
-                                <button type="submit" name="dislike"><img src="{% static 'images/dislike.png' %}"  width="30" height="30"  /></button>
-                            </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+
+                {% endif %}
             {% endfor %}
 
         {% else %}
