@@ -13,31 +13,49 @@
         <div class="row">
 
         {% if matches %}
+
             {% for m in matches %}
 
-            <div class="col-sm-12 col-md-4 col-lg-3">
+                <div class="col-sm-12 col-md-4 col-lg-3">
 
-                {% if m.profile1.user != user %}
-                    {% if m.profile1.image1 %}
-                        <img class="img-responsive" src="{{ m.profile1.image1.url }}" alt="Picture of {{ m.profile1.user.first_name }}"/>
-                    {% else %}
-                        <img class="img-responsive" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
-                    {% endif %}             
-                    <br/>
-                    <a href="{% url 'glover:match-profile' m.profile1.user.username %}">{{ m.profile1.user.first_name }}</a>
+                    {% if m.profile1.user != user %}
 
-                {% else %}
-                    {% if m.profile2.image1 %}
-                        <img class="img-responsive" src="{{ m.profile2.image1.url }}" alt="Picture of {{ m.profile2.user.first_name }}"/>
+                        <div class="card text-center mb-4">
+                            <div class="card-header">
+                                <a class="card-title" href="{% url 'glover:match-profile' m.profile1.user.username %}">{{ m.profile1.user.first_name }}</a>
+                            </div>
+                            <div class="card-size">
+                            {% if m.profile1.image1 %}
+                                <img class="card-img-top" src="{{ m.profile1.image1.url }}" alt="Picture of {{ m.profile1.user.first_name }}"/>
+                            {% else %}
+                                <img class="card-img-top" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+                            {% endif %}
+                            </div>
+<!--                             <div class="card-body">
+                                <p>{{ m.profile1.course }}</p>
+                            </div> -->
+                        </div>
+
                     {% else %}
-                        <img class="img-responsive" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+
+                        <div class="card text-center mb-4">
+                            <div class="card-header">
+                                <a class="card-title" href="{% url 'glover:match-profile' m.profile2.user.username %}">{{ m.profile2.user.first_name }}</a>
+                            </div>
+                            <div class="card-size">
+                            {% if m.profile2.image1 %}
+                                <img class="card-img-top" src="{{ m.profile2.image1.url }}" alt="Picture of {{ m.profile2.user.first_name }}"/>
+                            {% else %}
+                                <img class="card-img-top" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+                            {% endif %}
+                            </div>
+<!--                             <div class="card-body">
+                                <p>{{ m.profile1.course }}</p>
+                            </div> -->
+                        </div>
+
                     {% endif %}
-                    <br/>
-                    <a href="{% url 'glover:match-profile' m.profile2.user.username %}">{{ m.profile2.user.first_name }}</a>
-                {% endif %}
-                <br />
-
-            </div>
+                </div>
 
             {% endfor %}
         {% endif %}

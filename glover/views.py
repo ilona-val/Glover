@@ -100,8 +100,19 @@ def discover_profile(request, username):
 
 @login_required
 def match_profile(request, username):
-    return render(request, 'glover/match-profile.html')
+    context_dict = {}
 
+    try:
+        user = User.objects.get(username=username)
+        profile = Profile.objects.get(user=user)
+
+        context_dict['profile'] = profile
+
+    except Profile.DoesNotExist:
+        context_dict['profile'] = None
+
+    return render(request, 'glover/match-profile.html', context=context_dict)
+    
 ########
 # Profile Views
 
