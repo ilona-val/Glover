@@ -11,36 +11,57 @@
 
 {% block body_block %}
 
-	{% if profile %}
-		
-		<h1>{{ profile.user.first_name }}'s Profile</h1>
-		<p>Name: {{ profile.user.first_name }}</p>
-		<p>Gender: {{ profile.get_gender_display }}</p>
-		<p>Age: {{ profile.get_age }}</p>
-		<p>Bio: {{ profile.bio }}</p>
-		<p>Location: {{ profile.location }}</p>
-		<p>Favourite Library Floor: {{ profile.library_floor }}</p>
-		<p>Looking For: {{ profile.get_looking_for_display }}</p>
-		<p>Studies: {{ profile.course.course }}</p>
-		<p>Year of Study: {{ profile.year_in }}</p>
+	<div class="container">
 
-		<p>Interests:
-		<ul>
-			{% for interest in profile.get_interests %}
-				<li> {{ interest.interest }} </li>
-			{% endfor %}
-		</ul>
-		</p>
+		{% if profile %}
 
-		<p>Societies:
-		<ul>
-			{% for society in profile.get_societies %}
-				<li> {{ society.society }} </li>
-			{% endfor %}
-		</ul>
-		</p>
+        <h1 class="text-center">{{ profile.user.first_name }}'s Profile</h1>
+        <br />
 
-	{% else %}
-		There is no one here.
-	{% endif %}
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                {% if profile.image1 %}
+                    <img class="img-responsive" src="{{ profile.image1.url }}" alt="Picture of {{ profile.user.first_name }}"/>
+                {% else %}
+                    <img class="img-responsive" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+                {% endif %}
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <p>Name: {{ profile.user.first_name }}</p>
+                <p>Gender: {{ profile.get_gender_display }}</p>
+                <p>Age: {{ profile.get_age }}</p>
+                <p>Bio: {{ profile.bio }}</p>
+                <p>Location: {{ profile.location }}</p>
+                <p>Favourite Library Floor: {{ profile.library_floor }}</p>
+                <p>Looking For: {{ profile.get_looking_for_display }}</p>
+                <p>Studies: {{ profile.course.course }}</p>
+                <p>Year of Study: {{ profile.year_in }}</p>
+            </div>
+        </div>   
+        <br />
+
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <p>Interests:
+                <ul>
+                    {% for interest in profile.get_interests %}
+                        <li> {{ interest.interest }} </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <p>Societies:
+                <ul>
+                    {% for society in profile.get_societies %}
+                        <li> {{ society.society }} </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>    
+
+		{% else %}
+			There is no one here.
+		{% endif %}
+
+	</div>
 {% endblock %}
