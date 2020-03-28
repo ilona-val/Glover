@@ -1,11 +1,7 @@
-.logo {
-    max-height: 150px;
-    padding: 10px 5px 10px 5px;
-}
-
 .small-img {
-    max-width: 80px;
-    max-height: 80px;
+	object-fit: cover;
+	width: 80px;
+	height: 80px;
 }
 
 .md-img {
@@ -14,8 +10,14 @@
 }
 
 .big-img {
-    max-width: 350px;
-    max-height: 350px;
+	object-fit: cover;
+	width: 350px;
+	height: 350px;
+}
+
+.stats {
+	max-width: 350px;
+	max-height: 350px;
 }
 
 .flex-container {
@@ -35,56 +37,88 @@
 }
 
 .img-responsive {
-  max-width: 100%;
+  	max-width: 100%;
 }
 
 .nav-link {
-  font-size: 14pt;
+  	font-size: 16pt;
+}
+
+.nav-link:hover {
+  	background-color:#eef7fd;
 }
 
 .body-block {
-  padding-top: 20px;
+  	padding-top: 20px;
 }
-
-
 
 .footer {
-  background-color: #e3f2fd;
+	  background-color: #e3f2fd;
 }
-
-
 
 /* styling to make the footer stay at the bottom */
 
 html, body {
-  height: 100%;
-  margin: 0;
+	height: 100%;
+	margin: 0;
 }
-.wrapper {
-  min-height: 100%;
 
-  /* Equal to height of footer */
-  /* But also accounting for potential margin-bottom of last child */
-  margin-bottom: -70px;
+/*.wrapper {
+	min-height: 100%;
+
+	/* Equal to height of footer */
+	/* But also accounting for potential margin-bottom of last child */
+/*	margin-bottom: -60px;
+}*/
+
+.wrapper {
+	position: relative;
+	min-height: 100vh;
+	margin-bottom: -60px;
 }
+
+#app-content {
+	padding-bottom: 60px;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+
 .footer,
 .push {
-  height: 70px;
+  	height: 60px;
 }
 
 /* end of footer positioning */
 
 .card-img-top {
-  height: auto;
-  width: auto;
-  max-height: 100%;
-  max-width: 100%;
+	object-fit: cover;
+	height: 300px;
+	width: auto;
+	max-height: 100%;
+	max-width: 100%;
 }
 
-
 .card-size {
-  height: 210px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	height: 250px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.card-header {
+	background-color: #e3f2fd;
+}
+
+.btn-glyphicon {
+    padding:8px;
+    background:#ffffff;
+    margin-right:4px;
+}
+.icon-btn {
+    padding: 1px 15px 3px 2px;
+    border-radius:50px;
 }

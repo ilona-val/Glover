@@ -11,8 +11,8 @@
 	<h1 class="text-center mb-4 BigHeadings"><strong>My Profile</strong></h1>
 	<div class="row my-5">
 
-		<div class="col-12 col-sm-4 col-md-6 col-lg-6">
-			<div class="text-center">
+		<div class="col-sm-12 col-lg-6">
+			<div class="text-center col-lg-12">
 				{% if user.profile.image1 %}
 					<img class="big-img" src="{{ user.profile.image1.url }}" alt="Picture of {{ user.first_name }}"/>
 				{% else %}
@@ -20,7 +20,7 @@
 				{% endif %}
 			</div>
 
-			<div class="flex-container row">
+			<div class="flex-container row col-lg-12">
 				{% if user.profile.image2 %}
 					<div class="flex-item">
 						<img class="small-img img-responsive" src="{{ user.profile.image2.url }}" alt="Picture of {{ user.first_name }}"/>
@@ -38,7 +38,6 @@
 						<img class="small-img img-responsive" src="{{ user.profile.image4.url }}" alt="Picture of {{ user.first_name }}"/>
 					</div>
 				{% endif %}
-
 
 				{% if user.profile.image5 %}
 					<div class="flex-item">

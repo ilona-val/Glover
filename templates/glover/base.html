@@ -19,8 +19,8 @@
         <link rel="icon" type="image/png" href="{% static 'images/glover-logo.png' %}" sizes="16x16">
         <link rel="icon" type="image/png" href="{% static 'images/glover-logo.png' %}" sizes="32x32">
 
-		<link rel="stylesheet" href="{% static 'css/Abouttype.css' %}" />
-		<link href="https://fonts.googleapis.com/css?family=Parisienne&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/Abouttype.css' %}" />
+        <link href="https://fonts.googleapis.com/css?family=Parisienne&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Fira+Mono&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="{% static 'css/wrapper.css' %}" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -48,97 +48,91 @@
         <script src="{% static 'dropzone/dropzone/dist/dropzone.js' %}"></script>
 
     </head>
-    <body>
-
+    
+	<body>
         <div class="wrapper">
 
-            <nav class="navbar navbar-expand-md navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+			<div id="app-content">
 
-                {% if user.is_authenticated %}
-                    <a  href="{% url 'glover:discover' %}">
-                {% else %}
-                    <a  href="{% url 'glover:index' %}">
-                {% endif %}
-                <img class='logo' src="{% static 'images/glover-logo.png' %}" alt="Glover logo"  width="110" height="110" class="d-inline-block align-top" /></a>
+				<nav class="navbar navbar-expand-md navbar-expand-lg navbar-light sticky-top" style="background-color: #e3f2fd;">
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
+					{% if user.is_authenticated %}
+						<a  href="{% url 'glover:discover' %}">
+					{% else %}
+						<a  href="{% url 'glover:index' %}">
+					{% endif %}
+					<img class='navbar-brand' src="{% static 'images/glover-logo.png' %}" alt="Glover logo" height="80" class="d-inline-block align-top" /></a>
 
-            {% if user.is_authenticated %}
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
 
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-fill w-100 align-items-start">
+					{% if user.is_authenticated %}
 
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                  <li class="nav-item mx-2 active">
-                    <a class="nav-link" href="{% url 'glover:discover' %} ">Discover</a>
-                  </li>
+						<ul class="navbar-nav nav-fill w-100 align-items-start">
+							<li class="nav-item mx-2 active">
+								<a class="nav-link" href="{% url 'glover:discover' %} ">Discover</a>
+							</li>
 
-                  <li class="nav-item mx-2">
-                    <a class="nav-link" href="{% url 'glover:matches' %}">Matches</a>
-                  </li>
+							<li class="nav-item mx-2">
+								<a class="nav-link" href="{% url 'glover:matches' %}">Matches</a>
+							</li>
 
-                  <li class="nav-item mx-2">
-                    <a class="nav-link" href="{% url 'glover:profile' %}">Profile</a>
-                  </li>
+							<li class="nav-item mx-2">
+								<a class="nav-link" href="{% url 'glover:profile' %}">Profile</a>
+							</li>
 
-                  <li class="nav-item mx-2">
-                    <a class="nav-link" href="{% url 'glover:matches' %}">DMs</a>
-                  </li>   
+							<li class="nav-item mx-2">
+								<a class="nav-link" href="{% url 'glover:matches' %}">DMs</a>
+							</li>   
 
-                  <li class="nav-item mx-2">
-                    <a class="nav-link" href="{% url 'glover:about' %}">About Us</a>
-                  </li>
-                                     
-                  <li class="nav-item mx-2">
-                    <a class="nav-link" href="{% url 'glover:logout' %}">Logout</a>
-                  </li>
-              </div>
+							<li class="nav-item mx-2">
+								<a class="nav-link" href="{% url 'glover:about' %}">About Us</a>
+							</li>
+												
+							<li class="nav-item mx-2">
+								<a class="nav-link" href="{% url 'glover:logout' %}">Logout</a>
+							</li>
+						</ul>
+					</div>
 
-            {% else %}
+					{% else %}
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-fill w-100 align-items-start">
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav nav-fill w-100 align-items-start">
 
-                  <li class="nav-item mx-2">
-                    <a class="nav-link" href="{% url 'glover:index' %}">Home</a>
-                  </li>
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'glover:index' %}">Home</a>
+							</li>
 
-                  <li class="nav-item mx-2">
-                    <a class="nav-link" href="{% url 'glover:about' %}">About Us</a>
-                  </li>
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'glover:about' %}">About Us</a>
+							</li>
 
-                  <li class="nav-item mx-2">
-                    <a class="nav-link" href="{% url 'glover:register' %}">Register</a>
-                  </li>
-                                     
-                  <li class="nav-item mx-2">
-                    <a class="nav-link" href="{% url 'glover:login' %}">Login</a>
-                  </li>
-              </div>
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'glover:register' %}">Register</a>
+							</li>
+												
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'glover:login' %}">Login</a>
+							</li>
+						</ul>
+					</div>
 
-              {% endif %}
+					{% endif %}
+				</nav>
 
-    <!--
-                <div class="text-right mt-5 mr-4">
-                    <a href="https://www.gla.ac.uk/"><img class='logo' src="{% static 'images/gu-logo.png' %}" alt="University of Glasgow logo" /></a>
-                </div>
-    -->
-            </nav>
-
-            
-
-        	<div class="body-block">
-    	    	{% block body_block %}
-    	    	{% endblock %}
-        	</div>
-
-            <div class="push"></div>
-
-        </div>
-        <footer class="footer text-center py-4">© 2020 Copyright:<a href="https://google.com/"> GLover.com</a></footer>
-
+				<div class="body-block">
+					{% block body_block %}
+					{% endblock %}
+				</div>
+			</div>
+	
+        	<footer style="background-color: #e3f2fd;" class="footer text-center py-3">
+				© 2020 Copyright:<a href="https://www.gla.ac.uk/"> glover.com</a></footer>
+		</div>
 
         {% block js %}
 

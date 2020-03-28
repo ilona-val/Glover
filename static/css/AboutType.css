@@ -1,14 +1,33 @@
 .carousel-caption{
+   max-height: 100%;
 	padding-bottom: 170px;
 }
 
 .carousel-caption h3{
-	font-size: 50px;
 	text-shadow: 2px 2px 4px #000000;
 }
 
+@media all and (min-width: 801px) {
+   .carousel-caption h3 {
+      font-size: 50px;
+      margin-top: 20px;
+   }
+   .carousel-caption p {
+      font-size: 40px;
+   }
+}
+
+@media all and (max-width: 800px) {
+   .carousel-caption h3 {
+      font-size: 25px;
+      margin-top: 10px;
+   }
+   .carousel-caption p {
+      font-size: 23px;
+   }
+}
+
 .carousel-caption p{
-	font-size: 40px;
 	font-family: 'Parisienne', cursive;
 	text-shadow: 2px 2px 4px #000000;
 }
@@ -79,19 +98,9 @@
    grid-row: 2;
 }
 
-.GifButtons {
-   display: flex;
-   flex-direction: row;
-   grid-template-columns: 1fr 1fr 1fr;
-}
-
 blockquote {
   font-family: 'Fira Mono', monospace;
   display: block;
-  border-width: 2px 0;
-  border-style: solid;
-  border-color: #eee;
-  padding: 1.5em 0 0.5em;
   position: relative;
 }
 
@@ -101,7 +110,6 @@ blockquote:before {
   top: 1.55em;
   left: 90%;
   transform: translate(-50%, -50%);
-  background: #fff;
   width: 3rem;
   height: 2rem;
   font: 6em/1.08em 'PT Sans', sans-serif;
