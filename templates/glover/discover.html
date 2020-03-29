@@ -27,9 +27,9 @@
                             <a href="{% url 'glover:discover_profile' profile.user.username %}">
                                 <div class="card-size">
                                     {% if profile.image1 %}
-                                        <img class="card-img-top" src="{{ profile.image1.url }}" alt="Picture of {{ profile.user.first_name }}"/>
+                                        <img class="card-img-top img-link" src="{{ profile.image1.url }}" alt="Picture of {{ profile.user.first_name }}"/>
                                     {% else %}
-                                        <img class="card-img-top" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+                                        <img class="card-img-top img-link" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
                                     {% endif %}
                                 </div>
                             </a>
