@@ -37,12 +37,6 @@ class Profile(models.Model):
         """ Gets all matches for the user """
         return Match.objects.filter(Q(profile1=self) | Q(profile2=self))
 
-    def get_not_yet_liked(self):
-        """ Gets all not yet liked/disliked glover users """
-        likes = Like.objects.filter(profile=self)
-        already_liked = [l.profile_liked for l in likes]
-        return User.objects.exclude(Q(profile__in=already_liked) | Q(profile=self)).select_related('profile')
-
     def get_num_matches(self):
         """ Gets the number of matches for the user """
         return self.get_matches().count()

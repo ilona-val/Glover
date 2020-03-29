@@ -10,46 +10,43 @@
     <div class="container">
         <h1 class="text-center mb-4 MainHeadings"><strong>Discover</strong></h1>
 
-        <div class="row">
+        <div class="row justify-content-center col-lg-12">
 
         {% if profiles %}
 
             {% for profile in profiles %}
 
-                {% if user.profile.looking_for == profile.gender and profile.looking_for == user.profile.gender %}
+                <div class="col-sm-8 col-md-5 col-lg-3 justify-content-center">
 
-                    <div class="col-sm-12 col-md-4 col-lg-3">
-
-                        <div class="card text-center mb-4">
-                            <div class="card-header card-title">
-                                {{ profile.user.first_name }}
+                    <div class="card text-center mb-4 profile-card">
+                        <div class="card-header card-title">
+                            {{ profile.user.first_name }}
+                        </div>
+                        <a href="{% url 'glover:discover_profile' profile.user.username %}">
+                            <div class="card-size">
+                                {% if profile.image1 %}
+                                    <img class="card-img-top img-link" src="{{ profile.image1.url }}" alt="Picture of {{ profile.user.first_name }}"/>
+                                {% else %}
+                                    <img class="card-img-top img-link" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
+                                {% endif %}
                             </div>
-                            <a href="{% url 'glover:discover_profile' profile.user.username %}">
-                                <div class="card-size">
-                                    {% if profile.image1 %}
-                                        <img class="card-img-top img-link" src="{{ profile.image1.url }}" alt="Picture of {{ profile.user.first_name }}"/>
-                                    {% else %}
-                                        <img class="card-img-top img-link" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
-                                    {% endif %}
-                                </div>
-                            </a>
-                            <div class="card-body">
-                                <form id="like" method="post" action="{% url 'glover:like' user.username profile.user.username %}">
-                                    {% csrf_token %}
-                                    <div class="btn-group row">
-                                        <div class="col-6">
-                                        <button class="btn btn-success" type="submit" name="like"><img src="{% static 'images/heart.png' %}"  width="30" height="30"  /></i></button>
-                                    </div>
+                        </a>
+                        <div class="card-body">
+                            <form id="like" method="post" action="{% url 'glover:like' user.username profile.user.username %}">
+                                {% csrf_token %}
+                                <div class="btn-group row">
                                     <div class="col-6">
-                                        <button class="btn btn-danger" type="submit" name="dislike"><img src="{% static 'images/dislike.png' %}"  width="30" height="30"  /></button>
-                                    </div>
-                                    </div>
-                                </form>
-                            </div>
+                                    <button class="btn btn-success" type="submit" name="like"><img src="{% static 'images/heart.png' %}"  width="30" height="30"  /></i></button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-danger" type="submit" name="dislike"><img src="{% static 'images/dislike.png' %}"  width="30" height="30"  /></button>
+                                </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
+                </div>
 
-                {% endif %}
             {% endfor %}
 
         {% else %}

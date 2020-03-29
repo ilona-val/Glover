@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 from glover.forms import UserRegistrationForm, LoginForm, EditProfileForm
 from glover.models import Profile, Match, Like
+from glover import utils
 
  
 def index(request):
@@ -75,7 +76,7 @@ def user_logout(request):
 @login_required
 def discover(request):
     profile = request.user.profile
-    user_list = profile.get_not_yet_liked()
+    user_list = utils.get_discover_profiles(profile)
     profile_list = [u.profile for u in user_list]
 
     context_dict ={'profiles': profile_list}
