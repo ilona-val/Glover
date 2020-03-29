@@ -1,6 +1,9 @@
 ## Populating the database
 python populate_glover.py
 
+## Running tests
+python manage.py test
+
 ## Login as an admin after populating the database
 username: yourname  
 password: 1234
