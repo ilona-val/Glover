@@ -59,7 +59,7 @@
     font-weight: 900;
 }
 
-.BigHeadings {
+.SubHeadings {
     font-size: 67px;
     font-family: 'Parisienne', cursive;
     text-shadow: 2px 2px 4px #e39000;
@@ -102,12 +102,16 @@ blockquote {
   font-family: 'Fira Mono', monospace;
   display: block;
   position: relative;
+  border-width: 2px 0;
+  border-style: solid;
+  border-color: #eee;
+  padding: 1.5em 0 0.5em;
 }
 
 blockquote:before {
   content: '\201C';
   position: absolute;
-  top: 1.55em;
+  top: 1.60em;
   left: 90%;
   transform: translate(-50%, -50%);
   width: 3rem;
@@ -115,4 +119,5 @@ blockquote:before {
   font: 6em/1.08em 'PT Sans', sans-serif;
   color: #000000;
   text-align: center;
+  background: #fff;
 }
