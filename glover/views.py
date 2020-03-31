@@ -156,13 +156,9 @@ def edit_photos(request):
 def matches(request):
     context_dict = {}
 
-    try:
-        user_profile = request.user.profile
-        matches = user_profile.get_matches()
-        context_dict['matches'] = matches
-
-    except Match.DoesNotExist:
-        context_dict['matches'] = None
+    user_profile = request.user.profile
+    matches = utils.get_matches(user_profile)
+    context_dict['profiles'] = matches
 
     return render(request, 'glover/matches.html', context=context_dict)
 

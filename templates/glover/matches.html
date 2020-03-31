@@ -12,49 +12,24 @@
 
         <div class="row">
 
-        {% if matches %}
+        {% if profiles %}
 
-            {% for m in matches %}
+            {% for profile in profiles %}
 
                 <div class="col-sm-12 col-md-4 col-lg-3">
 
-                    {% if m.profile1.user != user %}
-
                         <div class="card text-center mb-4">
                             <div class="card-header">
-                                <a class="card-title" href="{% url 'glover:match-profile' m.profile1.user.username %}">{{ m.profile1.user.first_name }}</a>
+                                <a class="card-title" href="{% url 'glover:match-profile' profile.user.username %}">{{ profile.user.first_name }}</a>
                             </div>
                             <div class="card-size">
-                            {% if m.profile1.image1 %}
-                                <img class="card-img-top" src="{{ m.profile1.image1.url }}" alt="Picture of {{ m.profile1.user.first_name }}"/>
+                            {% if profile.image1 %}
+                                <img class="card-img-top" src="{{ profile.image1.url }}" alt="Picture of {{ profile.user.first_name }}"/>
                             {% else %}
                                 <img class="card-img-top" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
                             {% endif %}
                             </div>
-<!--                             <div class="card-body">
-                                <p>{{ m.profile1.course }}</p>
-                            </div> -->
                         </div>
-
-                    {% else %}
-
-                        <div class="card text-center mb-4">
-                            <div class="card-header">
-                                <a class="card-title" href="{% url 'glover:match-profile' m.profile2.user.username %}">{{ m.profile2.user.first_name }}</a>
-                            </div>
-                            <div class="card-size">
-                            {% if m.profile2.image1 %}
-                                <img class="card-img-top" src="{{ m.profile2.image1.url }}" alt="Picture of {{ m.profile2.user.first_name }}"/>
-                            {% else %}
-                                <img class="card-img-top" src="{% static 'images/default_user.jpg' %}" alt="Default image" />
-                            {% endif %}
-                            </div>
-<!--                             <div class="card-body">
-                                <p>{{ m.profile1.course }}</p>
-                            </div> -->
-                        </div>
-
-                    {% endif %}
                 </div>
 
             {% endfor %}

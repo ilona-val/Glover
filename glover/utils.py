@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db.models import Q
 
-from .models import Profile, Like
+from .models import Profile, Like, Match
 
  
 def get_discover_profiles(profile: Profile):
@@ -19,3 +19,14 @@ def get_discover_profiles(profile: Profile):
     # remove users who are not looking for the given user's gender
     users = [user for user in users if user.profile.looking_for == gender]
     return users
+
+def get_matches(profile: Profile):
+    """ Gets all matches for the user """
+    matches = Match.objects.filter(Q(profile1=profile) | Q(profile2=profile))
+    profiles = []
+    for match in matches:
+        if match.profile1.pk != profile.pk:
+            profiles.append(match.profile1)
+        else:
+            profiles.append(match.profile2)
+    return profiles
