@@ -26,21 +26,6 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
         <script src="{% static 'js/lazy-line-painter-1.9.6.min.js' %}" ></script>
-		
-        <script type="text/javascript">
-            (function(){ 
-                document.onreadystatechange = () => {
-                    if (document.readyState === 'complete') {
-                        let el = document.querySelector('#drawing');
-                        if (el != null) {
-                            let myAnimation = new LazyLinePainter(el, {"ease":"easeLinear","strokeWidth":1,"strokeOpacity":1,"strokeColor":"#222F3D","strokeCap":"square"}); 
-                            myAnimation.paint(); 
-                        }
-                    }
-                }
-            })();
-		</script>
-
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -51,9 +36,7 @@
     
 	<body>
         <div class="wrapper">
-
 			<div id="app-content">
-
 				<nav class="navbar navbar-expand-md navbar-expand-lg navbar-light sticky-top" style="background-color: #e3f2fd;">
 
 					{% if user.is_authenticated %}
@@ -61,7 +44,8 @@
 					{% else %}
 						<a  href="{% url 'glover:index' %}">
 					{% endif %}
-					<img class='navbar-brand' src="{% static 'images/glover-logo.png' %}" alt="Glover logo" height="80" class="d-inline-block align-top" /></a>
+							<img class='navbar-brand' src="{% static 'images/glover-logo.png' %}" alt="Glover logo" height="80" class="d-inline-block align-top" />
+						</a>
 
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
@@ -69,69 +53,75 @@
 
 					{% if user.is_authenticated %}
 
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-						<ul class="navbar-nav nav-fill w-100 align-items-start">
-							<li class="nav-item mx-2 active">
-								<a class="nav-link" href="{% url 'glover:discover' %} ">Discover</a>
-							</li>
+							<ul class="navbar-nav nav-fill w-100 align-items-start">
 
-							<li class="nav-item mx-2">
-								<a class="nav-link" href="{% url 'glover:matches' %}">Matches</a>
-							</li>
+								<li class="nav-item mx-2 active">
+									<a class="nav-link" href="{% url 'glover:discover' %} ">Discover</a>
+								</li>
+								<li class="nav-item mx-2">
+									<a class="nav-link" href="{% url 'glover:matches' %}">Matches</a>
+								</li>
+								<li class="nav-item mx-2">
+									<a class="nav-link" href="{% url 'glover:profile' %}">Profile</a>
+								</li>
+								<li class="nav-item mx-2">
+									<a class="nav-link" href="{% url 'glover:matches' %}">DMs</a>
+								</li>   
+								<li class="nav-item mx-2">
+									<a class="nav-link" href="{% url 'glover:about' %}">About Us</a>
+								</li>				
+								<li class="nav-item mx-2">
+									<a class="nav-link" href="{% url 'glover:logout' %}">Logout</a>
+								</li>
 
-							<li class="nav-item mx-2">
-								<a class="nav-link" href="{% url 'glover:profile' %}">Profile</a>
-							</li>
-
-							<li class="nav-item mx-2">
-								<a class="nav-link" href="{% url 'glover:matches' %}">DMs</a>
-							</li>   
-
-							<li class="nav-item mx-2">
-								<a class="nav-link" href="{% url 'glover:about' %}">About Us</a>
-							</li>
-												
-							<li class="nav-item mx-2">
-								<a class="nav-link" href="{% url 'glover:logout' %}">Logout</a>
-							</li>
-						</ul>
-					</div>
+							</ul>
+						</div>
 
 					{% else %}
 
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="navbar-nav nav-fill w-100 align-items-start">
+						<div class="collapse navbar-collapse" id="navbarSupportedContent">
+							<ul class="navbar-nav nav-fill w-100 align-items-start">
 
-							<li class="nav-item">
-								<a class="nav-link" href="{% url 'glover:index' %}">Home</a>
-							</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{% url 'glover:index' %}">Home</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{% url 'glover:about' %}">About Us</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{% url 'glover:register' %}">Register</a>
+								</li>				
+								<li class="nav-item">
+									<a class="nav-link" href="{% url 'glover:login' %}">Login</a>
+								</li>
 
-							<li class="nav-item">
-								<a class="nav-link" href="{% url 'glover:about' %}">About Us</a>
-							</li>
-
-							<li class="nav-item">
-								<a class="nav-link" href="{% url 'glover:register' %}">Register</a>
-							</li>
-												
-							<li class="nav-item">
-								<a class="nav-link" href="{% url 'glover:login' %}">Login</a>
-							</li>
-						</ul>
-					</div>
+							</ul>
+						</div>
 
 					{% endif %}
 				</nav>
 
-				<div class="body-block">
+				<div class="body-block container">
+
+					{% if messages %}
+						{% for message in messages %}
+							<div class="alert alert-{{ message.tags }} alert-dismissible col-lg-12">
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+								{{ message }}
+							</div>
+						{% endfor %}
+					{% endif %}
+
 					{% block body_block %}
 					{% endblock %}
 				</div>
 			</div>
 	
         	<footer style="background-color: #e3f2fd;" class="footer text-center py-3">
-				© 2020 Copyright:<a href="https://www.gla.ac.uk/"> glover.com</a></footer>
+				© 2020 Copyright:<a href="https://www.gla.ac.uk/"> glover.com</a>
+			</footer>
 		</div>
 
         {% block js %}

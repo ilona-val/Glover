@@ -83,3 +83,21 @@
 </div>
 		
 {% endblock %}
+
+{% block js %}
+
+	<script type="text/javascript">
+            (function(){ 
+                document.onreadystatechange = () => {
+                    if (document.readyState === 'complete') {
+                        let el = document.querySelector('#drawing');
+                        if (el != null) {
+                            let myAnimation = new LazyLinePainter(el, {"ease":"easeLinear","strokeWidth":1,"strokeOpacity":1,"strokeColor":"#222F3D","strokeCap":"square"}); 
+                            myAnimation.paint(); 
+                        }
+                    }
+                }
+            })();
+		</script>
+
+{% endblock %}

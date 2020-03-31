@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -14,15 +15,11 @@ from glover import utils
 
  
 def index(request):
-    context_dict = {}
-
-    return render(request, 'glover/index.html', context=context_dict)
+    return render(request, 'glover/index.html')
 
 
 def about(request):
-    context_dict = {}
-
-    return render(request, 'glover/about.html', context=context_dict)
+    return render(request, 'glover/about.html')
 
 
 def register(request):
@@ -39,6 +36,7 @@ def register(request):
             profile = Profile.objects.create(user=user, dob=dob, gender=gender)
 
             login(request, user)
+            messages.success(request, f"Congratulations, {user.first_name}! You've registered successfully!")
             return redirect(reverse('glover:discover'))
         else:
             print(user_form.errors)
@@ -62,6 +60,7 @@ def user_login(request):
             
             user = authenticate(username=username, password=password)
             login(request, user)
+            messages.info(request, f"Welcome back, {user.first_name}! Today could be your lucky day!")
             return redirect(reverse('glover:discover'))
 
     return render(request, 'glover/login.html', {"form": form})
@@ -79,7 +78,7 @@ def discover(request):
     user_list = utils.get_discover_profiles(profile)
     profile_list = [u.profile for u in user_list]
 
-    context_dict ={'profiles': profile_list}
+    context_dict = {'profiles': profile_list}
 
     return render(request, 'glover/discover.html', context_dict)
 
@@ -105,9 +104,7 @@ def match_profile(request, username):
 
     try:
         user = User.objects.get(username=username)
-        profile = Profile.objects.get(user=user)
-
-        context_dict['profile'] = profile
+        context_dict['profile'] = user.profile
 
     except Profile.DoesNotExist:
         context_dict['profile'] = None
@@ -133,6 +130,7 @@ def edit_profile(request):
 
         if form.is_valid():
             form.save()
+            messages.success(request, f"Profile updated successfully!")
             return redirect(reverse('glover:profile'))
 
     return render(request, 'glover/edit-profile.html', {"form": form})
@@ -168,19 +166,20 @@ def like(request, profile1, profile2):
     context_dict = {}
 
     try:
-        user1 = User.objects.get(username=profile1)
-        user2 = User.objects.get(username=profile2)
-
-        profile1 = Profile.objects.get(user=user1)
-        profile2 = Profile.objects.get(user=user2)
+        profile1 = request.user.profile
+        profile2 = User.objects.get(username=profile2).profile
 
         if "like" in request.POST:
             like = Like.objects.get_or_create(profile=profile1, profile_liked=profile2, is_liked=True)[0]
 
+            if Like.objects.filter(profile=profile2, profile_liked=profile1, is_liked=True).exists():
+                messages.success(request, f"It's a match! You can now chat with {profile2.user.first_name}!")
+            else:
+                messages.info(request, f"Happy to see you liked {profile2.user.first_name}!")
+
         elif "dislike" in request.POST:
             like = Like.objects.get_or_create(profile=profile1, profile_liked=profile2, is_liked=False)[0]
 
-        
         context_dict['like'] = like
 
     except Profile.DoesNotExist:
