@@ -7,12 +7,13 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_protect
 
 from glover.forms import UserRegistrationForm, LoginForm, EditProfileForm
-from glover.models import Profile, Match, Like
+from glover.models import Profile, Match, Like, Message
 from glover import utils
 
- 
+
 def index(request):
     context_dict = {}
 
@@ -26,7 +27,6 @@ def about(request):
 
 
 def register(request):
-
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
         if user_form.is_valid():
@@ -52,14 +52,13 @@ def register(request):
 
 
 def user_login(request):
-
     form = LoginForm()
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            
+
             user = authenticate(username=username, password=password)
             login(request, user)
             return redirect(reverse('glover:discover'))
@@ -79,7 +78,7 @@ def discover(request):
     user_list = utils.get_discover_profiles(profile)
     profile_list = [u.profile for u in user_list]
 
-    context_dict ={'profiles': profile_list}
+    context_dict = {'profiles': profile_list}
 
     return render(request, 'glover/discover.html', context_dict)
 
@@ -99,6 +98,7 @@ def discover_profile(request, username):
 
     return render(request, 'glover/discover-profile.html', context=context_dict)
 
+
 @login_required
 def match_profile(request, username):
     context_dict = {}
@@ -113,7 +113,8 @@ def match_profile(request, username):
         context_dict['profile'] = None
 
     return render(request, 'glover/match-profile.html', context=context_dict)
-    
+
+
 ########
 # Profile Views
 
@@ -137,13 +138,15 @@ def edit_profile(request):
 
     return render(request, 'glover/edit-profile.html', {"form": form})
 
+
 @login_required
 def edit_photos(request):
     if request.method == 'POST':
         profile = request.user.profile
         picture_fields = [profile.image1, profile.image2, profile.image3, profile.image4, profile.image5]
         updatable_pics = [i for i in picture_fields if not bool(i)]
-        update_field = ([bool(i) for i in picture_fields]).index(False) + 1 # get the number of the image-field to be updated
+        update_field = ([bool(i) for i in picture_fields]).index(
+            False) + 1  # get the number of the image-field to be updated
 
         if len(updatable_pics) > 0:
             img_file = request.FILES['file']
@@ -160,6 +163,7 @@ def matches(request):
         user_profile = request.user.profile
         matches = user_profile.get_matches()
         context_dict['matches'] = matches
+        matches.save()
 
     except Match.DoesNotExist:
         context_dict['matches'] = None
@@ -184,7 +188,6 @@ def like(request, profile1, profile2):
         elif "dislike" in request.POST:
             like = Like.objects.get_or_create(profile=profile1, profile_liked=profile2, is_liked=False)[0]
 
-        
         context_dict['like'] = like
 
     except Profile.DoesNotExist:
@@ -197,7 +200,7 @@ def like(request, profile1, profile2):
 @login_required
 def delete_photo(request):
     """ Deletes user picture specified by query parameter """
-    picture = request.GET.get('img', None) # get the picture from the query parameter
+    picture = request.GET.get('img', None)  # get the picture from the query parameter
 
     photo_profile_map = {
         "img1": request.user.profile.image1,
@@ -223,3 +226,30 @@ def delete_photo(request):
                 break
 
     return JsonResponse({"url": reverse('glover:edit-photos')})
+
+
+@login_required
+def post(request):
+    if request.method == 'POST':
+        msg = request.POST.get('msgbox', None)
+        c = Message(sender=request.user.profile, message=msg)
+
+        if msg != '':
+            c.save()
+        return JsonResponse({'msg': msg}, {'user': c.sender.user})
+    else:
+        return HttpResponse("Request must be POST. ")
+
+
+@login_required
+def messages(request):
+    context_dict = {}
+    c = Message.objects.all()
+    context_dict['chat'] = c
+    return render(request, 'glover/messages.html', context=context_dict)
+
+
+@csrf_protect
+def chatbox(request):
+    chat = Message.objects.all()
+    return render(request, 'glover/chatbox.html', {'chatbox': 'active', 'chat': chat})

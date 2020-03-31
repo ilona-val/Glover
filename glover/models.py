@@ -16,7 +16,7 @@ class Profile(models.Model):
     year_in = models.CharField(max_length=20, choices=YearInChoices.get_choices(), null=True)
     location = models.CharField(max_length=30, default="")
     library_floor = models.CharField(max_length=20, choices=LibraryFloorChoices.get_choices())
-    looking_for = models.CharField(max_length=1, choices=GenderChoices.get_choices())   # Allow to pick one, not multiple
+    looking_for = models.CharField(max_length=1, choices=GenderChoices.get_choices())  # Allow to pick one, not multiple
 
     image1 = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     image2 = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
@@ -40,7 +40,7 @@ class Profile(models.Model):
     def get_num_matches(self):
         """ Gets the number of matches for the user """
         return self.get_matches().count()
-        
+
     def get_num_societies(self):
         """ Gets the number of societies the user is in """
         return self.societies.count()
@@ -91,7 +91,7 @@ class Like(models.Model):
                 match = Match.objects.get_or_create(profile1=self.profile, profile2=self.profile_liked)
 
     def __str__(self):
-        if is_liked: 
+        if is_liked:
             return f"{self.profile.user.username} liked {self.profile_liked.user.username}"
         elif not is_liked:
             return f"{self.profile.user.username} disliked {self.profile_liked.user.username}"
@@ -111,14 +111,18 @@ class Match(models.Model):
             models.UniqueConstraint(fields=['profile1', 'profile2'], name='unique_matches')
         ]
 
+
 class Message(models.Model):
     sender = models.OneToOneField(Profile, on_delete=models.SET_NULL, null=True, related_name="sender")
     receiver = models.OneToOneField(Profile, on_delete=models.SET_NULL, null=True, related_name="receiver")
-    msg_content = models.TextField(max_length=500)
+    message = models.TextField(max_length=500)
     time_sent = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.msg_content
+        return self.message
+
+    def save(self, *args):
+        super().save(*args)
 
 
 class Society(models.Model):

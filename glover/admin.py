@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from glover.models import Like, Match, Profile
+from glover.models import Like, Match, Profile, Message
+
 
 # Register your models here.
 class LikeAdmin(admin.ModelAdmin):
@@ -15,6 +16,11 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'dob', 'gender',)
 
 
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ('sender', 'message',)
+
+
 admin.site.register(Like, LikeAdmin)
 admin.site.register(Match, MatchAdmin)
 admin.site.register(Profile, ProfileAdmin)
+admin.site.register(Message, MessageAdmin)

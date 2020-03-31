@@ -1,0 +1,22 @@
+% extends 'glover/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    {% if profile %}
+        {{ profile.username }}
+    {% else %}
+        Unknown
+    {% endif %}
+{% endblock %}
+
+{%block body_block %}
+        {% for c in chat %}
+            {% if c.profile == request.Profile %}
+                    <li class="text-right list-group-item">{{ c.message }}</li>
+            {% else %}
+                    <li class="text-left list-group-item">{{ c.message }}</li>
+            {%endif%}
+            {% empty %}
+                    <li class="text-right list-group-item">No messages yet!</li>
+        {% endfor %}
+{% endblock %}
