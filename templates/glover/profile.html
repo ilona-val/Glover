@@ -70,31 +70,31 @@
 			<div class="flex-container row col-lg-12 justify-content-md-center px-0 m-0">
 				{% if user.profile.image1 %}
 					<div class="flex-item">
-						<img class="small-img img-responsive" src="{{ user.profile.image1.url }}" alt="Picture of {{ user.first_name }}"/>
+						<img class="small-img img-responsive img-link" src="{{ user.profile.image1.url }}" alt="Picture of {{ user.first_name }}"/>
 					</div>
 				{% endif %}
 
 				{% if user.profile.image2 %}
 					<div class="flex-item">
-						<img class="small-img img-responsive" src="{{ user.profile.image2.url }}" alt="Picture of {{ user.first_name }}"/>
+						<img class="small-img img-responsive img-link" src="{{ user.profile.image2.url }}" alt="Picture of {{ user.first_name }}"/>
 					</div>
 				{% endif %}
 
 				{% if user.profile.image3 %}
 					<div class="flex-item">
-						<img class="small-img img-responsive" src="{{ user.profile.image3.url }}" alt="Picture of {{ user.first_name }}"/>
+						<img class="small-img img-responsive img-link" src="{{ user.profile.image3.url }}" alt="Picture of {{ user.first_name }}"/>
 					</div>
 				{% endif %}
 
 				{% if user.profile.image4 %}
 					<div class="flex-item">
-						<img class="small-img img-responsive" src="{{ user.profile.image4.url }}" alt="Picture of {{ user.first_name }}"/>
+						<img class="small-img img-responsive img-link" src="{{ user.profile.image4.url }}" alt="Picture of {{ user.first_name }}"/>
 					</div>
 				{% endif %}
 
 				{% if user.profile.image5 %}
 					<div class="flex-item">
-						<img class="small-img img-responsive" src="{{ user.profile.image5.url }}" alt="Picture of {{ user.first_name }}"/>
+						<img class="small-img img-responsive img-link" src="{{ user.profile.image5.url }}" alt="Picture of {{ user.first_name }}"/>
 					</div>
 				{% endif %}
 			</div>
@@ -106,12 +106,18 @@
 			<div class="mb-4">
 				<span class="display-4 text-uppercase">{{ profile.user.first_name }}, <small>{{ profile.get_age }}</small></span>
 				<hr>
-				<span><h5>{{ profile.course }}, {{ profile.get_year_in_display }}</h5></span>
+				<span><h5>
+					<img class="profile-icon mr-1" src="{% static 'images/school.png' %}" alt="icon"/>
+					{{ profile.course }}, {{ profile.get_year_in_display }}
+				</h5></span>
 			</div>
 
             <div class="col-12 p-0">
                 <div class="card mt-5">
-                    <h5 class="card-header text-uppercase">Bio</h5>
+                    <h6 class="card-header text-uppercase text-white">
+						<img class="profile-icon mr-1" src="{% static 'images/fingerprint.png' %}" alt="icon"/>
+						Bio
+					</h6>
                     <div class="card-body">
                         <p class="card-text">{{ profile.bio }}</p>
                     </div>
@@ -121,7 +127,10 @@
 			<div class="row">
 				<div class="col-6 pr-1">
 					<div class="card mt-2">
-						<h5 class="card-header text-uppercase">Gender</h5>
+						<h6 class="card-header text-uppercase text-white">
+							<img class="profile-icon mr-1" src="{% static 'images/wave.png' %}" alt="icon"/>
+							Gender
+						</h6>
 						<div class="card-body">
 							<p class="card-text">
 								{{ profile.get_gender_display }}
@@ -131,7 +140,10 @@
 				</div>
 				<div class="col-6 pl-1">
 					<div class="card mt-2">
-						<h5 class="card-header text-uppercase">Looking For</h5>
+						<h6 class="card-header text-uppercase text-white">
+							<img class="profile-icon mr-1" src="{% static 'images/puzzle.png' %}" alt="icon"/>
+							Looking For
+						</h6>
 						<div class="card-body">
 							<p class="card-text">
 								{{ profile.get_looking_for_display }}
@@ -144,7 +156,10 @@
 			<div class="row">
 				<div class="col-6 pr-1">
 					<div class="card mt-2">
-						<h5 class="card-header text-uppercase">Location</h5>
+						<h6 class="card-header text-uppercase text-white">
+							<img class="profile-icon mr-1" src="{% static 'images/location.png' %}" alt="icon"/>
+							Location
+						</h6>
 						<div class="card-body">
 							<p class="card-text">
 								{{ profile.location }}
@@ -154,7 +169,10 @@
 				</div>
 				<div class="col-6 pl-1">
 					<div class="card mt-2">
-						<h5 class="card-header text-uppercase">Library Floor</h5>
+						<h6 class="card-header text-uppercase text-white">
+							<img class="profile-icon mr-1" src="{% static 'images/library.png' %}" alt="icon"/>
+							Library Floor
+						</h6>
 						<div class="card-body">
 							<p class="card-text">
 								{{ profile.library_floor }}
@@ -167,7 +185,10 @@
 			<div class="row">
 				<div class="col-6 pr-1">
 					<div class="card mt-2">
-						<h5 class="card-header text-uppercase">Societies</h5>
+						<h6 class="card-header text-uppercase text-white">
+							<img class="profile-icon mr-1" src="{% static 'images/tea.png' %}" alt="icon"/>
+							Societies
+						</h6>
 						<div class="card-body">
 							<ul class="list-circles">
 								{% for society in profile.get_societies %}
@@ -180,7 +201,10 @@
 
 				<div class="col-6 pl-1">
 					<div class="card mt-2">
-						<h5 class="card-header text-uppercase">Interests</h5>
+						<h6 class="card-header text-uppercase text-white">
+							<img class="profile-icon mr-1" src="{% static 'images/palette.png' %}" alt="icon"/>
+							Interests
+						</h6>
 						<div class="card-body">
 							<ul class="list-circles">
 								{% for interest in profile.get_interests %}
@@ -193,8 +217,12 @@
 			</div>
 
 			<div class="btn-toolbar justify-content-end mt-3">
-				<a class="btn btn-warning btn-sm mr-2" href="{% url 'glover:edit-profile' %}">Edit Profile</a>
-	    		<a class="btn btn-warning btn-sm mr-2" href="{% url 'glover:edit-photos' %}">Edit Photos</a>
+				<a class="btn btn-warning btn-lg mr-2" href="{% url 'glover:edit-profile' %}">
+					<img class="profile-icon" src="{% static 'images/brush.png' %}" alt="edit-profile"/>
+				</a>
+	    		<a class="btn btn-warning btn-lg mr-2" href="{% url 'glover:edit-photos' %}">
+					<img class="profile-icon" src="{% static 'images/add-photo.png' %}" alt="edit-photos"/>
+				</a>
 			</div>
         </div>
     </div>

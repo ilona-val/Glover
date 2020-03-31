@@ -23,7 +23,10 @@
 					<div class="form-group">
 						<label><strong>PHOTOS</strong></label><br/>
 
-						<a href="{% url 'glover:edit-photos' %}">Edit Photos</a>
+						<a class="text-uppercase" href="{% url 'glover:edit-photos' %}">
+							<img class="profile-icon mr-2" src="{% static 'images/add-photo-black.png' %}" alt="edit photos"/>
+							Edit Photos
+						</a>
 					</div>
 
 					<div>
