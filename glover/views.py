@@ -162,7 +162,7 @@ def matches(request):
 
 
 @login_required
-def like(request, profile1, profile2):
+def like(request, profile2):
     context_dict = {}
 
     try:

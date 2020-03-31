@@ -34,7 +34,7 @@
                             </div>
                         </a>
                         <div class="card-body">
-                            <form id="like" method="post" action="{% url 'glover:like' user.username profile.user.username %}">
+                            <form id="like" method="post" action="{% url 'glover:like' profile %}">
                                 {% csrf_token %}
                                 <div class="btn-group row">
                                     <div class="col-6">

@@ -98,20 +98,24 @@
 				{% endif %}
 			</div>
 
-			<div class="row col-12">
-				<div class="col-6">
-					<a class="btn btn-success btn-block text-uppercase mb-5 btn-lg" href="#">
-						<strong>Like</strong>
-						<img class="profile-icon ml-2" src="{% static 'images/heart.png' %}" alt="like"/>
-					</a>
+			<form id="like" method="post" action="{% url 'glover:like' profile %}">
+				{% csrf_token %}
+				<div class="row col-12">
+					<div class="col-6">
+						<button class="btn btn-success btn-block text-uppercase mb-5 btn-lg" type="submit" name="like">
+							<strong>Like</strong>
+							<img class="profile-icon ml-2" src="{% static 'images/heart.png' %}" alt="like"/>
+						</button>
+					</div>
+					<div class="col-6">
+						<button class="btn btn-danger btn-block text-uppercase mb-5 btn-lg" type="submit" name="dislike">
+							<img class="profile-icon mr-2" src="{% static 'images/dislike.png' %}" alt="dislike"/>
+							<strong>Dislike</strong>
+						</button>
+					</div>
 				</div>
-				<div class="col-6">
-					<a class="btn btn-danger btn-block text-uppercase mb-5 btn-lg" href="#">
-						<img class="profile-icon mr-2" src="{% static 'images/dislike.png' %}" alt="dislike"/>
-						<strong>Dislike</strong>
-					</a>
-				</div>
-			</div>
+			</form>
+			
 
 		</div>
 
