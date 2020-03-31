@@ -230,7 +230,7 @@ def post(request):
         c = Message(sender=request.user.profile, message=msg)
 
         if msg != '':
-            c.save()
+            c.save(msg)
         return JsonResponse({'msg': msg}, {'user': c.sender.user})
     else:
         return HttpResponse("Request must be POST. ")
