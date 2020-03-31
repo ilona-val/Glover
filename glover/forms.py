@@ -68,14 +68,6 @@ class UserRegistrationForm(forms.ModelForm):
             'username': None,  # don't show any help messages for the username
         }
 
-
-# class EditPhotosForm(forms.Form):
-#     image1 = forms.ImageField(widget=PictureWidget, required=False)
-#     image2 = forms.ImageField(widget=PictureWidget, required=False)
-#     image3 = forms.ImageField(widget=PictureWidget, required=False)
-#     image4 = forms.ImageField(widget=PictureWidget, required=False)
-#     image5 = forms.ImageField(widget=PictureWidget, required=False)
-
     
 class EditProfileForm(forms.ModelForm):
     empty_label = [('', '---------'),]
