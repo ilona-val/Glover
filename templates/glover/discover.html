@@ -17,7 +17,6 @@
             {% for profile in profiles %}
 
                 <div class="col-sm-8 col-md-5 col-lg-3 justify-content-center">
-
                     <div class="card text-center mb-4 profile-card">
                         <div class="card-header card-title text-uppercase text-white">
                             <div class="d-flex justify-content-center">
@@ -39,11 +38,11 @@
                                 {% csrf_token %}
                                 <div class="btn-group row">
                                     <div class="col-6">
-                                    <button class="btn btn-success" type="submit" name="like"><img src="{% static 'images/heart.png' %}"  width="30" height="30"  /></i></button>
-                                </div>
-                                <div class="col-6">
-                                    <button class="btn btn-danger" type="submit" name="dislike"><img src="{% static 'images/dislike.png' %}"  width="30" height="30"  /></button>
-                                </div>
+                                        <button class="btn btn-success" type="submit" name="like"><img src="{% static 'images/heart.png' %}"  width="30" height="30"  /></button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="btn btn-danger" type="submit" name="dislike"><img src="{% static 'images/dislike.png' %}"  width="30" height="30"  /></button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -53,7 +52,9 @@
             {% endfor %}
 
         {% else %}
-            <strong>There's no one here.</strong>
+            <div class="text-center mt-4">
+                <font size="5">There are no new profiles to discover... Come back later!</font>
+            </div>
         {% endif %}
 
 
