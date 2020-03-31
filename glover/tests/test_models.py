@@ -1,13 +1,12 @@
 from django.test import TestCase
 
 from glover.models import *
-from glover.utils import get_discover_profiles
+from glover.utils import get_discover_profiles, get_matches
 from .test_helpers import populate
 
 
 class ProfileTests(TestCase):
-    # test get_matches
-    # test that when two users like each other, a Match is created
+
     # test that when a user unlikes a user they've matched with, the Match object is removed
     # if user blocks another user, then get rid of match and check the Like object's "is_liked" field is set to false
     
@@ -44,3 +43,37 @@ class ProfileTests(TestCase):
         discovery_profiles[0].profile.save()
         discovery_profiles = get_discover_profiles(bob)
         self.assertEqual(len(discovery_profiles), 0)
+
+    def test_get_matches(self):
+        NUM_MATCHES_EXPECTED = 3
+        jessica = Profile.objects.get(user__username="jessica")
+        profiles = Profile.objects.exclude(user__username="jessica")[:NUM_MATCHES_EXPECTED]
+
+        for profile in profiles:
+            Like.objects.create(profile=jessica, profile_liked=profile, is_liked=True)
+            Like.objects.create(profile=profile, profile_liked=jessica, is_liked=True)
+
+        matches = get_matches(jessica)
+        self.assertEqual(len(matches), NUM_MATCHES_EXPECTED)
+
+    def test_two_likes_create_match(self):
+        jessica = Profile.objects.get(user__username="jessica")
+        jack = Profile.objects.get(user__username="jack")
+
+        self.assertEqual(Match.objects.count(), 0)
+
+        Like.objects.create(profile=jessica, profile_liked=jack, is_liked=True)
+        Like.objects.create(profile=jack, profile_liked=jessica, is_liked=True)
+
+        self.assertEqual(Match.objects.count(), 1)
+
+    def test_two_dislikes_dont_create_match(self):
+        jessica = Profile.objects.get(user__username="jessica")
+        jack = Profile.objects.get(user__username="jack")
+
+        self.assertEqual(Match.objects.count(), 0)
+
+        Like.objects.create(profile=jessica, profile_liked=jack, is_liked=False)
+        Like.objects.create(profile=jack, profile_liked=jessica, is_liked=False)
+
+        self.assertFalse(Match.objects.count(), 1)

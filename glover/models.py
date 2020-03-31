@@ -33,10 +33,6 @@ class Profile(models.Model):
         today = date.today()
         return today.year - self.dob.year - ((today.month, today.day) < (self.dob.month, self.dob.day))
 
-    def get_matches(self):
-        """ Gets all matches for the user """
-        return Match.objects.filter(Q(profile1=self) | Q(profile2=self))
-
     def get_num_matches(self):
         """ Gets the number of matches for the user """
         return self.get_matches().count()

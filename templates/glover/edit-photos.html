@@ -10,7 +10,7 @@
 
     <div class="container">
         <div>
-            <h2 class="text-center mb-4 MainHeadings"><strong>Upload Your Photos<strong></h2>
+            <h2 class="text-center mb-4 mt-2 MainHeadings"><strong>Upload Your Photos<strong></h2>
         </div>
 
         <br/>
@@ -20,7 +20,9 @@
                 <div class="col-lg-2 col-sm-4 text-center">
                     <img class="md-img img-responsive" src="{{ user.profile.image1.url }}" alt="Picture of {{ user.first_name }}"/>
                     <br />
-                    <button class="mt-2 btn btn-danger" id="delete-img1">Delete</button>
+                    <button class="mt-2 btn btn-danger btn-sm" id="delete-img1">
+                        <img class="profile-icon" src="{% static 'images/cancel.png' %}" alt="delete"/>
+                    </button>
                 </div>
             {% endif %}
             
@@ -29,7 +31,9 @@
                 
                     <img class="md-img img-responsive" src="{{ user.profile.image2.url }}" alt="Picture of {{ user.first_name  }}"/>
                     <br />
-                    <button class="mt-2 btn btn-danger mb-2" id="delete-img2">Delete</button>
+                    <button class="mt-2 btn btn-danger mb-2 btn-sm" id="delete-img2">
+                        <img class="profile-icon" src="{% static 'images/cancel.png' %}" alt="delete"/>
+                    </button>
                 </div>
             {% endif %}
 
@@ -37,7 +41,9 @@
                 <div class="col-lg-2 col-sm-4 text-center">
                     <img class="md-img img-responsive" src="{{ user.profile.image3.url }}" alt="Picture of {{ user.first_name  }}"/>
                     <br />
-                    <button class="mt-2 btn btn-danger" id="delete-img3">Delete</button>        
+                    <button class="mt-2 btn btn-danger btn-sm" id="delete-img3">
+                        <img class="profile-icon" src="{% static 'images/cancel.png' %}" alt="delete"/>
+                    </button>        
                 </div>
             {% endif %}
 
@@ -45,7 +51,9 @@
                 <div class="col-lg-2 col-sm-4 text-center">
                     <img class="md-img img-responsive" src="{{ user.profile.image4.url }}" alt="Picture of {{ user.first_name }}"/>
                     <br />
-                    <button class="mt-2 btn btn-danger" id="delete-img4">Delete</button>
+                    <button class="mt-2 btn btn-danger btn-sm" id="delete-img4">
+                        <img class="profile-icon" src="{% static 'images/cancel.png' %}" alt="delete"/>
+                    </button>
                 </div>
             {% endif %}
 
@@ -53,7 +61,9 @@
                 <div class="col-lg-2 col-sm-4 text-center">
                     <img class="md-img img-responsive" src="{{ user.profile.image5.url }}" alt="Picture of {{ user.first_name }}"/>
                     <br />
-                    <button class="mt-2 btn btn-danger" id="delete-img5">Delete</button>
+                    <button class="mt-2 btn btn-danger btn-sm" id="delete-img5">
+                        <img class="profile-icon" src="{% static 'images/cancel.png' %}" alt="delete"/>
+                    </button>
                 </div>
             {% endif %}
         </div>
@@ -85,7 +95,9 @@
                 html = `<div class="col-2 text-center">
                     <img class="md-img img-responsive" src="${response.imgpath}" alt="picture"/>
                     <br />
-                    <button class="mt-2 btn btn-danger" id="delete-img${response.imgnum}">Delete</button>
+                    <button class="mt-2 btn btn-danger btn-sm" id="delete-img${response.imgnum}">
+                        <img class="profile-icon" src="{% static 'images/cancel.png' %}" alt="delete"/>
+                    </button>
                 </div>`;
 
             $("#uploaded-photos").append(html)
