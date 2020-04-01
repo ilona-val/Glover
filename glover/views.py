@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.contrib import messages
+from django.contrib.messages import success, info
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -36,7 +36,7 @@ def register(request):
             profile = Profile.objects.create(user=user, dob=dob, gender=gender)
 
             login(request, user)
-            messages.success(request, f"Congratulations, {user.first_name}! You've registered successfully!")
+            success(request, f"Congratulations, {user.first_name}! You've registered successfully!")
             return redirect(reverse('glover:discover'))
         else:
             print(user_form.errors)
@@ -59,7 +59,7 @@ def user_login(request):
 
             user = authenticate(username=username, password=password)
             login(request, user)
-            messages.info(request, f"Welcome back, {user.first_name}! Today could be your lucky day!")
+            info(request, f"Welcome back, {user.first_name}! Today could be your lucky day!")
             return redirect(reverse('glover:discover'))
 
     return render(request, 'glover/login.html', {"form": form})
@@ -131,7 +131,7 @@ def edit_profile(request):
 
         if form.is_valid():
             form.save()
-            messages.success(request, f"Profile updated successfully!")
+            success(request, f"Profile updated successfully!")
             return redirect(reverse('glover:profile'))
 
     return render(request, 'glover/edit-profile.html', {"form": form})
@@ -176,9 +176,9 @@ def like(request, profile2):
             like = Like.objects.get_or_create(profile=profile1, profile_liked=profile2, is_liked=True)[0]
 
             if Like.objects.filter(profile=profile2, profile_liked=profile1, is_liked=True).exists():
-                messages.success(request, f"It's a match! You can now chat with {profile2.user.first_name}!")
+                success(request, f"It's a match! You can now chat with {profile2.user.first_name}!")
             else:
-                messages.info(request, f"Happy to see you liked {profile2.user.first_name}!")
+                info(request, f"Happy to see you liked {profile2.user.first_name}!")
 
         elif "dislike" in request.POST:
             like = Like.objects.get_or_create(profile=profile1, profile_liked=profile2, is_liked=False)[0]
