@@ -20,7 +20,6 @@ urlpatterns = [
     path('chatbox/', views.chatbox, name='chatbox'),
     path('post/', views.post, name='post'),
     path('messages/', views.messages, name='messages'),
-   # path('dms/', views.dms, name='dms'),
     path('profile/', views.profile, name='profile'),
     path('profile/edit/', views.edit_profile, name='edit-profile'),
     path('profile/edit-photos/', views.edit_photos, name='edit-photos'),
