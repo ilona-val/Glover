@@ -7,6 +7,7 @@ django.setup()
 from glover.choices import *
 from glover.models import *
 from django.contrib.auth.models import User
+from glover import utils
 
 def populate():
 
@@ -106,7 +107,7 @@ def populate():
         # add profile's societies
         socs = []
         while len(socs) < 5:
-            choice = random.choice(societies)
+            choice = random.choice(societies) 
             if choice not in socs:
                 socs.append(choice)
         p.societies.add(*socs)
@@ -122,9 +123,10 @@ def populate():
     profiles = Profile.objects.all()
 
     for profile in profiles:
-       for profile_liked in profiles:
-            if profile != profile_liked:
-                like = add_like(profile, profile_liked)
+        possible_matches = utils.get_discover_profiles(profile)
+        for user_liked in possible_matches:
+            if profile != user_liked.profile:
+                like = add_like(profile, user_liked.profile)
 
 
 def add_like(profile, profile_liked):
