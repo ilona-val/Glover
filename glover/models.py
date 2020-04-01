@@ -87,9 +87,9 @@ class Like(models.Model):
                 match = Match.objects.get_or_create(profile1=self.profile, profile2=self.profile_liked)
 
     def __str__(self):
-        if is_liked:
+        if self.is_liked:
             return f"{self.profile.user.username} liked {self.profile_liked.user.username}"
-        elif not is_liked:
+        elif not self.is_liked:
             return f"{self.profile.user.username} disliked {self.profile_liked.user.username}"
 
 

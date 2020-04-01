@@ -59,8 +59,14 @@ def user_login(request):
             password = form.cleaned_data['password']
 
             user = authenticate(username=username, password=password)
+            # get number of new matches since last login
+            num_new_matches = utils.num_recent_matches(user.profile)
             login(request, user)
             info(request, f"Welcome back, {user.first_name}! Today could be your lucky day!")
+            if num_new_matches == 1:
+                info(request, f"You've got {num_new_matches} new match! Don't be shy to slide into their DMs!")
+            if num_new_matches > 1:
+                info(request, f"You've got {num_new_matches} new matches! Don't be shy to slide into their DMs!")
             return redirect(reverse('glover:discover'))
 
     return render(request, 'glover/login.html', {"form": form})

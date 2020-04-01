@@ -30,3 +30,13 @@ def get_matches(profile: Profile):
         else:
             profiles.append(match.profile2)
     return profiles
+
+def num_recent_matches(profile: Profile):
+    """ Gets the number of new matches for a user since they last logged in """
+    last_login = profile.user.last_login 
+
+    if last_login is not None:
+        matches =  Match.objects.filter(Q(profile1=profile) | Q(profile2=profile)) \
+                                .filter(time_matched__gt=last_login)
+        return matches.count()
+    return 0
