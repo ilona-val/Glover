@@ -104,7 +104,21 @@
 		<div class="col-md-12 col-lg-6">
 
 			<div class="mb-4">
-				<span class="display-4 text-uppercase">{{ profile.user.first_name }}, <small>{{ profile.get_age }}</small></span>
+				<div class="d-flex justify-content-between">
+					<div class="justify-content-start">
+						<span class="display-4 text-uppercase">{{ profile.user.first_name }}, <small>{{ profile.get_age }}</small></span>
+					</div>
+
+					<div class="btn-toolbar justify-content-end mt-3">
+						<a class="btn btn-warning btn-lg mr-2" href="{% url 'glover:edit-profile' %}">
+							<img class="profile-icon" src="{% static 'images/brush.png' %}" alt="edit-profile"/>
+						</a>
+						<a class="btn btn-warning btn-lg mr-2" href="{% url 'glover:edit-photos' %}">
+							<img class="profile-icon" src="{% static 'images/add-photo.png' %}" alt="edit-photos"/>
+						</a>
+					</div>
+				</div>
+
 				<hr>
 				<span><h5>
 					<img class="profile-icon mr-1" src="{% static 'images/school.png' %}" alt="icon"/>
@@ -214,15 +228,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
-
-			<div class="btn-toolbar justify-content-end mt-3">
-				<a class="btn btn-warning btn-lg mr-2" href="{% url 'glover:edit-profile' %}">
-					<img class="profile-icon" src="{% static 'images/brush.png' %}" alt="edit-profile"/>
-				</a>
-	    		<a class="btn btn-warning btn-lg mr-2" href="{% url 'glover:edit-photos' %}">
-					<img class="profile-icon" src="{% static 'images/add-photo.png' %}" alt="edit-photos"/>
-				</a>
 			</div>
         </div>
     </div>

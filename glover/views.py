@@ -1,5 +1,6 @@
 import os
 
+from django.db.models import Q
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
@@ -166,29 +167,52 @@ def matches(request):
 
 @login_required
 def like(request, profile2):
-    context_dict = {}
+    profile1 = request.user.profile
+    profile2 = User.objects.get(username=profile2).profile
 
-    try:
-        profile1 = request.user.profile
-        profile2 = User.objects.get(username=profile2).profile
+    if "like" in request.POST:
+        like = Like.objects.get_or_create(profile=profile1, profile_liked=profile2, is_liked=True)[0]
 
-        if "like" in request.POST:
-            like = Like.objects.get_or_create(profile=profile1, profile_liked=profile2, is_liked=True)[0]
+        if Like.objects.filter(profile=profile2, profile_liked=profile1, is_liked=True).exists():
+            success(request, f"It's a match! You can now chat with {profile2.user.first_name}!")
+        else:
+            info(request, f"Happy to see you liked {profile2.user.first_name}!")
 
-            if Like.objects.filter(profile=profile2, profile_liked=profile1, is_liked=True).exists():
-                success(request, f"It's a match! You can now chat with {profile2.user.first_name}!")
-            else:
-                info(request, f"Happy to see you liked {profile2.user.first_name}!")
-
-        elif "dislike" in request.POST:
-            like = Like.objects.get_or_create(profile=profile1, profile_liked=profile2, is_liked=False)[0]
-
-        context_dict['like'] = like
-
-    except Profile.DoesNotExist:
-        context_dict['like'] = None
+    elif "dislike" in request.POST:
+        like = Like.objects.get_or_create(profile=profile1, profile_liked=profile2, is_liked=False)[0]
 
     return redirect(reverse('glover:discover'))
+
+
+@login_required
+def unmatch(request, profile2):
+    profile1 = request.user.profile
+    profile2 = User.objects.get(username=profile2).profile
+
+    if "unmatch" in request.POST:
+        like = Like.objects.filter(profile=profile1, profile_liked=profile2)
+        like.delete()
+        dislike = Like.objects.get_or_create(profile=profile1, profile_liked=profile2, is_liked=False)[0]
+        Match.objects.filter(Q(profile1=profile1, profile2=profile2) | Q(profile1=profile2, profile2=profile1)).delete()
+        info(request, f"You've successfully unmatched {profile2.user.first_name}.")
+
+    return redirect(reverse('glover:matches'))
+
+
+@login_required
+def block(request, profile2):
+    profile1 = request.user.profile
+    profile2 = User.objects.get(username=profile2).profile
+
+    if "block" in request.POST:
+        likes = Like.objects.filter(Q(profile=profile1, profile_liked=profile2) | Q(profile=profile2, profile_liked=profile1))
+        likes.delete()
+        dislike1 = Like.objects.get_or_create(profile=profile1, profile_liked=profile2, is_liked=False)[0]
+        dislike2 = Like.objects.get_or_create(profile=profile2, profile_liked=profile1, is_liked=False)[0]
+        Match.objects.filter(Q(profile1=profile1, profile2=profile2) | Q(profile1=profile2, profile2=profile1)).delete()
+        info(request, f"Blocked! {profile2.user.first_name} won't bother you anymore.")
+
+    return redirect(reverse('glover:matches'))
 
 
 #### AJAX VIEWS

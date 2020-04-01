@@ -111,7 +111,27 @@
         <div class="col-md-12 col-lg-6">
 
 			<div class="mb-4">
-				<span class="display-4 text-uppercase">{{ profile.user.first_name }}, <small>{{ profile.get_age }}</small></span>
+				<div class="d-flex justify-content-between">
+					<div class="justify-content-start">
+						<span class="display-4 text-uppercase">{{ profile.user.first_name }}, <small>{{ profile.get_age }}</small></span>
+					</div>
+
+					<div class="btn-toolbar justify-content-end mt-3">
+						<form id="unmatch" method="post" action="{% url 'glover:unmatch' profile %}">
+							{% csrf_token %}
+							<button class="btn btn-danger btn-lg" type="submit" name="unmatch">
+								<img class="profile-icon" src="{% static 'images/dislike.png' %}" alt="unmatch"/>
+							</button>
+						</form>
+						<form id="block" method="post" action="{% url 'glover:block' profile %}">
+							{% csrf_token %}
+							<button class="btn btn-sm ml-3 bg-white" type="submit" name="block">
+								<img class="profile-icon" src="{% static 'images/block.png' %}" alt="block"/>
+							</button>
+						</form>
+					</div>
+				</div>
+
 				<hr>
 				<span><h5>
 					<img class="profile-icon mr-1" src="{% static 'images/school.png' %}" alt="icon"/>
@@ -221,17 +241,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
-
-			<div class="btn-toolbar justify-content-end mt-3">
-				<a class="btn btn-warning text-uppercase text-white m-2" href="#">
-					<img class="profile-icon mr-1" src="{% static 'images/dislike.png' %}" alt="dislike"/>
-					<strong>Unlike</strong>
-				</a>
-				<a class="btn btn-danger text-uppercase text-white m-2" href="#">
-					<img class="profile-icon mr-1" src="{% static 'images/block.png' %}" alt="block"/>
-					<strong>Block</strong>
-				</a>
 			</div>
         </div>
     </div>
