@@ -254,27 +254,21 @@ def delete_photo(request):
 
 
 @login_required
-def post(request):
-    if request.method == 'POST':
-        msg = request.POST.get('msgbox', None)
-        c = Message(sender=request.user.profile, message=msg)
-
-        if msg != '':
-            c.save(msg)
-        return JsonResponse({'msg': msg}, {'user': c.sender.user})
-    else:
-        return HttpResponse("Request must be POST. ")
-
+def messages(request):
+    pass
 
 @login_required
-def messages(request):
+def user_messages(request, username):
+    profile = Profile.objects.get(user__username=username)
+    if request.method == "POST":
+        msg = request.POST.get('message-content')
+        Message.objects.create(sender=request.user.profile, receiver=profile, message=msg)
+    
     context_dict = {}
-    c = Message.objects.all()
-    context_dict['chat'] = c
+    q1 = Q(sender=request.user.profile, receiver=profile)
+    q2 = Q(sender=profile, receiver=request.user.profile)
+    chat = Message.objects.filter(q1|q2).order_by('time_sent')
+    context_dict['chat'] = chat
+    context_dict['profile'] = profile
+    context_dict['users_messaged'] = utils.user_chat_profiles(request.user.profile)
     return render(request, 'glover/messages.html', context=context_dict)
-
-
-@csrf_protect
-def chatbox(request):
-    chat = Message.objects.all()
-    return render(request, 'glover/chatbox.html', {'chatbox': 'active', 'chat': chat})

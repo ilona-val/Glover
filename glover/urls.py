@@ -17,12 +17,13 @@ urlpatterns = [
     path('discover/users/<str:profile2>/unmatch/', views.unmatch, name='unmatch'),
     path('discover/users/<str:profile2>/block/', views.block, name='block'),
     path('matches/<str:username>/', views.match_profile, name='match-profile'),
-    path('chatbox/', views.chatbox, name='chatbox'),
-    path('post/', views.post, name='post'),
-    path('messages/', views.messages, name='messages'),
     path('profile/', views.profile, name='profile'),
     path('profile/edit/', views.edit_profile, name='edit-profile'),
     path('profile/edit-photos/', views.edit_photos, name='edit-photos'),
+    
+    # message-related URLs
+    path('messages/', views.messages, name='messages'),
+    path('messages/<str:username>/', views.user_messages, name='user-messages'),
 ]
 
 ajax_urls = [

@@ -34,7 +34,7 @@
                             </div>
                         </a>
                         <div class="card-body">
-                            <a class="btn btn-info btn-lg" href="{% url 'glover:chatbox' %}">
+                            <a class="btn btn-info btn-lg" href="{% url 'glover:user-messages' profile.user.username %}">
                                 <img class="profile-icon" src="{% static 'images/chat.png' %}" alt="DMs"/>
                             </a>
                         </div>

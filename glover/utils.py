@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db.models import Q
 
-from .models import Profile, Like, Match
+from .models import Profile, Like, Match, Message
 
  
 def get_discover_profiles(profile: Profile):
@@ -40,3 +40,14 @@ def num_recent_matches(profile: Profile):
                                 .filter(time_matched__gt=last_login)
         return matches.count()
     return 0
+
+def user_chat_profiles(profile: Profile):
+    msgs = Message.objects.filter(Q(sender=profile) | Q(receiver=profile))
+    profiles = set()
+    if msgs.exists():
+        for msg in msgs:
+            profiles.add(msg.receiver)
+            profiles.add(msg.sender)
+        # remove the profile user from the set
+        profiles.remove(profile)
+    return profiles
