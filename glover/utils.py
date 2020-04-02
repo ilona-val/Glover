@@ -44,13 +44,16 @@ def num_recent_matches(profile: Profile):
 def user_chat_profiles(profile: Profile):
     """ Gets all profiles the user has shared messages with """
     msgs = Message.objects.filter(Q(sender=profile) | Q(receiver=profile))
+    matches = get_matches(profile)
     profiles = set()
     if msgs.exists():
         for msg in msgs:
-            profiles.add(msg.receiver)
-            profiles.add(msg.sender)
-        # remove the profile user from the set
-        profiles.remove(profile)
+            if msg.sender in matches or msg.receiver in matches:
+                profiles.add(msg.receiver)
+                profiles.add(msg.sender)
+        if profiles:
+            # remove the profile user from the set
+            profiles.remove(profile)
     return profiles
 
 def num_recent_messages(profile: Profile):
