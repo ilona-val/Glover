@@ -165,9 +165,8 @@ def edit_profile(request):
     return render(request, 'glover/edit-profile.html', {"form": form})
 
 def delete_account(request):
-    if "delete" in request.POST:
-        request.user.delete()
-        success(request, f"Your account has been successfully deleted. Sorry to see you go!")
+    request.user.delete()
+    success(request, f"Your account has been successfully deleted. Sorry to see you go!")
     return redirect(reverse('glover:index'))
 
 @login_required
