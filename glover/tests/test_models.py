@@ -6,9 +6,6 @@ from .test_helpers import populate
 
 
 class ProfileTests(TestCase):
-
-    # test that when a user unlikes a user they've matched with, the Match object is removed
-    # if user blocks another user, then get rid of match and check the Like object's "is_liked" field is set to false
     
     def setUp(self):
         # create users/profiles

@@ -61,12 +61,19 @@ def user_login(request):
             user = authenticate(username=username, password=password)
             # get number of new matches since last login
             num_new_matches = utils.num_recent_matches(user.profile)
+            num_new_messages = utils.num_recent_messages(user.profile)
             login(request, user)
-            info(request, f"Welcome back, {user.first_name}! Today could be your lucky day!")
+
             if num_new_matches == 1:
                 info(request, f"You've got {num_new_matches} new match! Don't be shy to slide into their DMs!")
             if num_new_matches > 1:
                 info(request, f"You've got {num_new_matches} new matches! Don't be shy to slide into their DMs!")
+
+            if num_new_messages == 1:
+                info(request, f"You've got {num_new_messages} new message!")
+            if num_new_messages > 1:
+                info(request, f"You've got {num_new_messages} new messages!")
+
             return redirect(reverse('glover:discover'))
 
     return render(request, 'glover/login.html', {"form": form})
@@ -81,8 +88,7 @@ def user_logout(request):
 @login_required
 def discover(request):
     profile = request.user.profile
-    user_list = utils.get_discover_profiles(profile)
-    profile_list = [u.profile for u in user_list]
+    profile_list = utils.get_discover_profiles(profile)
 
     context_dict = {'profiles': profile_list}
 

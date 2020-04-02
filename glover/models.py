@@ -33,10 +33,6 @@ class Profile(models.Model):
         today = date.today()
         return today.year - self.dob.year - ((today.month, today.day) < (self.dob.month, self.dob.day))
 
-    def get_num_matches(self):
-        """ Gets the number of matches for the user """
-        return self.get_matches().count()
-
     def get_num_societies(self):
         """ Gets the number of societies the user is in """
         return self.societies.count()
@@ -52,18 +48,6 @@ class Profile(models.Model):
     def get_interests(self):
         """ Gets all the user's interests """
         return self.interests.all()
-
-    def same_library_floor(self):
-        """ Gets all users who have selected the same library floor as this user """
-        return Profile.objects.filter(library_floor=self.library_floor).exclude(user=self.user)
-
-    def users_in_same_year(self):
-        """ Gets all users in the same year as this user """
-        return Profile.objects.filter(year_in=self.year_in).exclude(user=self.user)
-
-    def users_in_same_course(self):
-        """ Gets all users doing the same course as this user """
-        return Profile.objects.filter(course=self.course).exclude(user=self.user)
 
     def __str__(self):
         return self.user.username

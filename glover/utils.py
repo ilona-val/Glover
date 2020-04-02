@@ -14,15 +14,15 @@ def get_discover_profiles(profile: Profile):
     gender = profile.gender
     already_liked = [l.profile_liked for l in likes]
     users = User.objects.exclude(Q(profile__in=already_liked) | Q(profile=profile)).select_related('profile')
-    users = users.filter(profile__gender=looking_for)
+    users = users.filter(profile__gender=looking_for).order_by('-date_joined')
 
     # remove users who are not looking for the given user's gender
-    users = [user for user in users if user.profile.looking_for == gender]
+    users = [user.profile for user in users if user.profile.looking_for == gender]
     return users
 
 def get_matches(profile: Profile):
     """ Gets all matches for the user """
-    matches = Match.objects.filter(Q(profile1=profile) | Q(profile2=profile))
+    matches = Match.objects.filter(Q(profile1=profile) | Q(profile2=profile)).order_by('-time_matched')
     profiles = []
     for match in matches:
         if match.profile1.pk != profile.pk:
@@ -42,6 +42,7 @@ def num_recent_matches(profile: Profile):
     return 0
 
 def user_chat_profiles(profile: Profile):
+    """ Gets all profiles the user has shared messages with """
     msgs = Message.objects.filter(Q(sender=profile) | Q(receiver=profile))
     profiles = set()
     if msgs.exists():
@@ -51,3 +52,88 @@ def user_chat_profiles(profile: Profile):
         # remove the profile user from the set
         profiles.remove(profile)
     return profiles
+
+def num_recent_messages(profile: Profile):
+    """ Gets the number of new matches for a user since they last logged in """
+    last_login = profile.user.last_login 
+
+    if last_login is not None:
+        msgs = Message.objects.filter(receiver=profile).filter(time_sent__gt=last_login)
+        return msgs.count()
+    return 0
+
+def get_discover_profiles_by_course(profile: Profile):
+    """ Gets discover profiles that are in the same course """
+    profiles = get_discover_profiles(profile)
+    profiles_by_course = []
+    
+    for p in profiles:
+        if p.course == profile.course:
+            profiles_by_course.append(p)
+
+    return profiles_by_course
+
+def get_discover_profiles_by_year_in(profile: Profile):
+    """ Gets discover profiles that are in the same year of study """
+    profiles = get_discover_profiles(profile)
+    profiles_by_year_in = []
+    
+    for p in profiles:
+        if p.year_in == profile.year_in:
+            profiles_by_year_in.append(p)
+
+    return profiles_by_year_in
+
+def get_discover_profiles_by_societies(profile: Profile):
+    """ Gets discover profiles that share at least one society """
+    profiles = get_discover_profiles(profile)
+    profiles_by_societies = []
+    
+    for p in profiles:
+        for society in p.get_societies():
+            if society in profile.get_societies():
+                profiles_by_societies.append(p)
+                break
+
+    return profiles_by_societies
+
+def get_discover_profiles_by_interests(profile: Profile):
+    """ Gets discover profiles that share at least one interest """
+    profiles = get_discover_profiles(profile)
+    profiles_by_interests = []
+    
+    for p in profiles:
+        for interest in p.get_interests():
+            if interest in profile.get_interests():
+                profiles_by_interests.append(p)
+                break
+
+    return profiles_by_interests
+
+def get_discover_profiles_by_age_ascending(profile: Profile):
+    """ Gets discover profiles from youngest to oldest """
+    profiles = get_discover_profiles(profile)
+    profiles.sort(key=(lambda u: u.dob), reverse=True)
+
+    return profiles
+
+def get_discover_profiles_by_age_ascending(profile: Profile):
+    """ Gets discover profiles from oldest to youngest """
+    profiles = get_discover_profiles(profile)
+    profiles.sort(key=(lambda u: u.dob))
+
+    return profiles
+
+def get_matches_by_name_ascending(profile: Profile):
+    """ Gets all matches for the user ordered by name (ascending order) """
+    matches = get_matches(profile)
+    matches.sort(key=(lambda m: m.user.first_name))
+
+    return matches
+
+def get_matches_by_name_descending(profile: Profile):
+    """ Gets all matches for the user ordered by name (descending order) """
+    matches = get_matches(profile)
+    matches.sort(key=(lambda m: m.user.first_name), reverse=True)
+
+    return matches
