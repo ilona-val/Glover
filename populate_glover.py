@@ -125,8 +125,8 @@ def populate():
     for profile in profiles:
         possible_matches = utils.get_discover_profiles(profile)
         for user_liked in possible_matches:
-            if profile != user_liked.profile:
-                like = add_like(profile, user_liked.profile)
+            if profile != user_liked:
+                like = add_like(profile, user_liked)
 
 
 def add_like(profile, profile_liked):
