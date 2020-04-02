@@ -125,7 +125,7 @@
 						</form>
 						<form id="block" method="post" action="{% url 'glover:block' profile %}">
 							{% csrf_token %}
-							<button class="btn btn-sm ml-3 bg-white" type="submit" name="block">
+							<button class="btn btn-sm ml-3 bg-white mt-1" type="submit" name="block">
 								<img class="profile-icon" src="{% static 'images/block.png' %}" alt="block"/>
 							</button>
 						</form>
@@ -146,7 +146,7 @@
 						Bio
 					</h6>
                     <div class="card-body">
-                        <p class="card-text">{{ profile.bio }}</p>
+                        <p class="card-text text-size">{{ profile.bio }}</p>
                     </div>
                 </div>
             </div>
@@ -159,7 +159,7 @@
 							Gender
 						</h6>
 						<div class="card-body">
-							<p class="card-text">
+							<p class="card-text text-size">
 								{{ profile.get_gender_display }}
 							</p>
 						</div>
@@ -172,7 +172,7 @@
 							Looking For
 						</h6>
 						<div class="card-body">
-							<p class="card-text">
+							<p class="card-text text-size">
 								{{ profile.get_looking_for_display }}
 							</p>
 						</div>
@@ -188,7 +188,7 @@
 							Location
 						</h6>
 						<div class="card-body">
-							<p class="card-text">
+							<p class="card-text text-size">
 								{{ profile.location }}
 							</p>
 						</div>
@@ -201,7 +201,7 @@
 							Library Floor
 						</h6>
 						<div class="card-body">
-							<p class="card-text">
+							<p class="card-text text-size">
 								{{ profile.library_floor }}
 							</p>
 						</div>
@@ -217,7 +217,7 @@
 							Societies
 						</h6>
 						<div class="card-body">
-							<ul class="list-circles">
+							<ul class="list-circles text-size">
 								{% for society in profile.get_societies %}
 									<li>{{ society.society }}</li>
 								{% endfor %}
@@ -233,7 +233,7 @@
 							Interests
 						</h6>
 						<div class="card-body">
-							<ul class="list-circles">
+							<ul class="list-circles text-size">
 								{% for interest in profile.get_interests %}
 									<li>{{ interest.interest }}</li>
 								{% endfor %}

@@ -207,3 +207,16 @@ html, body {
 	overflow-y: scroll;
 	height: 400px;
 }
+
+.card-a {
+	color: black;	
+}
+
+.card-a:hover {
+	color: black !important;
+	text-decoration: none;
+}
+
+.text-size {
+	font-size: 1.2em;
+}

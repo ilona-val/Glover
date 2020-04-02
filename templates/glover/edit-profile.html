@@ -10,7 +10,7 @@
 
 <div class="container">
 
-	<h2 class="text-center mb-4 MainHeadings"><strong>Edit Your Profile<strong></h2>
+	<h2 class="text-center mb-4 MainHeadings"><strong>Edit Your Profile</strong></h2>
 
 	<div class="mt-4">
 
@@ -23,7 +23,7 @@
 					<div class="form-group">
 						<label><strong>PHOTOS</strong></label><br/>
 
-						<a class="text-uppercase" href="{% url 'glover:edit-photos' %}">
+						<a href="{% url 'glover:edit-photos' %}">
 							<img class="profile-icon mr-2" src="{% static 'images/add-photo-black.png' %}" alt="edit photos"/>
 							Edit Photos
 						</a>
@@ -109,17 +109,16 @@
 
 					<!-- Library Floor -->
 					<div class="form-group">
-						<label><strong>Favourite Library Floor</strong></label>
+						<label><strong>FAVOURITE LIBRARY FLOOR</strong></label>
 						{{ form.library_floor|add_class:"form-control" }}
 					</div>
 				</div>
 			</div>
-			<div class="text-center">
+			<div class="text-center mb-5">
 				<input type="submit" class="btn btn-lg btn-primary ml-auto px-5" value="Edit" />
 			</div>
-			</form>
+		</form>
 	</div>
 </div>
-<br/><br/>
 
 {% endblock %}
