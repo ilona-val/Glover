@@ -114,9 +114,19 @@
 					</div>
 				</div>
 			</div>
-			<div class="text-center mb-5">
+			<div class="text-center">
 				<input type="submit" class="btn btn-lg btn-primary ml-auto px-5" value="Edit" />
 			</div>
+		</form>
+
+		<form id="delete" method="post" action="{% url 'glover:delete-account' %}">
+			{% csrf_token %}
+			<span class="text-size">
+				<button class="btn btn-danger mt-1 mb-3 mr-2" type="submit" name="delete">
+					<img class="profile-icon" src="{% static 'images/delete.png' %}" alt="delete-account"/>
+				</button>
+				Delete Account
+			</span>
 		</form>
 	</div>
 </div>

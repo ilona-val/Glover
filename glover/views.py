@@ -164,6 +164,11 @@ def edit_profile(request):
 
     return render(request, 'glover/edit-profile.html', {"form": form})
 
+def delete_account(request):
+    if "delete" in request.POST:
+        request.user.delete()
+        success(request, f"Your account has been successfully deleted. Sorry to see you go!")
+    return redirect(reverse('glover:index'))
 
 @login_required
 def edit_photos(request):
@@ -226,7 +231,12 @@ def unmatch(request, profile2):
     if "unmatch" in request.POST:
         like = Like.objects.filter(profile=profile1, profile_liked=profile2)
         like.delete()
+
+        msgs = Message.objects.filter(Q(sender=profile1, receiver=profile2) | Q(sender=profile2, receiver=profile1))
+        msgs.delete()
+
         dislike = Like.objects.get_or_create(profile=profile1, profile_liked=profile2, is_liked=False)[0]
+
         Match.objects.filter(Q(profile1=profile1, profile2=profile2) | Q(profile1=profile2, profile2=profile1)).delete()
         info(request, f"You've successfully unmatched {profile2.user.first_name}.")
 
@@ -241,8 +251,13 @@ def block(request, profile2):
     if "block" in request.POST:
         likes = Like.objects.filter(Q(profile=profile1, profile_liked=profile2) | Q(profile=profile2, profile_liked=profile1))
         likes.delete()
+
+        msgs = Message.objects.filter(Q(sender=profile1, receiver=profile2) | Q(sender=profile2, receiver=profile1))
+        msgs.delete()
+
         dislike1 = Like.objects.get_or_create(profile=profile1, profile_liked=profile2, is_liked=False)[0]
         dislike2 = Like.objects.get_or_create(profile=profile2, profile_liked=profile1, is_liked=False)[0]
+
         Match.objects.filter(Q(profile1=profile1, profile2=profile2) | Q(profile1=profile2, profile2=profile1)).delete()
         info(request, f"Blocked! {profile2.user.first_name} won't bother you anymore.")
 

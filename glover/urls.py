@@ -10,20 +10,25 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
+
     path('discover/', views.discover, name='discover'),
     path('discover/<str:username>/', views.discover_profile, name='discover_profile'),
+
     path('matches/', views.matches, name='matches'),
-    path('discover/users/<str:profile2>/like/', views.like, name='like'),
-    path('discover/users/<str:profile2>/unmatch/', views.unmatch, name='unmatch'),
-    path('discover/users/<str:profile2>/block/', views.block, name='block'),
     path('matches/<str:username>/', views.match_profile, name='match-profile'),
+
     path('profile/', views.profile, name='profile'),
     path('profile/edit/', views.edit_profile, name='edit-profile'),
     path('profile/edit-photos/', views.edit_photos, name='edit-photos'),
-    
-    # message-related URLs
+
     path('messages/', views.messages, name='messages'),
     path('messages/<str:username>/', views.user_messages, name='user-messages'),
+    
+    # urls without templates
+    path('discover/users/<str:profile2>/like/', views.like, name='like'),
+    path('discover/users/<str:profile2>/unmatch/', views.unmatch, name='unmatch'),
+    path('discover/users/<str:profile2>/block/', views.block, name='block'),
+    path('profile/edit/delete-account/', views.delete_account, name='delete-account'),
 ]
 
 ajax_urls = [
