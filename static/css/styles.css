@@ -152,6 +152,8 @@ html, body {
 	height: 30px;
 }
 
+/* -----Chat scrollbar------ */
+
 .scrollbar-cyan::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
 	background-color: #F5F5F5;
@@ -194,6 +196,12 @@ html, body {
 	width: 6px;
 }
 	
+.chat-with-bar {
+	position: relative;
+	overflow-y: scroll;
+	height: 480px;
+}
+
 .chatbar {
 	position: relative;
 	overflow-y: scroll;

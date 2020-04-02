@@ -255,7 +255,9 @@ def delete_photo(request):
 
 @login_required
 def messages(request):
-    pass
+    context_dict = {}
+    context_dict['users_messaged'] = utils.user_chat_profiles(request.user.profile)
+    return render(request, 'glover/dms.html', context=context_dict)
 
 @login_required
 def user_messages(request, username):
