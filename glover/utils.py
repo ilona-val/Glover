@@ -88,10 +88,11 @@ def get_discover_profiles_by_societies(profile: Profile):
     """ Gets discover profiles that share at least one society """
     profiles = get_discover_profiles(profile)
     profiles_by_societies = []
-    
+    user_societies = profile.get_societies()
+
     for p in profiles:
         for society in p.get_societies():
-            if society in profile.get_societies():
+            if society in user_societies:
                 profiles_by_societies.append(p)
                 break
 
@@ -101,10 +102,11 @@ def get_discover_profiles_by_interests(profile: Profile):
     """ Gets discover profiles that share at least one interest """
     profiles = get_discover_profiles(profile)
     profiles_by_interests = []
-    
+    user_interests = profile.get_interests()
+
     for p in profiles:
         for interest in p.get_interests():
-            if interest in profile.get_interests():
+            if interest in user_interests:
                 profiles_by_interests.append(p)
                 break
 
@@ -113,27 +115,27 @@ def get_discover_profiles_by_interests(profile: Profile):
 def get_discover_profiles_by_age_ascending(profile: Profile):
     """ Gets discover profiles from youngest to oldest """
     profiles = get_discover_profiles(profile)
-    profiles.sort(key=(lambda u: u.dob), reverse=True)
+    profiles.sort(key=lambda u: u.dob, reverse=True)
 
     return profiles
 
-def get_discover_profiles_by_age_ascending(profile: Profile):
+def get_discover_profiles_by_age_descending(profile: Profile):
     """ Gets discover profiles from oldest to youngest """
     profiles = get_discover_profiles(profile)
-    profiles.sort(key=(lambda u: u.dob))
+    profiles.sort(key=lambda u: u.dob)
 
     return profiles
 
 def get_matches_by_name_ascending(profile: Profile):
     """ Gets all matches for the user ordered by name (ascending order) """
     matches = get_matches(profile)
-    matches.sort(key=(lambda m: m.user.first_name))
+    matches.sort(key=lambda m: m.user.first_name)
 
     return matches
 
 def get_matches_by_name_descending(profile: Profile):
     """ Gets all matches for the user ordered by name (descending order) """
     matches = get_matches(profile)
-    matches.sort(key=(lambda m: m.user.first_name), reverse=True)
+    matches.sort(key=lambda m: m.user.first_name, reverse=True)
 
     return matches

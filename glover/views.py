@@ -87,8 +87,23 @@ def user_logout(request):
 
 @login_required
 def discover(request):
+    qfilter = request.GET.get("filter", None)
     profile = request.user.profile
-    profile_list = utils.get_discover_profiles(profile)
+
+    if qfilter is None:
+        profile_list = utils.get_discover_profiles(profile)
+    elif qfilter == 'course':
+        profile_list = utils.get_discover_profiles_by_course(profile)
+    elif qfilter == 'year-in':
+        profile_list = utils.get_discover_profiles_by_year_in(profile)
+    elif qfilter == 'society':
+        profile_list = utils.get_discover_profiles_by_societies(profile)   
+    elif qfilter == 'interest':
+        profile_list = utils.get_discover_profiles_by_interests(profile)
+    elif qfilter == 'age':
+        profile_list = utils.get_discover_profiles_by_age_ascending(profile)
+    elif qfilter == 'age-reverse':
+        profile_list = utils.get_discover_profiles_by_age_descending(profile)
 
     context_dict = {'profiles': profile_list}
 
@@ -169,10 +184,17 @@ def edit_photos(request):
 @login_required
 def matches(request):
     context_dict = {}
+    qfilter = request.GET.get("filter", None)
+    profile = request.user.profile
 
-    user_profile = request.user.profile
-    matches = utils.get_matches(user_profile)
-    context_dict['profiles'] = matches
+    if qfilter is None:
+        matches = utils.get_matches(profile)
+    elif qfilter == 'name-a':
+        matches = utils.get_matches_by_name_ascending(profile)
+    elif qfilter == 'name-d':
+        matches = utils.get_matches_by_name_descending(profile)
+
+    context_dict = {'profiles': matches}
 
     return render(request, 'glover/matches.html', context=context_dict)
 

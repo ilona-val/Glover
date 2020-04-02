@@ -10,13 +10,30 @@
     <div class="container">
         <h1 class="text-center mb-4 MainHeadings"><strong>Discover</strong></h1>
 
-        <div class="row justify-content-center col-lg-12">
+        <div class="dropdown text-right mr-5">
+            <button class="btn btn-info dropdown-toggle text-size" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img class="profile-icon mr-3" src="{% static 'images/filter.png' %}" alt="filter"/>
+                Filter
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{% url 'glover:discover' %}">All: recently joined first</a>
+                <a class="dropdown-item" href="{% url 'glover:discover' %}?filter=age">Age: youngest &#8594; oldest</a>
+                <a class="dropdown-item" href="{% url 'glover:discover' %}?filter=age-reverse">Age: oldest &#8594; youngest</a>
+                <a class="dropdown-item" href="{% url 'glover:discover' %}?filter=course">Course: {{ user.profile.course }}</a>
+                <a class="dropdown-item" href="{% url 'glover:discover' %}?filter=year-in">Year In: {{ user.profile.year_in }}</a>
+                <a class="dropdown-item" href="{% url 'glover:discover' %}?filter=interest">Interests: 1+ matching</a>
+                <a class="dropdown-item" href="{% url 'glover:discover' %}?filter=society">Societies: 1+ matching</a>
+            </div>
+        </div>
+
+        <div class="row justify-content-center col-lg-12 mt-4">
 
         {% if profiles %}
 
             {% for profile in profiles %}
 
                 <div class="col-sm-8 col-md-5 col-lg-3 justify-content-center">
+
                     <div class="card text-center mb-4 profile-card">
                         <div class="card-header card-title text-uppercase text-white">
                             <div class="d-flex justify-content-center">
@@ -38,10 +55,10 @@
                                 {% csrf_token %}
                                 <div class="btn-group row">
                                     <div class="col-6">
-                                        <button class="btn btn-success" type="submit" name="like"><img src="{% static 'images/heart.png' %}"  width="30" height="30"  /></button>
+                                        <button class="btn btn-success" type="submit" name="like"><img class="profile-icon" src="{% static 'images/heart.png' %}" /></button>
                                     </div>
                                     <div class="col-6">
-                                        <button class="btn btn-danger" type="submit" name="dislike"><img src="{% static 'images/dislike.png' %}"  width="30" height="30"  /></button>
+                                        <button class="btn btn-danger" type="submit" name="dislike"><img class="profile-icon" src="{% static 'images/dislike.png' %}" /></button>
                                     </div>
                                 </div>
                             </form>

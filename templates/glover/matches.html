@@ -10,7 +10,19 @@
     <div class="container">
         <h1 class="text-center mb-4 MainHeadings"><strong>My Matches</strong></h1>
 
-        <div class="row justify-content-center col-lg-12">
+        <div class="dropdown text-right mr-5">
+            <button class="btn btn-info dropdown-toggle text-size" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img class="profile-icon mr-3" src="{% static 'images/filter.png' %}" alt="filter"/>
+                Filter
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{% url 'glover:matches' %}">All: recently matched first</a>
+                <a class="dropdown-item" href="{% url 'glover:matches' %}?filter=name-a">Name: A &#8594; Z</a>
+                <a class="dropdown-item" href="{% url 'glover:matches' %}?filter=name-d">Name: Z &#8594; A</a>
+            </div>
+        </div>
+
+        <div class="row justify-content-center col-lg-12 mt-4">
 
         {% if profiles %}
 
