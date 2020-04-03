@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.contrib.messages import success, info
+from django.contrib.messages import success, info, warning
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -116,8 +116,13 @@ def discover_profile(request, username):
 
     try:
         user = User.objects.get(username=username)
-        profile = Profile.objects.get(user=user)
+        profile = user.profile
 
+        d_profiles = utils.get_discover_profiles(request.user.profile)
+        if profile not in d_profiles:
+            warning(request, 'That user cannot be viewed.')
+            return redirect('glover:discover')
+            
         context_dict['profile'] = profile
 
     except Profile.DoesNotExist:
@@ -129,9 +134,14 @@ def discover_profile(request, username):
 @login_required
 def match_profile(request, username):
     context_dict = {}
+    profile = request.user.profile
 
     try:
         user = User.objects.get(username=username)
+        matches = utils.get_matches(profile)
+        if user.profile not in matches:
+            warning(request, 'You have not been matched with that user.')
+            return redirect('glover:matches')
         context_dict['profile'] = user.profile
 
     except Profile.DoesNotExist:
@@ -308,6 +318,11 @@ def messages(request):
 @login_required
 def user_messages(request, username):
     profile = Profile.objects.get(user__username=username)
+    matches = utils.get_matches(request.user.profile)
+    if profile not in matches:
+        warning(request, 'You cannot message this user.')
+        return redirect('glover:messages')
+
     if request.method == "POST":
         msg = request.POST.get('message-content')
         Message.objects.create(sender=request.user.profile, receiver=profile, message=msg)
