@@ -174,6 +174,7 @@ def edit_profile(request):
 
     return render(request, 'glover/edit-profile.html', {"form": form})
 
+@login_required
 def delete_account(request):
     request.user.delete()
     success(request, f"Your account has been successfully deleted. Sorry to see you go!")
