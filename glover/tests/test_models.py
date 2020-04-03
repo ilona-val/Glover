@@ -18,9 +18,9 @@ class ProfileTests(TestCase):
         self.assertEqual(len(discovery_profiles), 3)
 
         # create a new like and a new dislike to ensure the profiles are removed from the discovery list
-        Like.objects.create(profile=jessica, profile_liked=discovery_profiles[0].profile, is_liked=True)
+        Like.objects.create(profile=jessica, profile_liked=discovery_profiles[0], is_liked=True)
         self.assertEqual(len(get_discover_profiles(jessica)), 2)
-        Like.objects.create(profile=jessica, profile_liked=discovery_profiles[1].profile, is_liked=False)
+        Like.objects.create(profile=jessica, profile_liked=discovery_profiles[1], is_liked=False)
         self.assertEqual(len(get_discover_profiles(jessica)), 1)
 
         # change existing user's gender and preference to ensure function updates correctly
@@ -36,8 +36,8 @@ class ProfileTests(TestCase):
         self.assertEqual(len(discovery_profiles), 1)
 
         # change gender of match to ensure it is removed
-        discovery_profiles[0].profile.gender = 'F'
-        discovery_profiles[0].profile.save()
+        discovery_profiles[0].gender = 'F'
+        discovery_profiles[0].save()
         discovery_profiles = get_discover_profiles(bob)
         self.assertEqual(len(discovery_profiles), 0)
 
@@ -74,3 +74,33 @@ class ProfileTests(TestCase):
         Like.objects.create(profile=jack, profile_liked=jessica, is_liked=False)
 
         self.assertFalse(Match.objects.count(), 1)
+
+    def test_delete_user_cascades(self):
+        jessica = Profile.objects.get(user__username="jessica")
+        jack = Profile.objects.get(user__username="jack")
+
+        # create likes (and match) between users
+        Like.objects.create(profile=jessica, profile_liked=jack, is_liked=True)
+        Like.objects.create(profile=jack, profile_liked=jessica, is_liked=True)
+
+        Message.objects.create(sender=jessica, receiver=jack, message="hi I've just matched you")
+        Message.objects.create(sender=jack, receiver=jessica, message="hi")
+        Message.objects.create(sender=jessica, receiver=jack, message="hi")
+
+        msgs = Message.objects.filter(Q(sender=jessica) | Q(receiver=jessica))
+        self.assertEquals(msgs.count(), 3)
+
+        likes = Like.objects.filter(Q(profile=jessica) | Q(profile_liked=jessica)).count()
+        matches = get_matches(jessica)
+        self.assertEquals(len(matches), 1)
+
+        # now delete user and check that likes, matches and messages cascade
+        jack.delete()
+        msgs = Message.objects.filter(Q(sender=jessica) | Q(receiver=jessica))
+        self.assertEquals(msgs.count(), 0)
+
+        likes_after_delete = Like.objects.filter(Q(profile=jessica) | Q(profile_liked=jessica)).count()
+        self.assertEquals(likes_after_delete, likes-2)
+
+        matches = get_matches(jessica)
+        self.assertEquals(len(matches), 0)
