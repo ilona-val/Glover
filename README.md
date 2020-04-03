@@ -10,5 +10,5 @@ python population_script.py
 python manage.py test
 
 ## Login as an admin after populating the database
-username: yourname  
+username: yourname (tomas/barbara/ilona/vrinda/fraser)
 password: 1234
