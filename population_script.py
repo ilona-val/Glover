@@ -201,14 +201,30 @@ def add_message(profile1, profile2):
             horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown \
             belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it \
             and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the \
-            rest of him, waved about helplessly as he looked. It wasn't a dream."
-    
+            rest of him, waved about helplessly as he looked. It wasn't a dream. His room, a proper human room although \
+            a little too small, lay peacefully between its four familiar walls. A collection of textile samples lay spread \
+            out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut \
+            out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and \
+            fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. \
+            Gregor then turned to look out the window at the dull weather. Drops of rain could be heard hitting the pane, \
+            which made him feel quite sad. 'How about if I sleep a little bit longer and forget all this nonsense', he thought, \
+            but that was something he was unable to do because he was used to sleeping on his right, and in his present state \
+            couldn't get into that position. However hard he threw himself onto his right, he always rolled back to where he \
+            was. He must have tried it a hundred times, shut his eyes so that he wouldn't have to look at the floundering legs, \
+            and only stopped when he began to feel a mild, dull pain there that he had never felt before. 'Oh, God', he thought."
+    kafka_tokens = kafka.split()
+
     for i in range(5):
-        start = random.randint(0, len(kafka))
-        middle = random.randint(start, len(kafka))
-        end = random.randint(middle, len(kafka))
-        Message.objects.create(sender=profile1, receiver=profile2, message=kafka[start:middle])
-        Message.objects.create(sender=profile2, receiver=profile1, message=kafka[middle:end])
+        msg1, msg2 = '', ''
+        while len(msg1) == 0 or len(msg2) == 0 or len(msg1) > 300 or len(msg2) > 300:
+            start = random.randint(0, len(kafka_tokens)-5)
+            middle = random.randint(start, len(kafka_tokens))
+            end = random.randint(middle, len(kafka_tokens))
+            msg1 = ' '.join(kafka_tokens[start:middle])
+            msg2 = ' '.join(kafka_tokens[middle:end])
+
+        Message.objects.create(sender=profile1, receiver=profile2, message=msg1)
+        Message.objects.create(sender=profile2, receiver=profile1, message=msg2)
 
 def add_societies():
     for society in SocietyChoices.ALL_CHOICES:

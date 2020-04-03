@@ -197,6 +197,10 @@ def matches(request):
         matches = utils.get_matches_by_name_ascending(profile)
     elif qfilter == 'name-d':
         matches = utils.get_matches_by_name_descending(profile)
+    elif qfilter == 'messaged':
+        matches = utils.user_chat_profiles(profile)
+    elif qfilter == 'not-messaged':
+        matches = utils.get_matches_not_messaged(profile)
 
     context_dict = {'profiles': matches}
 

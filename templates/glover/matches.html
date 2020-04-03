@@ -19,6 +19,8 @@
                 <a class="dropdown-item" href="{% url 'glover:matches' %}">All: recently matched first</a>
                 <a class="dropdown-item" href="{% url 'glover:matches' %}?filter=name-a">Name: A &#8594; Z</a>
                 <a class="dropdown-item" href="{% url 'glover:matches' %}?filter=name-d">Name: Z &#8594; A</a>
+                <a class="dropdown-item" href="{% url 'glover:matches' %}?filter=messaged">Chat: chatting with</a>
+                <a class="dropdown-item" href="{% url 'glover:matches' %}?filter=not-messaged">Chat: not chatting with yet</a>
             </div>
         </div>
 

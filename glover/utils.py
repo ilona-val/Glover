@@ -139,3 +139,15 @@ def get_matches_by_name_descending(profile: Profile):
     matches.sort(key=lambda m: m.user.first_name, reverse=True)
 
     return matches
+
+def get_matches_not_messaged(profile: Profile):
+    """ Gets all matches that have not been messaged yet """
+    matches = get_matches(profile)
+    messaged_matches = user_chat_profiles(profile)
+    not_messaged_matches = []
+    
+    for match in matches:
+        if match not in messaged_matches:
+            not_messaged_matches.append(match)
+    
+    return not_messaged_matches
