@@ -1,6 +1,6 @@
 ## Environment setup
 mkvirtualenv glover  
-pip install -r requirements.txt 
+pip install -r requirements.txt  
 workon glover
 
 ## Populating the database
