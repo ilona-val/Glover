@@ -185,11 +185,9 @@ def populate():
         add_message(match.profile1, match.profile2)
 
 def add_like(profile, profile_liked):
-    choice = random.randint(0, 3)   # 0: like, 1: dislike, 2-5: no like object is created
+    choice = random.randint(0, 3)   # 0: like, 1-3: no like object is created
     if choice == 0:
         like = Like.objects.get_or_create(profile=profile, profile_liked=profile_liked, is_liked=True)[0]
-    elif choice == 1:
-        like = Like.objects.get_or_create(profile=profile, profile_liked=profile_liked, is_liked=False)[0]
     
 def add_profile(user, dob, gender, bio, year_in, location, library_floor, looking_for, course_id):
     profile = Profile.objects.get_or_create(user=user, dob=dob, gender=gender, bio=bio, year_in=year_in, 
