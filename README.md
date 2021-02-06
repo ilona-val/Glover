@@ -1,14 +1,25 @@
-## Environment setup
-mkvirtualenv glover  
-pip install -r requirements.txt  
-workon glover
+# GLover - dating site for University of Glasgow students
+### Year 2 Web Application Development group project
 
-## Populating the database
-python population_script.py
+A silly Django project which lets University of Glasgow students connect based on each person's preferences, interests, societies, etc.
 
-## Running tests
-python manage.py test
+### Profile Page
+![Profile Page](./static/demo/profile.jpg)
 
-## Login as an admin after populating the database
-username: yourname (tomas/barbara/ilona/vrinda/fraser)
-password: 1234
+### Discover Page
+![Discover Page](./static/demo/discover.jpg)
+
+### Direct Messages Page
+![Direct Messages Page](./static/demo/dms.jpg)
+
+#### Environment setup
+`mkvirtualenv glover`
+`pip install -r requirements.txt`  
+`workon glover`
+
+#### Populating the database
+Run this script to get a better feel for what's the site like!
+`python population_script.py`
+
+#### Running tests
+`python manage.py test`
