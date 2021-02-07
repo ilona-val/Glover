@@ -14,11 +14,14 @@ A silly Django project which lets University of Glasgow students connect based o
 
 #### Environment setup
 `mkvirtualenv glover`
+
 `pip install -r requirements.txt`  
+
 `workon glover`
 
 #### Populating the database
 Run this script to get a better feel for what's the site like!
+
 `python population_script.py`
 
 #### Running tests
